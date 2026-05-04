@@ -11,6 +11,8 @@ public class Visitante implements INotificable{
     private boolean fotografia;
     private ArrayList<Atraccion> listFavoritas;
     private ArrayList<DetallesAtraccion> listDetalles;
+    private Ticket theTicket;
+
 
     public Visitante(String nombre, String cedula, int edad, double estatura, float saldoVirtual, boolean fotografia) {
         this.nombre = nombre;
@@ -111,5 +113,13 @@ public class Visitante implements INotificable{
 
     public void setListDetalles(ArrayList<DetallesAtraccion> listDetalles) {
         this.listDetalles = listDetalles;
+    }
+
+    public Ticket getTheTicket() {
+        return theTicket;
+    }
+
+    public void setTheTicket(Ticket theTicket) {
+        this.theTicket = theTicket;
     }
 }
