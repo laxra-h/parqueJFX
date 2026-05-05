@@ -15,6 +15,7 @@ private EstadoAtraccion estado;
 private TipoAtraccion tipo;
 private MotivoCierre motivoCierre;
 
+private Operador theOperador;
 private ArrayList<DetallesAtraccion> listDetalles;
 
 
@@ -34,7 +35,7 @@ private ArrayList<DetallesAtraccion> listDetalles;
     }
 
     @Override
-public void cerrarAtraccionMantenimiento(){
+ public void cerrarAtraccionMantenimiento(){
       for (DetallesAtraccion d : listDetalles) {
           if (d.verificarAcceso()){
               contadorVisitantes++;
@@ -149,5 +150,21 @@ public void cerrarAtraccionMantenimiento(){
 
     public void setMotivoCierre(MotivoCierre motivoCierre) {
         this.motivoCierre = motivoCierre;
+    }
+
+    public Operador getTheOperador() {
+        return theOperador;
+    }
+
+    public void setTheOperador(Operador theOperador) {
+        this.theOperador = theOperador;
+    }
+
+    public ArrayList<DetallesAtraccion> getListDetalles() {
+        return listDetalles;
+    }
+
+    public void setListDetalles(ArrayList<DetallesAtraccion> listDetalles) {
+        this.listDetalles = listDetalles;
     }
 }
