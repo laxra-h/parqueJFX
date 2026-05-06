@@ -172,31 +172,33 @@ public class Administrador extends Empleado{
 
 
     //ACTIVAR Y DESACTIVAR ALARMA
-    boolean activa;
     public boolean activarAlarmaCLimatica() {
-        activa = true;
-        do {
             for (Atraccion a : listAtracciones) {
-                if (a.getTipo().equals(TipoAtraccion.ACUATICA) || a.getTipo().equals(TipoAtraccion.MECANICA)) {
+                if ((a.getTipo().equals(TipoAtraccion.ACUATICA) || a.getTipo().equals(TipoAtraccion.MECANICA_DE_ALTURA)) && a.getEstado() != EstadoAtraccion.EN_MANTENIMIENTO){
                     a.setEstado(EstadoAtraccion.CERRADA);
                 }
             }
             return true;
-        } while (activa);
     }
     public boolean desactivarAlarmaClimatica () {
-         activa = false;
-         return true;
+        for (Atraccion a : listAtracciones) {
+            if ((a.getTipo() == (TipoAtraccion.ACUATICA) || a.getTipo() == (TipoAtraccion.MECANICA_DE_ALTURA)) && a.getEstado() != EstadoAtraccion.EN_MANTENIMIENTO){
+                a.setEstado(EstadoAtraccion.ACTIVA);
+            }
+        }
+        return true;
     }
 
     //ASIGNAR OPERADOR
-    public void asignarZonaOperador(String cedulaOperador, Zona nuevaZona) {
-        int posicion = buscarOperador(cedulaOperador);
-        if (posicion != -1) {
-            for (Operador o : listOperadores) {
-                o.setZonaAsignada(nuevaZona);
-            }
+    public boolean asignarOperador(String cedulaOperador, String nombreZona) {
+        int posicionOperador = buscarOperador(cedulaOperador);
+        int posicionZona = buscarZona(nombreZona);
+        if (posicionZona != -1 && posicionOperador != -1 && listOperadores.get(posicionOperador).getZonaAsignada() == null) {
+            Zona z = listZonas.get(posicionZona);
+            listOperadores.get(posicionOperador).setZonaAsignada(z);
+            return true;
         }
+        return false;
     }
 
     //MOSTRAR ATRACCIONES SIN OPERADOR ASIGNADO
@@ -210,6 +212,11 @@ public class Administrador extends Empleado{
         return resultado;
     }
 
+    //CONSULTAR REPORTES
+    public String consultarReportes() {
+        //INGRESOS DIARIOS,
+
+    }
 
 
 
