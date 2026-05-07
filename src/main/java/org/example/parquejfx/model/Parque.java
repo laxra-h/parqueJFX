@@ -11,6 +11,7 @@ public class Parque {
     private ArrayList<Empleado> listEmpleados;
     private ArrayList<Zona> listZonas;
     private ArrayList<Visitante> listVisitantes;
+    private ArrayList<Atraccion> listAtracciones;
     private Mapa theMapa;
     private ArrayList<Notificacion> listNotificaciones;
     private ArrayList<Ticket> listTickets;
@@ -26,6 +27,7 @@ public class Parque {
         listVisitantes = new ArrayList<>();
         listNotificaciones = new ArrayList<>();
         listTickets = new ArrayList<>();
+        listAtracciones = new ArrayList<>();
     }
 
 
@@ -39,17 +41,22 @@ public class Parque {
         return resultado;
     }
 
-    p
-
 
     public float calcularIngresosDiarios(LocalDate fechaDia) {
         float boletosDiarios = 0;
         float costosAdicionales = 0;
-        for (Visitante v: listDiaria(fechaDia)){
+        for (Visitante v : listDiaria(fechaDia)) {
             boletosDiarios += v.getTheTicket().getPrecio();
         }
+        for (Atraccion a : listAtracciones) {
+            ArrayList<DetallesAtraccion> listDetalles = a.getListDetalles();
+            for (DetallesAtraccion d : listDetalles) {
 
+            }
+            }
         }
+
+    }
 
 
 

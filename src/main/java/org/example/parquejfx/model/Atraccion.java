@@ -2,30 +2,36 @@ package org.example.parquejfx.model;
 
 import java.util.ArrayList;
 
+
+
 public class Atraccion implements Iclosable{
+
 private String codigo;
 private String nombre;
 private int capacidadMaxima;
 private double estaturaMinima;
 private int edadMinima;
 private double costoAdicional;
+private int descuento;
 private int contadorVisitantes = 0;
 private int tiempoEspera;
 private EstadoAtraccion estado;
 private TipoAtraccion tipo;
 private MotivoCierre motivoCierre;
+private Zona zona;
 
 private Operador theOperador;
 private ArrayList<DetallesAtraccion> listDetalles;
 
 
-    public Atraccion(String codigo, String nombre, int capacidadMaxima, double estaturaMinima, int edadMinima, double costoAdicional, int contadorVisitantes, int tiempoEspera, EstadoAtraccion estado, TipoAtraccion tipo, MotivoCierre motivoCierre) {
+    public Atraccion(String codigo, String nombre, int capacidadMaxima, double estaturaMinima, int edadMinima, double costoAdicional, int descuento, int contadorVisitantes, int tiempoEspera, EstadoAtraccion estado, TipoAtraccion tipo, MotivoCierre motivoCierre) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.capacidadMaxima = capacidadMaxima;
         this.estaturaMinima = estaturaMinima;
         this.edadMinima = edadMinima;
         this.costoAdicional = costoAdicional;
+        this.descuento = descuento;
         this.contadorVisitantes = contadorVisitantes;
         this.tiempoEspera = tiempoEspera;
         this.estado = estado;
@@ -33,6 +39,8 @@ private ArrayList<DetallesAtraccion> listDetalles;
         this.motivoCierre = motivoCierre;
         listDetalles = new ArrayList<>();
     }
+
+
 
     @Override
  public void cerrarAtraccionMantenimiento(){
@@ -48,8 +56,23 @@ private ArrayList<DetallesAtraccion> listDetalles;
 
 }
 
+//CALCULAR COSTO ADICIONAL
+public double calcularCostoAdicional(Visitante visitante) {
+        if (visitante.getTheTicket() instanceof FastPass){
+            return 0;
+        } else if (visitante.getTheTicket() instanceof  Familiar) {
+        return (costoAdicional * descuento) / 100;
+        } else {
+    return costoAdicional;
+        }
+}
 
+//VERFICAR OPERADOR
+    public boolean validarAccesoOperador (Operador operador) {
+        return operador.getZonaAsignada() == zona;
+    }
 
+    
 
 
 
@@ -166,5 +189,21 @@ private ArrayList<DetallesAtraccion> listDetalles;
 
     public void setListDetalles(ArrayList<DetallesAtraccion> listDetalles) {
         this.listDetalles = listDetalles;
+    }
+
+    public int getDescuento() {
+        return descuento;
+    }
+
+    public void setDescuento(int descuento) {
+        this.descuento = descuento;
+    }
+
+    public Zona getZona() {
+        return zona;
+    }
+
+    public void setZona(Zona zona) {
+        this.zona = zona;
     }
 }

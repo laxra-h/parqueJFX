@@ -65,11 +65,11 @@ public class Administrador extends Empleado{
 
     /*CRUD ATRACCION*/
 
-    public boolean createAtraccion(String codigo, String nombre, int capacidadMaxima, double estaturaMinima, int edadMinima, double costoAdicional, int contadorVisitantes, int tiempoEspera, EstadoAtraccion estado, TipoAtraccion tipo, MotivoCierre motivoCierre){
+    public boolean createAtraccion(String codigo, String nombre, int capacidadMaxima, double estaturaMinima, int edadMinima, double costoAdicional, int descuento, int contadorVisitantes, int tiempoEspera, EstadoAtraccion estado, TipoAtraccion tipo, MotivoCierre motivoCierre){
         if (buscarAtraccion(codigo) != -1){
             return false;
         }
-        Atraccion newAtraccion = new Atraccion(codigo, nombre, capacidadMaxima, estaturaMinima, edadMinima, costoAdicional, contadorVisitantes, tiempoEspera, estado, tipo, motivoCierre);
+        Atraccion newAtraccion = new Atraccion(codigo, nombre, capacidadMaxima, estaturaMinima, edadMinima, costoAdicional, descuento, contadorVisitantes, tiempoEspera, estado, tipo, motivoCierre);
         listAtracciones.add(newAtraccion);
         return true;
     }
@@ -80,7 +80,7 @@ public class Administrador extends Empleado{
         return "Nombre: "+ a.getNombre() + "\nCapacidadMax: "+ a.getCapacidadMaxima() + "\nEstatura minima: "+ a.getEstaturaMinima() + "\nEdad minima: " + a.getEdadMinima() + "\nCosto adicional: " + a.getCostoAdicional() + "\nContador de visitantes: " + a.getContadorVisitantes() + "\nTiempo de espera: " + a.getTiempoEspera() + "\nEstado: " + a.getEstado() + "\nTipo: " + a.getTipo() + "\nMotivo Cierre: " + a.getMotivoCierre();
     }
 
-    public boolean updateAtraccion(String codigo, String nombre, int capacidadMaxima, double estaturaMinima, int edadMinima, double costoAdicional, int contadorVisitantes, int tiempoEspera, EstadoAtraccion estado, TipoAtraccion tipo, MotivoCierre motivoCierre){
+    public boolean updateAtraccion(String codigo, String nombre, int capacidadMaxima, double estaturaMinima, int edadMinima, double costoAdicional, int descuento, int contadorVisitantes, int tiempoEspera, EstadoAtraccion estado, TipoAtraccion tipo, MotivoCierre motivoCierre){
         int posicion = buscarAtraccion(cedula);
         if (posicion != -1) {
             listAtracciones.get(posicion).setCodigo(codigo);
@@ -89,6 +89,7 @@ public class Administrador extends Empleado{
             listAtracciones.get(posicion).setEstaturaMinima(estaturaMinima);
             listAtracciones.get(posicion).setEdadMinima(edadMinima);
             listAtracciones.get(posicion).setCostoAdicional(costoAdicional);
+            listAtracciones.get(posicion).setDescuento(descuento);
             listAtracciones.get(posicion).setContadorVisitantes(contadorVisitantes);
             listAtracciones.get(posicion).setTiempoEspera(tiempoEspera);
             listAtracciones.get(posicion).setEstado(estado);
@@ -214,9 +215,10 @@ public class Administrador extends Empleado{
 
     //CONSULTAR REPORTES
     public String consultarReportes() {
-        //INGRESOS DIARIOS,
+
 
     }
+
 
 
 
