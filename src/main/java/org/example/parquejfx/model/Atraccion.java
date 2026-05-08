@@ -72,7 +72,7 @@ public double calcularCostoAdicional(Visitante visitante) {
         return operador.getZonaAsignada() == zona;
     }
 
-    
+
 
 
 
