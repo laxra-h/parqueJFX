@@ -14,8 +14,8 @@ public class Launcher extends Application {
         );
         Scene scene = new Scene(loader.load());
         stage.setTitle("Tech-Park UQ");
-        stage.setScene(scene);
         stage.setResizable(false);
+        stage.setScene(scene);
         stage.show();
     }
 
