@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="360" prefWidth="500" styleClass="fondo-login" stylesheets="@estilos.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.parquejfx.viewController.VisitanteIngresarViewController">
+   <children>
+      <VBox alignment="CENTER" layoutX="208.0" layoutY="94.0" prefHeight="200.0" prefWidth="100.0" spacing="18.0" styleClass="card-login" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <padding>
+            <Insets bottom="45.0" left="45.0" right="45.0" top="45.0" />
+         </padding>
+         <children>
+            <Label styleClass="titulo-login" text="¡Bienvenido de vuelta!">
+               <font>
+                  <Font name="System Bold" size="25.0" />
+               </font>
+            </Label>
+            <Label text="Ingresa tus datos para continuar " textFill="#a1a1a1">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Separator prefWidth="200.0" />
+            <VBox prefHeight="200.0" prefWidth="100.0" spacing="4.0">
+               <children>
+                  <Label styleClass="campo-label-login" text="Documento de identidad">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtDocumento" prefWidth="380.0" promptText="Tu número de cédula" />
+               </children>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <Label styleClass="campo-label-login" text="Contraseña">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Label>
+                  <PasswordField fx:id="txtContrasena" prefWidth="380.0" promptText="Tu contraseña" />
+               </children>
+            </VBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="btnVolver" mnemonicParsing="false" onAction="#volver" prefHeight="42.0" prefWidth="74.0" styleClass="btn-login" text="⬅ Volver ">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Button>
+                  <Separator orientation="VERTICAL" prefHeight="26.0" prefWidth="80.0" />
+                  <Button fx:id="btnIngresar" mnemonicParsing="false" onAction="#ingresar" prefHeight="42.0" prefWidth="87.0" styleClass="btn-login" text="Ingresar ➡ ">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
