@@ -39,9 +39,9 @@
 
 /* ── BOTONES MENÚ LATERAL ── */
 .menu-btn {
-    -fx-background-color: transparent;
-    -fx-text-fill: #AAAAAA;
-    -fx-font-size: 13px;
+    -fx-background-color: #C0392B;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 15px;
     -fx-font-family: "Segoe UI";
     -fx-alignment: CENTER_LEFT;
     -fx-padding: 13px 22px;
@@ -49,7 +49,7 @@
     -fx-min-width: 210px;
     -fx-max-width: 210px;
     -fx-background-radius: 0;
-    -fx-border-color: transparent;
+    -fx-border-color: #000000;
 }
 
 .menu-btn:hover {
@@ -67,9 +67,9 @@
 }
 
 .btn-salir {
-    -fx-background-color: transparent;
-    -fx-text-fill: #888888;
-    -fx-font-size: 13px;
+    -fx-background-color: #C0392B;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 15px;
     -fx-font-family: "Segoe UI";
     -fx-alignment: CENTER_LEFT;
     -fx-padding: 13px 22px;
@@ -91,20 +91,20 @@
 
 .header-central {
     -fx-background-color: #FFFFFF;
-    -fx-padding: 16px 28px;
+    -fx-padding: 20px 10px;
     -fx-border-color: #DCDCDC;
     -fx-border-width: 0 0 1px 0;
 }
 
 .titulo-seccion {
-    -fx-font-size: 20px;
+    -fx-font-size: 25px;
     -fx-font-weight: bold;
     -fx-text-fill: #1A1A1A;
     -fx-font-family: "Segoe UI";
 }
 
 .subtitulo-seccion {
-    -fx-font-size: 11px;
+    -fx-font-size: 15px;
     -fx-text-fill: #999999;
     -fx-font-family: "Segoe UI";
 }
