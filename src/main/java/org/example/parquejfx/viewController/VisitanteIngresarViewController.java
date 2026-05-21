@@ -19,7 +19,12 @@ public class VisitanteIngresarViewController {
 
     }
 
-    @FXML private void ingresar() {
+    @FXML private void ingresar() throws IOException{
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource("/org/example/parquejfx/visitante-panel.fxml")
+        );
+        Stage stage = (Stage) btnIngresar.getScene().getWindow();
+        stage.setScene(new Scene(loader.load()));
 
     }
     @FXML private void volver() throws IOException {

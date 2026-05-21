@@ -23,7 +23,12 @@ public class VisitanteCrearViewController {
         @FXML public void initialize() { }
 
         @FXML
-        private void continuar() {
+        private void continuar() throws IOException {
+                FXMLLoader loader = new FXMLLoader(
+                        getClass().getResource("/org/example/parquejfx/visitante-panel.fxml")
+                );
+                Stage stage = (Stage) btnContinuar.getScene().getWindow();
+                stage.setScene(new Scene(loader.load()));
             // aquí daniel validará y creará el visitante
             // navega en el menu
         }

@@ -54,7 +54,7 @@
                   <Label styleClass="subtitulo-seccion" text="Sistema de gestión" />
                </children>
             </VBox>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+            <AnchorPane fx:id="areaCentral" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
          </children>
       </VBox>
    </center>
