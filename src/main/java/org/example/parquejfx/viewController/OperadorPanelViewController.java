@@ -1,4 +1,4 @@
 package org.example.parquejfx.viewController;
 
-public class OperadorViewController {
+public class OperadorPanelViewController {
 }

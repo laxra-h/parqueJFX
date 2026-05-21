@@ -30,7 +30,11 @@ public class InicioViewController {
     }
 
     @FXML
-    private void irAOperador() { }
+    private void irAOperador() throws Exception{
+       // FXMLLoader loader = new FXMLLoader(
+         //       getClass().getResource()
+       // )
+    }
 
     @FXML
     private void irAAdministrador() { }
