@@ -14,42 +14,42 @@
          <children>
             <VBox prefHeight="146.0" prefWidth="210.0" spacing="5.0" styleClass="sidebar-header">
                <children>
-                  <Label styleClass="sidebar-titulo" text="TECH-PARK UQ" />
-                  <Label prefHeight="14.0" prefWidth="73.0" text="ATRACCIÓN" textFill="#bcbcbc" />
-                  <Label prefHeight="14.0" prefWidth="73.0"  text="Estatura min: " textFill="#ff7b00" />
-                  <Label prefHeight="17.0" prefWidth="103.0"  text="Tiempo de espera: " textFill="#ff7b00" />
-                  <Label text="Operador: " textFill="#d0b8b8">
+                  <Label fx:id="lblNombreParque" styleClass="sidebar-titulo" text="TECH-PARK UQ" />
+                  <Label fx:id="lblNombreAtraccion" prefHeight="14.0" prefWidth="73.0" text="ATRACCIÓN" textFill="#bcbcbc" />
+                  <Label fx:id="lblEstaturaMin" prefHeight="14.0" prefWidth="73.0" text="Estatura min: " textFill="#ff7b00" />
+                  <Label fx:id="lblTiempoEspera" prefHeight="17.0" prefWidth="103.0" text="Tiempo de espera: " textFill="#ff7b00" />
+                  <Label fx:id="lblOperador" text="Operador: " textFill="#d0b8b8">
                      <font>
                         <Font name="Arial" size="15.0" />
                      </font>
                   </Label>
                </children>
             </VBox>
-            <Button mnemonicParsing="false" prefHeight="47.0" prefWidth="210.0" styleClass="menu-btn"  text="⊕ Registro de visitantes" />
-            <Button mnemonicParsing="false" prefHeight="47.0" prefWidth="210.0" styleClass="menu-btn"  text="🎡Control de atracciones" />
-            <Button mnemonicParsing="false" prefHeight="47.0" prefWidth="210.0" styleClass="menu-btn"  text="🔔  Notificaciones" />
-            <Button mnemonicParsing="false" prefHeight="47.0" prefWidth="210.0" styleClass="menu-btn"  text="▤ Generar reporte" />
-            <Button mnemonicParsing="false" prefHeight="47.0" prefWidth="210.0" styleClass="menu-btn"  text="⚙ Solicitar revisión técnica" />
-            <Pane prefHeight="200.0" prefWidth="200.0" styleClass="sidebar-header"  VBox.vgrow="ALWAYS">
+            <Button fx:id="btnRegistro" mnemonicParsing="false" onAction="#irRegistroVisitantes" prefHeight="47.0" prefWidth="210.0" styleClass="menu-btn" text="⊕ Registro de visitantes" />
+            <Button fx:id="btnControlAtracciones" mnemonicParsing="false" onAction="#irControlAtracciones" prefHeight="47.0" prefWidth="210.0" styleClass="menu-btn" text="🎡Control de atracciones" />
+            <Button fx:id="btnNotificaciones" mnemonicParsing="false" onAction="#irControlAtracciones" prefHeight="47.0" prefWidth="210.0" styleClass="menu-btn" text="🔔  Notificaciones" />
+            <Button fx:id="btnGenerarReporte" mnemonicParsing="false" onAction="#irNotificaciones" prefHeight="47.0" prefWidth="210.0" styleClass="menu-btn" text="▤ Generar reporte" />
+            <Button fx:id="btnSolicitarRevision" mnemonicParsing="false" onAction="#irSolicitarRevision" prefHeight="47.0" prefWidth="210.0" styleClass="menu-btn" text="⚙ Solicitar revisión técnica" />
+            <Pane prefHeight="200.0" prefWidth="200.0" styleClass="sidebar-header" VBox.vgrow="ALWAYS">
                <children>
-                  <Label layoutX="14.0" layoutY="149.0" text="Visitantes : " textFill="#ea1616">
+                  <Label fx:id="lblVisitantesAcumulados" layoutX="14.0" layoutY="149.0" text="Visitantes : " textFill="#ea1616">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Label>
                </children>
             </Pane>
-            <Button mnemonicParsing="false" prefHeight="47.0" prefWidth="210.0" styleClass="btn-salir" text="🚪  Salir" />
+            <Button fx:id="btnSalir" mnemonicParsing="false" onAction="#salir" prefHeight="47.0" prefWidth="210.0" styleClass="btn-salir" text="🚪  Salir" />
          </children>
       </VBox>
    </left>
    <center>
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <VBox maxWidth="740.0" prefHeight="100.0" spacing="3.0" styleClass="header-central" >
+            <VBox maxWidth="740.0" prefHeight="100.0" spacing="3.0" styleClass="header-central">
                <children>
-                  <Label styleClass="titulo-seccion" text="Registro de visitantes" />
-                  <Label styleClass="subtitulo-seccion" text="Sistema de gestión y verificación de visitantes" />
+                  <Label fx:id="lblResgistroVisitante" styleClass="titulo-seccion" text="Registro de visitantes" />
+                  <Label fx:id="lblSistemaGestion" styleClass="subtitulo-seccion" text="Sistema de gestión y verificación de visitantes" />
                </children>
             </VBox>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
