@@ -1,4 +1,39 @@
 package org.example.parquejfx.model;
 
+import java.util.ArrayList;
+
 public class Zona {
+    private String nombre;
+    private int capacidadMaxima;
+    private ArrayList<Operador> listOperadores;
+
+    public Zona(String nombre, int capacidadMaxima) {
+        this.nombre = nombre;
+        this.capacidadMaxima = capacidadMaxima;
+        listOperadores = new ArrayList<>();
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public int getCapacidadMaxima() {
+        return capacidadMaxima;
+    }
+
+    public void setCapacidadMaxima(int capacidadMaxima) {
+        this.capacidadMaxima = capacidadMaxima;
+    }
+
+    public ArrayList<Operador> getListOperadores() {
+        return listOperadores;
+    }
+
+    public void setListOperadores(ArrayList<Operador> listOperadores) {
+        this.listOperadores = listOperadores;
+    }
 }
