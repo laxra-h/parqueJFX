@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.beans.property.SimpleStringProperty;
 
 public class VisitanteAtraccionesViewController {
 
@@ -22,7 +23,7 @@ public class VisitanteAtraccionesViewController {
 
     @FXML private Label lblMensajeAtraccion;
 
-    // Datos de prueba hasta que tu compañero conecte el model
+    // Datos de ejemplo hasta conectar el model
     private final String[][] atracciones = {
             {"Montaña Rusa",         "Zona Aventura", "Mecánica",  "Activa",        "15 min", "1.40m"},
             {"Torre de Caída Libre", "Zona Aventura", "Mecánica",  "Activa",        "20 min", "1.50m"},
@@ -37,23 +38,31 @@ public class VisitanteAtraccionesViewController {
 
     @FXML
     public void initialize() {
+        tablaAtracciones.setColumnResizePolicy(
+                TableView.CONSTRAINED_RESIZE_POLICY
+        );
         configurarColumnas();
         cargarTodas();
     }
 
     private void configurarColumnas() {
         colNombre.setCellValueFactory(d ->
-                new javafx.beans.property.SimpleStringProperty(d.getValue()[0]));
+                new SimpleStringProperty(d.getValue()[0]));
+
         colZona.setCellValueFactory(d ->
-                new javafx.beans.property.SimpleStringProperty(d.getValue()[1]));
+                new SimpleStringProperty(d.getValue()[1]));
+
         colTipo.setCellValueFactory(d ->
-                new javafx.beans.property.SimpleStringProperty(d.getValue()[2]));
+                new SimpleStringProperty(d.getValue()[2]));
+
         colEstado.setCellValueFactory(d ->
-                new javafx.beans.property.SimpleStringProperty(d.getValue()[3]));
+                new SimpleStringProperty(d.getValue()[3]));
+
         colEspera.setCellValueFactory(d ->
-                new javafx.beans.property.SimpleStringProperty(d.getValue()[4]));
+                new SimpleStringProperty(d.getValue()[4]));
+
         colEstatura.setCellValueFactory(d ->
-                new javafx.beans.property.SimpleStringProperty(d.getValue()[5]));
+                new SimpleStringProperty(d.getValue()[5]));
     }
 
     private void cargarTodas() {
@@ -81,7 +90,8 @@ public class VisitanteAtraccionesViewController {
     private void filtrarPorZona(String zona) {
         ObservableList<String[]> filtrada = FXCollections.observableArrayList();
         for (String[] a : atracciones) {
-            if (a[1].equals(zona)) filtrada.add(a);
+            if (a[1].equals(zona))
+                filtrada.add(a);
         }
         tablaAtracciones.setItems(filtrada);
         lblMensajeAtraccion.setText("");
