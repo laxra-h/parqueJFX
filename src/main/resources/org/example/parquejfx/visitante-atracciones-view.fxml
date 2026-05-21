@@ -1,8 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.scene.layout.AnchorPane?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="org.example.parquejfx.viewController.VisitanteAtraccionesViewController">
-    <Label text="🎢 Sección Atracciones" layoutX="20" layoutY="20"/>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="560.0" prefWidth="740.0" stylesheets="@estilos.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.parquejfx.viewController.VisitanteAtraccionesViewController">
+   <children>
+      <VBox layoutX="124.0" layoutY="180.0" prefHeight="200.0" prefWidth="100.0" spacing="15.0" styleClass="area-central" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </padding>
+         <children>
+            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+               <children>
+                  <Label styleClass="campo-label" text="Filtrar por zona:" />
+                  <Button fx:id="btnFiltroTodas" mnemonicParsing="false" onAction="#filtrarTodas" styleClass="btn-primario" text="Todas" />
+                  <Button fx:id="btnFiltroAventura" mnemonicParsing="false" onAction="#filtrarAventura" styleClass="btn-secundario" text="🎢 Zona Aventura" />
+                  <Button fx:id="btnFiltroSplash" mnemonicParsing="false" onAction="#filtrarSplash" styleClass="btn-secundario" text="🌊 Zona Splash" />
+                  <Button fx:id="btnFiltroFantasia" mnemonicParsing="false" onAction="#filtrarFantasia" styleClass="btn-secundario" text="🎠 Zona Fantasía" />
+               </children>
+            </HBox>
+            <TableView fx:id="tablaAtracciones" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+              <columns>
+                <TableColumn fx:id="colNombre" prefWidth="160.0" text="Atracción" />
+                <TableColumn fx:id="colZona" prefWidth="120.0" text="Zona" />
+                  <TableColumn fx:id="colTipo" prefWidth="90.0" text="Tipo" />
+                  <TableColumn fx:id="colEstado" prefWidth="100.0" text="Estado" />
+                  <TableColumn fx:id="colEspera" text="⏱ Espera" />
+                  <TableColumn fx:id="colEstatura" prefWidth="100.0" text="Estatura mín." />
+              </columns>
+            </TableView>
+         </children>
+      </VBox>
+   </children>
 </AnchorPane>
