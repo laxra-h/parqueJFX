@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Visitante implements INotificable{
     private String nombre;
     private String cedula;
+    private String contrasenia;
     private int edad;
     private double estatura;
     private float saldoVirtual;
@@ -14,9 +15,10 @@ public class Visitante implements INotificable{
     private Ticket theTicket;
 
 
-    public Visitante(String nombre, String cedula, int edad, double estatura, float saldoVirtual, boolean fotografia) {
+    public Visitante(String nombre, String cedula, String contrasenia, int edad, double estatura, float saldoVirtual, boolean fotografia) {
         this.nombre = nombre;
         this.cedula = cedula;
+        this.contrasenia = contrasenia;
         this.edad = edad;
         this.estatura = estatura;
         this.saldoVirtual = saldoVirtual;
@@ -121,5 +123,13 @@ public class Visitante implements INotificable{
 
     public void setTheTicket(Ticket theTicket) {
         this.theTicket = theTicket;
+    }
+
+    public String getContrasenia() {
+        return contrasenia;
+    }
+
+    public void setContrasenia(String contrasenia) {
+        this.contrasenia = contrasenia;
     }
 }

@@ -172,5 +172,29 @@ public class Parque {
         return -1;
     }
 
+    public boolean verificarIngresoVisitante(String cedula, String contrasenia) {
+        int posicion = buscarVisitante(cedula);
+        if (posicion == -1) return false; // ← empleado no existe
+
+        Visitante o = listVisitantes.get(posicion);
+        return o.getContrasenia().equals(contrasenia);
+    }
+
+
+    public int buscarVisitante(String cedula){
+        for (Empleado e : listEmpleados){
+            if (e.getCedula().equals(cedula)){
+                return listEmpleados.indexOf(e);
+            }
+        }
+        return -1;
+    }
+
+    public Visitante getVisitanteActual(String documento) {
+        int pos = buscarVisitante(documento);
+        if (pos == -1) return null;
+        return listVisitantes.get(pos);
+    }
+
 
 }

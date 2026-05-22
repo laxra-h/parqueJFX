@@ -2,6 +2,7 @@ package org.example.parquejfx.viewController;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Button;
@@ -12,7 +13,7 @@ import org.example.parquejfx.util.SceneManager;
 
 import javax.swing.*;
 
-public class InicioViewController {
+public class InicioViewController implements IAppControlable {
     @FXML
     private Label lblNombreParque;
     @FXML
@@ -31,6 +32,7 @@ public class InicioViewController {
     public void setApp(App app) {
         this.app = app;
         // Si necesitas mostrar datos del parque en labels, hazlo aquí
+        lblDireccion.setText("Direccón: " + app.parque.getDireccion());
         lblNombreParque.setText(app.parque.getNombre());
         lblAforo.setText("Aforo: " + app.parque.getAforoMaximo());
     }
@@ -39,7 +41,7 @@ public class InicioViewController {
     private void irAVisitante() throws Exception {
        FXMLLoader loader = SceneManager.cambiarEscena(btnVisitante, "/org/example/parquejfx/visitante-bienvenida.fxml");
         VisitanteBienvenidaViewController ctrl =loader.getController();
-        ctrl.setApp(this.App);
+        ctrl.setApp(this.app);
     }
 
     @FXML

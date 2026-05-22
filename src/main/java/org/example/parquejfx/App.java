@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.example.parquejfx.model.Operador;
 import org.example.parquejfx.model.Parque;
+import org.example.parquejfx.model.Visitante;
 import org.example.parquejfx.viewController.InicioViewController;
 
 public class App extends Application {
@@ -16,6 +17,8 @@ public class App extends Application {
         parque = new Parque("109", "TECH-PARQ UQ", "CLL20", 2000); // ← inicializa el parque
 Operador o = new Operador("Dani", "1092", "123", null);
 parque.getListEmpleados().add(o);
+        Visitante v = new Visitante("Lau", "1092", "123", 18, 1.60, 1092, false);
+        parque.getListVisitantes().add(v);
         FXMLLoader loader = new FXMLLoader(
                 getClass().getResource("/org/example/parquejfx/inicio.fxml")
         );

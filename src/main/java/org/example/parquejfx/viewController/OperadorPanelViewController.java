@@ -2,10 +2,16 @@ package org.example.parquejfx.viewController;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import org.example.parquejfx.App;
+import org.example.parquejfx.controller.OperadorController;
+import org.example.parquejfx.util.SceneManager;
 
-public class OperadorPanelViewController {
+import java.io.IOException;
+
+public class OperadorPanelViewController implements IAppControlable{
 
     @FXML
     private Button btnControlAtracciones;
@@ -49,6 +55,15 @@ public class OperadorPanelViewController {
     @FXML
     private Label lblVisitantesAcumulados;
 
+private App app;
+OperadorController operadorController;
+
+public void setApp(App app) {
+    this.app = app;
+    operadorController = new OperadorController(app.parque);
+}
+
+
     @FXML
     void irControlAtracciones(ActionEvent event) {
 
@@ -70,8 +85,11 @@ public class OperadorPanelViewController {
     }
 
     @FXML
-    void salir(ActionEvent event) {
-
+    void salir() throws Exception {
+        FXMLLoader loader = SceneManager.cambiarEscena(btnSalir,
+                "/org/example/parquejfx/operador-ingresar.fxml");
+        OperadorIngresarViewController ctrl = loader.getController();
+        ctrl.setApp(this.app);
     }
 
 }

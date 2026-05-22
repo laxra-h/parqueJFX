@@ -2,13 +2,19 @@ package org.example.parquejfx.viewController;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
+import org.example.parquejfx.App;
+import org.example.parquejfx.controller.VisitanteController;
+import org.example.parquejfx.model.General;
+import org.example.parquejfx.model.Visitante;
+import org.example.parquejfx.util.SceneManager;
 
-public class VisitantePanelViewController {
+public class VisitantePanelViewController implements IAppControlable {
     @FXML private Label lblNombreVisitante;
     @FXML private Label lblTipoTicket;
     @FXML private Label lblSaldo;
@@ -24,10 +30,26 @@ public class VisitantePanelViewController {
 
     @FXML private Label lblTituloSeccion;
 
+   private App app;
+   private Visitante visitanteActual;
+   private VisitanteController visitanteController;
+
+    public void setApp(App app) {
+        this.app = app;
+        visitanteController = new VisitanteController(app.parque);
+    }
+
+    public void setVisitanteActual(Visitante visitanteActual) {
+        this.visitanteActual = visitanteActual;
+        lblNombreVisitante.setText("Nombre: " + visitanteActual.getNombre());
+        lblSaldo.setText("Saldo virtual: " + visitanteActual.getSaldoVirtual());
+        lblTipoTicket.setText("Tipo de ticket: " + visitanteController.getTipoTicket(visitanteActual));
+    }
+
     @FXML
     public void initialize() throws Exception {
-        cargarVista("visitante-ticket-view.fxml");
-        lblTituloSeccion.setText("Mis Tickets");
+        //cargarVista("visitante-ticket-view.fxml");
+        //lblTituloSeccion.setText("Mis Tickets");
     }
 
     @FXML private void irATicket() throws Exception {
@@ -61,11 +83,10 @@ public class VisitantePanelViewController {
     }
 
     @FXML private void salir() throws Exception {
-        FXMLLoader loader = new FXMLLoader(
-                getClass().getResource("/org/example/parquejfx/inicio.fxml")
-        );
-        Stage stage = (Stage) btnSalir.getScene().getWindow();
-        stage.setScene(new Scene(loader.load()));
+        FXMLLoader loader = SceneManager.cambiarEscena(btnSalir,
+                "/org/example/parquejfx/inicio.fxml");
+        InicioViewController ctrl = loader.getController();
+        ctrl.setApp(this.app);
     }
 
     private void cargarVista(String fxml) throws Exception {
@@ -78,4 +99,5 @@ public class VisitantePanelViewController {
         AnchorPane.setRightAnchor(vista, 0.0);
         areaCentral.getChildren().setAll(vista);
     }
+
 }
