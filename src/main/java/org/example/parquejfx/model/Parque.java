@@ -54,9 +54,10 @@ public class Parque {
 
             }
             }
+        return costosAdicionales;
         }
 
-    }
+    
 
 
 
@@ -148,4 +149,28 @@ public class Parque {
     public void setListTickets(ArrayList<Ticket> listTickets) {
         this.listTickets = listTickets;
     }
+
+    public boolean crearVisitante(String text, String txtDocumentoText, String txtContrasenaText, String txtEdadText, String txtEstaturaText) {
+        return false;
+    }
+
+    public boolean verificarIngresoOperador(String cedula, String contrasenia) {
+        int posicion = buscarEmpleado(cedula);
+        if (posicion == -1) return false; // ← empleado no existe
+
+        Empleado o = listEmpleados.get(posicion);
+        return o.getContrasenia().equals(contrasenia) && o instanceof Operador;
+    }
+
+
+    public int buscarEmpleado(String cedula){
+        for (Empleado e : listEmpleados){
+            if (e.getCedula().equals(cedula)){
+                return listEmpleados.indexOf(e);
+            }
+        }
+        return -1;
+    }
+
+
 }

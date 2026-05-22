@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import org.example.parquejfx.App;
 
 import java.io.IOException;
 
@@ -14,6 +15,13 @@ public class VisitanteIngresarViewController {
     @FXML private Label lblMensaje;
     @FXML private Button btnIngresar;
     @FXML private Button btnVolver;
+
+    private App app;
+
+    public void setApp(App app) {
+        this.app = app;
+    }
+
 
     @FXML public void initialize() {
 
@@ -34,4 +42,5 @@ public class VisitanteIngresarViewController {
         Stage stage = (Stage) btnVolver.getScene().getWindow();
         stage.setScene(new Scene(loader.load()));
     }
+
 }

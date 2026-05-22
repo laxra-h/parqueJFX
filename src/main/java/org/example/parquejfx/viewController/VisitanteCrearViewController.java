@@ -5,6 +5,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import org.example.parquejfx.App;
+import org.example.parquejfx.controller.VisitanteController;
+import org.example.parquejfx.util.SceneManager;
 
 import java.io.IOException;
 
@@ -20,27 +23,34 @@ public class VisitanteCrearViewController {
         @FXML private Button btnContinuar;
         @FXML private Button btnVolver;
 
-        @FXML public void initialize() { }
+        private App app;
 
-        @FXML
-        private void continuar() throws IOException {
-                FXMLLoader loader = new FXMLLoader(
-                        getClass().getResource("/org/example/parquejfx/visitante-panel.fxml")
-                );
-                Stage stage = (Stage) btnContinuar.getScene().getWindow();
-                stage.setScene(new Scene(loader.load()));
+        public void setApp(App app) {
+                this.app = app;
+        }
 
-            // aquí daniel validará y creará el visitante
-            // navega en el menu
+
+        VisitanteController visitanteController;
+
+        @FXML public void initialize() {
+
+                visitanteController = new VisitanteController(app.parque);
         }
 
         @FXML
-        private void volver() throws IOException {
-                FXMLLoader loader = new FXMLLoader(
-                        getClass().getResource("/org/example/parquejfx/visitante-bienvenida.fxml")
-                );
-                Stage stage = (Stage) btnVolver.getScene().getWindow();
-                stage.setScene(new Scene(loader.load()));
+        private void continuar() throws Exception {
+
+                boolean centinela = visitanteController.crearVisitante(txtNombre.getText(), txtDocumento.getText(), txtContrasena.getText(), txtEdad.getText(), txtEstatura.getText());
+                        if (centinela) {
+                                SceneManager.cambiarEscena(btnContinuar, "/org/example/parquejfx/visitante-panel.fxml");
+                        }
+                        SceneManager.cambiarEscena(btnContinuar, "/org/example/parquejfx/error-panel.fxml");
         }
+
+        @FXML
+        private void volver() throws Exception {
+                SceneManager.cambiarEscena(btnVolver, "/org/example/parquejfx/visitante-bienvenida.fxml");
+        }
+
 
 }

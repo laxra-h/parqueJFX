@@ -4,12 +4,13 @@ import java.util.ArrayList;
 
 public class Administrador extends Empleado{
 
+    Parque theParque;
     ArrayList<Operador> listOperadores;
     ArrayList<Zona> listZonas;
     ArrayList<Atraccion> listAtracciones;
 
-    public Administrador(String nombre, String cedula) {
-        super(nombre, cedula);
+    public Administrador(String nombre, String cedula, String contrasenia) {
+        super(nombre, cedula, contrasenia);
         listOperadores = new ArrayList<>();
         listZonas = new ArrayList<>();
         listAtracciones = new ArrayList<>();
@@ -18,11 +19,11 @@ public class Administrador extends Empleado{
 
     /*CRUD OPERADOR*/
 
-    public boolean createOperador(String nombre, String cedula, Zona zonaAsignada){
+    public boolean createOperador(String nombre, String cedula, String contrasenia, Zona zonaAsignada){
         if (buscarOperador(cedula) != -1){
             return false;
         }
-        Operador newOperador = new Operador(nombre, cedula, zonaAsignada);
+        Operador newOperador = new Operador(nombre, cedula, contrasenia, zonaAsignada);
         listOperadores.add(newOperador);
         return true;
     }
@@ -35,10 +36,11 @@ public class Administrador extends Empleado{
 
     public boolean updateOperador(String nombre, String cedula, Zona zonaAsignada){
         int posicion = buscarOperador(cedula);
-        if (posicion != -1) {
+        if (posicion != -1 && theParque.getListEmpleados().get(posicion) instanceof Operador) {
             listOperadores.get(posicion).setNombre(nombre);
             listOperadores.get(posicion).setCedula(cedula);
-            listOperadores.get(posicion).setZonaAsignada(zonaAsignada);
+            Operador o = (Operador) theParque.getListEmpleados().get(posicion);
+            o.setZonaAsignada(zonaAsignada);
             return true;
         }
         return false;
@@ -214,10 +216,11 @@ public class Administrador extends Empleado{
     }
 
     //CONSULTAR REPORTES
+    /*
     public String consultarReportes() {
 
 
-    }
+    }*/
 
 
 
