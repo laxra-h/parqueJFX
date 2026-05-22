@@ -14,13 +14,12 @@ public class Visitante implements INotificable{
     private Ticket theTicket;
 
 
-    public Visitante(String nombre, String cedula, int edad, double estatura, float saldoVirtual, boolean fotografia) {
+    public Visitante(String nombre, String cedula, int edad, double estatura, float saldoVirtual) {
         this.nombre = nombre;
         this.cedula = cedula;
         this.edad = edad;
         this.estatura = estatura;
         this.saldoVirtual = saldoVirtual;
-        this.fotografia = fotografia;
         listFavoritas = new ArrayList<>();
         listDetalles = new ArrayList<>();
     }

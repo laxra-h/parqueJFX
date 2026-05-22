@@ -230,11 +230,11 @@ public class Administrador extends Empleado {
     }
 
     //CONSULTAR REPORTES
-    public String consultarReportes() {
+    //public String consultarReportes() {
 
 
 
-    }
+
 
 
 
@@ -247,5 +247,11 @@ public class Administrador extends Empleado {
     //GETTERS && SETTERS
 
 
-   
+    public Parque getParque() {
+        return parque;
+    }
+
+    public void setParque(Parque parque) {
+        this.parque = parque;
+    }
 }

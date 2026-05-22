@@ -63,9 +63,9 @@ public class Parque {
     //CRUD VISITANTE
 
 
-    public boolean createVisitante(String nombre, String cedula, int edad, double estatura, float saldoVirtual, boolean fotografia){
+    public boolean createVisitante(String nombre, String cedula, int edad, double estatura, float saldoVirtual){
 
-        Visitante newVisitante = new Visitante(nombre, cedula, edad, estatura, saldoVirtual, fotografia);
+        Visitante newVisitante = new Visitante(nombre, cedula, edad, estatura, saldoVirtual);
 
         for(Visitante v: listVisitantes) {
             if (v.getCedula().equals(cedula)){
