@@ -3,6 +3,9 @@ package org.example.parquejfx.model;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import java.util.EnumMap;
+
+
 public class Parque {
     private String nit;
     private String nombre;
@@ -55,11 +58,137 @@ public class Parque {
             }
             }
         return costosAdicionales;
+
         }
 
     
 
 
+
+
+
+    //CRUD VISITANTE
+
+
+    public boolean createVisitante(String nombre, String cedula, String contrasenia, int edad, double estatura, float saldoVirtual){
+
+        Visitante newVisitante = new Visitante(nombre, cedula, contrasenia, edad, estatura, saldoVirtual);
+
+        for(Visitante v: listVisitantes) {
+            if (v.getCedula().equals(cedula)){
+                return false;
+            }
+        }
+        listVisitantes.add(newVisitante);
+        return true;
+    }
+
+
+    public boolean deleteVisitante(String cedula){
+
+        Visitante visitante = buscarVisitanteByCedula(cedula);
+
+        if(visitante != null){
+            listVisitantes.remove(visitante);
+            return true;
+        }
+        return false;
+    }
+
+
+
+    //metodo para actualizar visitante
+
+
+    public boolean updateVisitante(String cedula, String nombreNuevo, int edadNueva, double estaturaNueva  ){
+        Visitante visitante = buscarVisitanteByCedula(cedula);
+
+        if(visitante != null){
+            visitante.setNombre(nombreNuevo);
+            visitante.setEdad(edadNueva);
+            visitante.setEstatura(estaturaNueva);
+            return true;
+        }
+
+        return false;
+    }
+
+
+//Metodo para buscar visitante
+
+public Visitante buscarVisitanteByCedula(String cedula) {
+        for(Visitante v: listVisitantes){
+            if(v.getCedula().equals(cedula)){
+                return v;
+            }
+        }
+
+        return null;
+}
+
+//CRUD ADMIN
+
+
+    public boolean createAdmin(String nombre, String cedula, String contrasenia){
+
+        Administrador newAdmin = new Administrador(nombre, cedula, contrasenia);
+        for(Empleado e: listEmpleados){
+            if(e.getCedula().equals(cedula)){
+                return false;
+            }
+        }
+
+        listEmpleados.add(newAdmin);
+        return true;
+
+    }
+
+    public boolean deleteAdmin(String cedula){
+
+        Administrador admin = buscarAdminByCedula(cedula);
+
+        if(admin != null){
+            listEmpleados.remove(admin);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean updateAdmin(String cedula, String nombreNuevo, String contraseniaNueva){
+
+        Administrador admin = buscarAdminByCedula(cedula);
+
+        if(admin != null){
+            admin.setNombre(nombreNuevo);
+            admin.setContrasenia(contraseniaNueva);
+            return true;
+        }
+
+        return false;
+    }
+
+
+    public String readAdmin(String cedula){
+
+        Administrador admin = buscarAdminByCedula(cedula);
+
+        if(admin != null){
+
+            return "Nombre: "+admin.getNombre()+
+                    " | cedula: "+admin.getCedula()+
+                    " | Contrasenia: " +admin.getContrasenia();
+        }
+        return "Administrador no encontrado";
+    }
+
+    public Administrador buscarAdminByCedula(String cedula){
+        for(Empleado e: listEmpleados){
+            if(e instanceof  Administrador && e.getCedula().equals(cedula)){
+                return (Administrador) e;
+            }
+        }
+        return null;
+    }
 
 
 
@@ -150,6 +279,7 @@ public class Parque {
         this.listTickets = listTickets;
     }
 
+
     public boolean crearVisitante(String text, String txtDocumentoText, String txtContrasenaText, String txtEdadText, String txtEstaturaText) {
         return false;
     }
@@ -197,4 +327,14 @@ public class Parque {
     }
 
 
+
+    public ArrayList<Atraccion> getListAtracciones() {
+        return listAtracciones;
+    }
+
+    public void setListAtracciones(ArrayList<Atraccion> listAtracciones) {
+        this.listAtracciones = listAtracciones;
+    }
+
 }
+

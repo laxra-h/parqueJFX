@@ -12,6 +12,7 @@ public abstract class Empleado {
         this.contrasenia = contrasenia;
     }
 
+
     public String getNombre() {
         return nombre;
     }

@@ -15,14 +15,14 @@ public class Visitante implements INotificable{
     private Ticket theTicket;
 
 
-    public Visitante(String nombre, String cedula, String contrasenia, int edad, double estatura, float saldoVirtual, boolean fotografia) {
+
+    public Visitante(String nombre, String cedula, String contrasenia, int edad, double estatura, float saldoVirtual) {
         this.nombre = nombre;
         this.cedula = cedula;
-        this.contrasenia = contrasenia;
+         this.contrasenia = contrasenia;
         this.edad = edad;
         this.estatura = estatura;
         this.saldoVirtual = saldoVirtual;
-        this.fotografia = fotografia;
         listFavoritas = new ArrayList<>();
         listDetalles = new ArrayList<>();
     }
@@ -124,7 +124,6 @@ public class Visitante implements INotificable{
     public void setTheTicket(Ticket theTicket) {
         this.theTicket = theTicket;
     }
-
     public String getContrasenia() {
         return contrasenia;
     }
