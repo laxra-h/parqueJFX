@@ -4,49 +4,59 @@ import java.util.ArrayList;
 
 public class Administrador extends Empleado{
 
-    ArrayList<Operador> listOperadores;
+
+    private Parque parque;
     ArrayList<Zona> listZonas;
     ArrayList<Atraccion> listAtracciones;
 
-    public Administrador(String nombre, String cedula) {
-        super(nombre, cedula);
-        listOperadores = new ArrayList<>();
-        listZonas = new ArrayList<>();
+    public Administrador(String nombre, String cedula, String contrasenia) {
+        super(nombre, cedula, contrasenia);
         listAtracciones = new ArrayList<>();
+        parque = null;
     }
 
 
     /*CRUD OPERADOR*/
 
-    public boolean createOperador(String nombre, String cedula, Zona zonaAsignada){
+    public boolean createOperador(String nombre, String cedula, String contrasenia, Zona zonaAsignada){
         if (buscarOperador(cedula) != -1){
             return false;
         }
-        Operador newOperador = new Operador(nombre, cedula, zonaAsignada);
-        listOperadores.add(newOperador);
+        Operador newOperador = new Operador(nombre, cedula,contrasenia,  zonaAsignada);
+        parque.getListEmpleados().add(newOperador);
         return true;
     }
 
     public String readOperador(String cedula){
         int posicion =  buscarOperador(cedula);
-        Operador o = listOperadores.get(posicion);
-        return "Nombre: "+ o.getNombre() + "\nCedula: "+ o.getCedula() + "\nZona Asignada: "+ o.getZonaAsignada();
+        if(parque.getListEmpleados().get(posicion) instanceof  Operador){
+
+            Operador o = (Operador) parque.getListEmpleados().get(posicion);
+
+            return "Nombre: "+ o.getNombre() + "\nCedula: "+ o.getCedula() + "\nZona Asignada: "+ o.getZonaAsignada();
+
+        }
+
+        return "El empleado no es un operador";
+
+
     }
 
     public boolean updateOperador(String nombre, String cedula, Zona zonaAsignada){
         int posicion = buscarOperador(cedula);
-        if (posicion != -1) {
-            listOperadores.get(posicion).setNombre(nombre);
-            listOperadores.get(posicion).setCedula(cedula);
-            listOperadores.get(posicion).setZonaAsignada(zonaAsignada);
+        if (posicion != -1 && parque.getListEmpleados().get(posicion) instanceof Operador) {
+            parque.getListEmpleados().get(posicion).setNombre(nombre);
+            parque.getListEmpleados().get(posicion).setCedula(cedula);
+            Operador o = (Operador) parque.getListEmpleados().get(posicion);
+            o.setZonaAsignada(zonaAsignada);
             return true;
         }
         return false;
     }
 
     public int buscarOperador(String cedulaBuscar){
-        for (int i = 0; i < listOperadores.size(); i++) {
-            if (listOperadores.get(i).getCedula().equals(cedulaBuscar)){
+        for (int i = 0; i < parque.getListEmpleados().size(); i++) {
+            if (parque.getListEmpleados().get(i).getCedula().equals(cedulaBuscar)){
                 return i;
             }
         }
@@ -57,7 +67,7 @@ public class Administrador extends Empleado{
     public boolean deleteOperador(String cedula){
         int posicion = buscarOperador(cedula);
         if (posicion != -1) {
-            listOperadores.remove(posicion);
+            parque.getListEmpleados().remove(posicion);
             return true;
         }
         return false;
@@ -122,12 +132,12 @@ public class Administrador extends Empleado{
     /*CRUD ZONA*/
 
     public boolean createZona(String nombre, int capacidadMaxima){
-        if (buscarZona(nombre) != -1){
-            return false;
-        }
-        Zona newZona = new Zona(nombre, capacidadMaxima);
-        listZonas.add(newZona);
-        return true;
+            if (buscarZona(nombre) != -1){
+                return false;
+            }
+            Zona newZona = new Zona(nombre, capacidadMaxima);
+            listZonas.add(newZona);
+            return true;
     }
 
     public String readZona(String nombre){

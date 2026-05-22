@@ -4,8 +4,8 @@ public class Operador extends Empleado {
 
     private Zona zonaAsignada;
 
-    public Operador(String nombre, String cedula, Zona zonaAsignada) {
-        super(nombre, cedula);
+    public Operador(String nombre, String cedula, String contrasenia, Zona zonaAsignada) {
+        super(nombre, cedula, contrasenia);
         this.zonaAsignada = zonaAsignada;
     }
 

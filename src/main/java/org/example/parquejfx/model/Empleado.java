@@ -3,11 +3,21 @@ package org.example.parquejfx.model;
 public abstract class Empleado {
     protected String nombre;
     protected String cedula;
+    private String contrasenia;
 
 
-    public Empleado(String nombre, String cedula) {
+    public Empleado(String nombre, String cedula, String contrasenia) {
         this.nombre = nombre;
         this.cedula = cedula;
+        this.contrasenia=contrasenia;
+    }
+
+    public String getContrasenia() {
+        return contrasenia;
+    }
+
+    public void setContrasenia(String contrasenia) {
+        this.contrasenia = contrasenia;
     }
 
     public String getNombre() {

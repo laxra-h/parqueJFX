@@ -54,7 +54,99 @@ public class Parque {
 
             }
             }
+        return costosAdicionales;
+
+    }
+
+
+    //CRUD VISITANTE
+
+
+    public boolean createVisitante(String nombre, String cedula, int edad, double estatura, float saldoVirtual, boolean fotografia){
+
+        Visitante newVisitante = new Visitante(nombre, cedula, edad, estatura, saldoVirtual, fotografia);
+
+        for(Visitante v: listVisitantes) {
+            if (v.getCedula().equals(cedula)){
+                return false;
+            }
         }
+        listVisitantes.add(newVisitante);
+        return true;
+    }
+
+
+    public boolean deleteVisitante(String cedula){
+
+        Visitante visitante = buscarVisitanteByCedula(cedula);
+
+        if(visitante != null){
+            listVisitantes.remove(visitante);
+            return true;
+        }
+        return false;
+    }
+
+
+
+    //metodo para actualizar visitante
+
+
+    public boolean updateVisitante(String cedula, String nombreNuevo, int edadNueva, double estaturaNueva  ){
+        Visitante visitante = buscarVisitanteByCedula(cedula);
+
+        if(visitante != null){
+            visitante.setNombre(nombreNuevo);
+            visitante.setEdad(edadNueva);
+            visitante.setEstatura(estaturaNueva);
+            return true;
+        }
+
+        return false;
+    }
+
+
+//Metodo para buscar visitante
+
+public Visitante buscarVisitanteByCedula(String cedula) {
+        for(Visitante v: listVisitantes){
+            if(v.getCedula().equals(cedula)){
+                return v;
+            }
+        }
+
+        return null;
+}
+
+//CRUD OPERADOR
+
+    public boolean createOperador(Operador operador){
+
+        if(operador == null){
+            return false;
+        }
+
+        for(Operador o: listOperadores){
+            if(o.getCedula().equals(operador.getCedula())){
+                return false;
+            }
+        }
+
+        listEmpleados.add(operador);
+        return true;
+    }
+
+
+    public boolean deleteOperador(String codigo){
+
+        Empleado operador = buscarOperador(codigo);
+
+        if(operador != null){
+            listEmpleados.remove(operador);
+            return true;
+        }
+
+        return false;
 
     }
 
