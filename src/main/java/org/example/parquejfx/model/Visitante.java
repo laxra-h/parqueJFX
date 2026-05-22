@@ -22,7 +22,7 @@ public class Visitante implements INotificable{
          this.contrasenia = contrasenia;
         this.edad = edad;
         this.estatura = estatura;
-        this.saldoVirtual = saldoVirtual;
+        this.saldoVirtual = 0;
         listFavoritas = new ArrayList<>();
         listDetalles = new ArrayList<>();
     }

@@ -72,13 +72,13 @@ public class Parque {
 
     public boolean createVisitante(String nombre, String cedula, String contrasenia, int edad, double estatura, float saldoVirtual){
 
-        Visitante newVisitante = new Visitante(nombre, cedula, contrasenia, edad, estatura, saldoVirtual);
-
         for(Visitante v: listVisitantes) {
             if (v.getCedula().equals(cedula)){
                 return false;
             }
         }
+        Visitante newVisitante = new Visitante(nombre, cedula, contrasenia, edad, estatura, saldoVirtual);
+
         listVisitantes.add(newVisitante);
         return true;
     }
@@ -279,10 +279,6 @@ public Visitante buscarVisitanteByCedula(String cedula) {
         this.listTickets = listTickets;
     }
 
-
-    public boolean crearVisitante(String text, String txtDocumentoText, String txtContrasenaText, String txtEdadText, String txtEstaturaText) {
-        return false;
-    }
 
     public boolean verificarIngresoOperador(String cedula, String contrasenia) {
         int posicion = buscarEmpleado(cedula);

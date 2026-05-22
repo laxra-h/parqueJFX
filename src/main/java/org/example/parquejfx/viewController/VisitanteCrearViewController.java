@@ -24,33 +24,40 @@ public class VisitanteCrearViewController {
         @FXML private Button btnVolver;
 
         private App app;
-
+        private VisitanteController visitanteController;
         public void setApp(App app) {
                 this.app = app;
+                visitanteController =  new VisitanteController(app.parque);
         }
 
 
-        VisitanteController visitanteController;
-
-        @FXML public void initialize() {
-
-                visitanteController = new VisitanteController(app.parque);
-        }
+        @FXML public void initialize() {}
 
         @FXML
         private void continuar() throws Exception {
 
-                boolean centinela = visitanteController.crearVisitante(txtNombre.getText(), txtDocumento.getText(), txtContrasena.getText(), txtEdad.getText(), txtEstatura.getText());
+                boolean centinela = visitanteController.crearVisitante(txtNombre.getText(), txtDocumento.getText(), txtContrasena.getText(), Integer.parseInt(txtEdad.getText()), Double.parseDouble(txtEstatura.getText()), 0);
                         if (centinela) {
-                                SceneManager.cambiarEscena(btnContinuar, "/org/example/parquejfx/visitante-panel.fxml");
+                               FXMLLoader loader = SceneManager.cambiarEscena(btnContinuar, "/org/example/parquejfx/visitante-panel.fxml");
+                               VisitantePanelViewController ctrl = loader.getController();
+                               ctrl.setApp(app);
+                               ctrl.setVisitanteActual(app.parque.buscarVisitanteByCedula(txtDocumento.getText()));
+                        }else {
+                                FXMLLoader loader = SceneManager.cambiarEscena(btnContinuar, "/org/example/parquejfx/error-panel.fxml");
+                                ErrorViewController ctrl = loader.getController();
+                                ctrl.setMensaje("Error al crear visitante");
+                                ctrl.setRutaAnterior("/org/example/parquejfx/visitante-crear.fxml");
+                                ctrl.setApp(this.app);
                         }
-                        SceneManager.cambiarEscena(btnContinuar, "/org/example/parquejfx/error-panel.fxml");
         }
 
         @FXML
         private void volver() throws Exception {
-                SceneManager.cambiarEscena(btnVolver, "/org/example/parquejfx/visitante-bienvenida.fxml");
+                FXMLLoader loader = SceneManager.cambiarEscena(btnVolver, "/org/example/parquejfx/visitante-bienvenida.fxml");
+                VisitanteBienvenidaViewController ctrl = loader.getController();
+                ctrl.setApp(this.app);
+        }
+
         }
 
 
-}

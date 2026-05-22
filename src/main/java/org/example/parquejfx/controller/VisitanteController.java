@@ -14,8 +14,8 @@ public class VisitanteController {
         this.parque = parque;
     }
 
-    public boolean crearVisitante(String text, String txtDocumentoText, String txtContrasenaText, String txtEdadText, String txtEstaturaText) {
-        return parque.crearVisitante(text, txtDocumentoText, txtContrasenaText, txtEdadText, txtEstaturaText);
+    public boolean crearVisitante(String nombre, String cedula, String contrasenia, int edad, double estatura, float saldoVirtual) {
+        return parque.createVisitante(nombre, cedula, contrasenia, edad, estatura, saldoVirtual);
     }
 
     public boolean verificarIngreso(TextField cedula, PasswordField contrasenia) {
