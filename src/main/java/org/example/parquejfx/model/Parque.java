@@ -2,6 +2,7 @@ package org.example.parquejfx.model;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.EnumMap;
 
 public class Parque {
     private String nit;
@@ -118,37 +119,71 @@ public Visitante buscarVisitanteByCedula(String cedula) {
         return null;
 }
 
-//CRUD OPERADOR
+//CRUD ADMIN
 
-    public boolean createOperador(Operador operador){
 
-        if(operador == null){
-            return false;
-        }
+    public boolean createAdmin(String nombre, String cedula, String contrasenia){
 
-        for(Operador o: listOperadores){
-            if(o.getCedula().equals(operador.getCedula())){
+        Administrador newAdmin = new Administrador(nombre, cedula, contrasenia);
+        for(Empleado e: listEmpleados){
+            if(e.getCedula().equals(cedula)){
                 return false;
             }
         }
 
-        listEmpleados.add(operador);
+        listEmpleados.add(newAdmin);
         return true;
+
     }
 
+    public boolean deleteAdmin(String cedula){
 
-    public boolean deleteOperador(String codigo){
+        Administrador admin = buscarAdminByCedula(cedula);
 
-        Empleado operador = buscarOperador(codigo);
+        if(admin != null){
+            listEmpleados.remove(admin);
+            return true;
+        }
+        return false;
+    }
 
-        if(operador != null){
-            listEmpleados.remove(operador);
+    public boolean updateAdmin(String cedula, String nombreNuevo, String contraseniaNueva){
+
+        Administrador admin = buscarAdminByCedula(cedula);
+
+        if(admin != null){
+            admin.setNombre(nombreNuevo);
+            admin.setContrasenia(contraseniaNueva);
             return true;
         }
 
         return false;
-
     }
+
+
+    public String readAdmin(String cedula){
+
+        Administrador admin = buscarAdminByCedula(cedula);
+
+        if(admin != null){
+
+            return "Nombre: "+admin.getNombre()+
+                    " | cedula: "+admin.getCedula()+
+                    " | Contrasenia: " +admin.getContrasenia();
+        }
+        return "Administrador no encontrado";
+    }
+
+    public Administrador buscarAdminByCedula(String cedula){
+        for(Empleado e: listEmpleados){
+            if(e instanceof  Administrador && e.getCedula().equals(cedula)){
+                return (Administrador) e;
+            }
+        }
+        return null;
+    }
+
+
 
 
 
@@ -239,5 +274,13 @@ public Visitante buscarVisitanteByCedula(String cedula) {
 
     public void setListTickets(ArrayList<Ticket> listTickets) {
         this.listTickets = listTickets;
+    }
+
+    public ArrayList<Atraccion> getListAtracciones() {
+        return listAtracciones;
+    }
+
+    public void setListAtracciones(ArrayList<Atraccion> listAtracciones) {
+        this.listAtracciones = listAtracciones;
     }
 }
