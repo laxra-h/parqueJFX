@@ -204,6 +204,28 @@
 }
 
 /* ── CARDS / TARJETAS ── */
+.card-oscura {
+    -fx-background-color: #161616;
+    -fx-background-radius: 14px;
+    -fx-border-color: #2A2A2A;
+    -fx-border-radius: 14px;
+    -fx-border-width: 1px;
+    -fx-padding: 25px;
+    -fx-effect: dropshadow(gaussian, rgba(192,57,43,0.15), 20, 0, 0, 4);
+}
+
+.card-oscura .card-titulo {
+    -fx-text-fill: #FFFFFF;
+}
+
+.card-oscura .campo-label {
+    -fx-text-fill: #AAAAAA;
+}
+
+.card-oscura .campo-label-login {
+    -fx-text-fill: #AAAAAA;
+}
+
 .card {
     -fx-background-color: white;
     -fx-background-radius: 10px;

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="560.0" prefWidth="740.0" stylesheets="@estilos.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.parquejfx.viewController.VisitanteTicketViewController">
+   <children>
+      <VBox prefHeight="200.0" prefWidth="100.0" spacing="20.0" styleClass="area-central" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <padding>
+            <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+         </padding>
+         <children>
+            <VBox prefHeight="200.0" prefWidth="100.0" spacing="15.0" styleClass="card">
+               <children>
+                  <Label styleClass="card-titulo" text="Comprar nuevo ticket" />
+                  <Separator prefWidth="200.0" />
+                  <HBox prefHeight="100.0" prefWidth="200.0" spacing="15.0">
+                     <children>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="8.0" styleClass="card" HBox.hgrow="ALWAYS">
+                           <children>
+                              <Label text="🎟">
+                                 <font>
+                                    <Font size="28.0" />
+                                 </font>
+                              </Label>
+                              <Label styleClass="card-titulo" text="General" />
+                              <Label styleClass="card-descripcion" text="Acceso básico al parque" />
+                              <Label styleClass="card-valor" text="\$30.000" />
+                              <Button fx:id="btnComprarGeneral" mnemonicParsing="false" onAction="#comprarGeneral" styleClass="btn-primario" text="Comprar" />
+                           </children></VBox>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="8.0" styleClass="card" HBox.hgrow="ALWAYS">
+                           <children>
+                              <Label text="👨‍👩‍👧">
+                                 <font>
+                                    <Font size="28.0" />
+                                 </font>
+                              </Label>
+                              <Label styleClass="card-titulo" text="Familiar" />
+                              <Label styleClass="card-descripcion" text="Descuento especial" />
+                              <Label styleClass="card-valor" text="\$50.000" />
+                              <Button fx:id="btnComprarFamiliar" mnemonicParsing="false" onAction="#comprarFamiliar" styleClass="btn-primario" text="Comprar" />
+                           </children></VBox>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="8.0" styleClass="card" HBox.hgrow="ALWAYS">
+                           <children>
+                              <Label text="⚡">
+                                 <font>
+                                    <Font size="28.0" />
+                                 </font>
+                              </Label>
+                              <Label styleClass="card-titulo" text="Fast-Pass" />
+                              <Label styleClass="card-descripcion" text="Prioridad en filas" />
+                              <Label styleClass="card-valor" text="\$80.000" />
+                              <Button fx:id="btnComprarFastPass" mnemonicParsing="false" onAction="#comprarFastPass" styleClass="btn-primario" text="Comprar" />
+                           </children></VBox>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <HBox prefHeight="100.0" prefWidth="200.0" spacing="15.0" VBox.vgrow="NEVER">
+               <children>
+                  <VBox prefHeight="200.0" prefWidth="100.0" styleClass="card" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label styleClass="card-titulo" text="Ticket activo" />
+                        <Label fx:id="lblTicketActivo" styleClass="card-valor" text="Ninguno" />
+                        <Label styleClass="card-descripcion" text="Tipo de entrada actual" />
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="200.0" prefWidth="100.0" styleClass="card" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label styleClass="card-titulo" text="Última compra" />
+                        <Label fx:id="lblFechaCompra" styleClass="card-valor" text="-" />
+                        <Label styleClass="card-descripcion" text="Fecha del ticket" />
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="200.0" prefWidth="100.0" styleClass="card" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label styleClass="card-titulo" text="Saldo virtual" />
+                        <Label fx:id="lblSaldoTicket" styleClass="card-valor" text="\$0" />
+                        <Label styleClass="card-descripcion" text="Disponible para usar" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
