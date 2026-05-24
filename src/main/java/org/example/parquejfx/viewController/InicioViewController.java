@@ -31,11 +31,20 @@ public class InicioViewController {
 
     @FXML
     private void irAOperador() throws Exception{
-       // FXMLLoader loader = new FXMLLoader(
-         //       getClass().getResource()
-       // )
+        FXMLLoader loader = new FXMLLoader(
+               getClass().getResource("/org/example/parquejfx/operador-ingresar.fxml")
+        );
+        Stage stage = (Stage) btnOperador.getScene().getWindow();
+        stage.setScene(new Scene(loader.load()));
     }
 
     @FXML
-    private void irAAdministrador() { }
+    private void irAAdministrador() throws Exception{
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource("/org/example/parquejfx/admin-ingresar.fxml")
+        );
+        Stage stage = (Stage) btnAdministrador.getScene().getWindow();
+        stage.setScene(new Scene(loader.load()));
+
+    }
 }
