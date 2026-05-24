@@ -16,7 +16,7 @@
             <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0" styleClass="sidebar-header">
                <children>
                   <Label styleClass="sidebar-titulo" text="TECH-PARK UQ" />
-                  <Label fx:id="lblNombreVisitante" text="Administrador" textFill="#bcbcbc">
+                  <Label fx:id="lblAdministrador" text="Administrador" textFill="#bcbcbc">
                      <font>
                         <Font size="15.0" />
                      </font>
