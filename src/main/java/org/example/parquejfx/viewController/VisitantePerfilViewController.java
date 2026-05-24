@@ -4,42 +4,58 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import org.example.parquejfx.App;
+import org.example.parquejfx.controller.VisitanteController;
+import org.example.parquejfx.model.Visitante;
 
 public class VisitantePerfilViewController {
 
     @FXML private ImageView imgPerfil;
-
     @FXML private Label lblNombrePerfil;
     @FXML private Label lblDocumentoPerfil;
-
     @FXML private TextField txtNombrePerfil;
     @FXML private TextField txtEdadPerfil;
     @FXML private TextField txtEstaturaPerfil;
     @FXML private PasswordField txtContrasenaPerfil;
-
     @FXML private Label lblMensajePerfil;
-    @FXML private Button btnGuardarPerfil;
-    @FXML private Button btnCancelar;
-
+    @FXML private Label lblEstaturaPerfil;
+    @FXML private Label lblEdadPerfil;
+    @FXML private Label lblTicketPerfil;
     @FXML private Label lblSaldoPerfil;
-    @FXML private TextField txtRecarga;
-    @FXML private Button btnRecargar;
+
+    private App app;
+    private Visitante visitanteActual;
+    private VisitanteController visitanteController;
+
+    public void setVisitanteActual(Visitante visitanteActual) {
+        this.visitanteActual = visitanteActual;
+    }
+
+    public void setApp(App app) {
+        this.app = app;
+        this.visitanteController = new VisitanteController(app.parque);
+        cargarDatos();
+    }
 
     @FXML
     public void initialize() {
-        // Carga la imagen de perfil por defecto
         Image imagen = new Image(
                 getClass().getResourceAsStream("/org/example/parquejfx/perfil-default.png")
         );
         imgPerfil.setImage(imagen);
+    }
 
-        // Datos de prueba hasta conectar el model
-        lblNombrePerfil.setText("Laura García");
-        lblDocumentoPerfil.setText("CC: 1234567890");
-        txtNombrePerfil.setText("Laura García");
-        txtEdadPerfil.setText("21");
-        txtEstaturaPerfil.setText("165");
-        lblSaldoPerfil.setText("$50.000");
+    private void cargarDatos() {
+        lblNombrePerfil.setText(visitanteActual.getNombre());
+        lblDocumentoPerfil.setText("CC: " + visitanteActual.getCedula());
+        txtNombrePerfil.setText(visitanteActual.getNombre());
+        txtEdadPerfil.setText(String.valueOf(visitanteActual.getEdad()));
+        txtEstaturaPerfil.setText(String.valueOf(visitanteActual.getEstatura()));
+        lblEstaturaPerfil.setText("Estatura" + String.valueOf(visitanteActual.getEstatura()));
+        lblEdadPerfil.setText("Edad: " + visitanteActual.getEdad());
+        lblTicketPerfil.setText("Ticket: " + visitanteActual.getTheTicket().toString());
+        lblSaldoPerfil.setText("Saldo: " + visitanteActual.getSaldoVirtual());
+
     }
 
     @FXML
@@ -50,37 +66,29 @@ public class VisitantePerfilViewController {
             mostrarError("Completa los campos obligatorios.");
             return;
         }
-        lblNombrePerfil.setText(txtNombrePerfil.getText());
-        mostrarExito("✓ Datos actualizados correctamente.");
+        try {
+            int edad = Integer.parseInt(txtEdadPerfil.getText().trim());
+            double estatura = Double.parseDouble(txtEstaturaPerfil.getText().trim());
+
+            visitanteController.actualizarPerfil(
+                    visitanteActual, txtNombrePerfil.getText().trim(), edad, estatura
+            );
+
+            visitanteController.actualizarContrasenia(visitanteActual, txtContrasenaPerfil.getText().trim());
+            lblNombrePerfil.setText(visitanteActual.getNombre());
+            txtContrasenaPerfil.clear();
+            mostrarExito("✓ Datos actualizados correctamente.");
+
+        } catch (NumberFormatException e) {
+            mostrarError("Edad y estatura deben ser números válidos.");
+        }
     }
 
     @FXML
     private void cancelar() {
-        txtNombrePerfil.setText("Laura García");
-        txtEdadPerfil.setText("21");
-        txtEstaturaPerfil.setText("165");
+        cargarDatos();
         txtContrasenaPerfil.clear();
         lblMensajePerfil.setText("");
-    }
-
-    @FXML
-    private void recargarSaldo() {
-        String monto = txtRecarga.getText().trim();
-        if (monto.isEmpty()) {
-            mostrarError("Ingresa un monto para recargar.");
-            return;
-        }
-        try {
-            int valor = Integer.parseInt(monto);
-            if (valor <= 0) {
-                mostrarError("El monto debe ser mayor a $0.");
-                return;
-            }
-            mostrarExito("✓ Saldo recargado: $" + valor);
-            txtRecarga.clear();
-        } catch (NumberFormatException e) {
-            mostrarError("Ingresa solo números en el monto.");
-        }
     }
 
     private void mostrarError(String mensaje) {

@@ -5,95 +5,75 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.beans.property.SimpleStringProperty;
+import org.example.parquejfx.App;
+import org.example.parquejfx.controller.VisitanteController;
+import org.example.parquejfx.model.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class VisitanteAtraccionesViewController {
 
-    @FXML private TableView<String[]> tablaAtracciones;
-    @FXML private TableColumn<String[], String> colNombre;
-    @FXML private TableColumn<String[], String> colZona;
-    @FXML private TableColumn<String[], String> colTipo;
-    @FXML private TableColumn<String[], String> colEstado;
-    @FXML private TableColumn<String[], String> colEspera;
-    @FXML private TableColumn<String[], String> colEstatura;
+    @FXML private TableView<Atraccion> tablaAtracciones;
+    @FXML private TableColumn<Atraccion, String> colNombre;
+    @FXML private TableColumn<Atraccion, String> colZona;
+    @FXML private TableColumn<Atraccion, String> colTipo;
+    @FXML private TableColumn<Atraccion, String> colEstado;
+    @FXML private TableColumn<Atraccion, String> colEspera;
+    @FXML private TableColumn<Atraccion, String> colEstatura;
 
     @FXML private Button btnFiltroTodas;
-    @FXML private Button btnFiltroAventura;
-    @FXML private Button btnFiltroSplash;
-    @FXML private Button btnFiltroFantasia;
 
-    @FXML private Label lblMensajeAtraccion;
+    private App app;
+    private Visitante visitanteActual;
+    private VisitanteController visitanteController;
 
-    // Datos de ejemplo hasta conectar el model
-    private final String[][] atracciones = {
-            {"Montaña Rusa",         "Zona Aventura", "Mecánica",  "Activa",        "15 min", "1.40m"},
-            {"Torre de Caída Libre", "Zona Aventura", "Mecánica",  "Activa",        "20 min", "1.50m"},
-            {"Tren Minero",          "Zona Aventura", "Mecánica",  "Mantenimiento", "—",      "1.00m"},
-            {"Río Salvaje",          "Zona Splash",   "Acuática",  "Activa",        "10 min", "1.20m"},
-            {"Tobogán Gigante",      "Zona Splash",   "Acuática",  "Activa",        "8 min",  "1.10m"},
-            {"Splash Adventure",     "Zona Splash",   "Acuática",  "Cerrada",       "—",      "1.00m"},
-            {"Carrusel",             "Zona Fantasía", "Infantil",  "Activa",        "5 min",  "0.80m"},
-            {"Mini Autos Chocones",  "Zona Fantasía", "Infantil",  "Activa",        "7 min",  "0.90m"},
-            {"Tren Infantil",        "Zona Fantasía", "Infantil",  "Activa",        "6 min",  "0.70m"}
-    };
+    public void setVisitanteActual(Visitante visitanteActual) {
+        this.visitanteActual = visitanteActual;
+    }
+
+    public void setApp(App app) {
+        this.app = app;
+        this.visitanteController = new VisitanteController(app.parque);
+        cargarTodas();
+    }
 
     @FXML
     public void initialize() {
-        tablaAtracciones.setColumnResizePolicy(
-                TableView.CONSTRAINED_RESIZE_POLICY
-        );
+        tablaAtracciones.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         configurarColumnas();
-        cargarTodas();
     }
 
     private void configurarColumnas() {
         colNombre.setCellValueFactory(d ->
-                new SimpleStringProperty(d.getValue()[0]));
-
-        colZona.setCellValueFactory(d ->
-                new SimpleStringProperty(d.getValue()[1]));
-
-        colTipo.setCellValueFactory(d ->
-                new SimpleStringProperty(d.getValue()[2]));
-
-        colEstado.setCellValueFactory(d ->
-                new SimpleStringProperty(d.getValue()[3]));
-
+                new SimpleStringProperty(d.getValue().getNombre()));
+        colZona.setCellValueFactory(d -> {
+            Zona zona = d.getValue().getZona();
+            return new SimpleStringProperty(zona != null ? zona.getNombre() : "Sin zona");
+        });
+        colTipo.setCellValueFactory(d -> {
+            TipoAtraccion tipo = d.getValue().getTipo();
+            return new SimpleStringProperty(tipo != null ? tipo.toString() : "Sin tipo");
+        });
+        colEstado.setCellValueFactory(d -> {
+            EstadoAtraccion estado = d.getValue().getEstado();
+            return new SimpleStringProperty(estado != null ? estado.toString() : "Sin estado");
+        });
         colEspera.setCellValueFactory(d ->
-                new SimpleStringProperty(d.getValue()[4]));
-
+                new SimpleStringProperty(d.getValue().getTiempoEspera() + " min"));
         colEstatura.setCellValueFactory(d ->
-                new SimpleStringProperty(d.getValue()[5]));
+                new SimpleStringProperty(d.getValue().getEstaturaMinima() + "m"));
     }
 
     private void cargarTodas() {
-        ObservableList<String[]> lista = FXCollections.observableArrayList(atracciones);
-        tablaAtracciones.setItems(lista);
+        tablaAtracciones.setItems(
+                FXCollections.observableArrayList(app.parque.getListAtracciones())
+        );
     }
 
-    @FXML private void filtrarTodas() {
+
+    @FXML
+    void filtrarTodas() {
         cargarTodas();
-        lblMensajeAtraccion.setText("");
-    }
-
-    @FXML private void filtrarAventura() {
-        filtrarPorZona("Zona Aventura");
-    }
-
-    @FXML private void filtrarSplash() {
-        filtrarPorZona("Zona Splash");
-    }
-
-    @FXML private void filtrarFantasia() {
-        filtrarPorZona("Zona Fantasía");
-    }
-
-    private void filtrarPorZona(String zona) {
-        ObservableList<String[]> filtrada = FXCollections.observableArrayList();
-        for (String[] a : atracciones) {
-            if (a[1].equals(zona))
-                filtrada.add(a);
-        }
-        tablaAtracciones.setItems(filtrada);
-        lblMensajeAtraccion.setText("");
     }
 }

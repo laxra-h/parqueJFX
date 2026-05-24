@@ -13,9 +13,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="560.0" prefWidth="740.0" stylesheets="@estilos.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.parquejfx.viewController.VisitantePerfilViewController">
+<AnchorPane prefHeight="499.0" prefWidth="740.0" stylesheets="@estilos.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.parquejfx.viewController.VisitantePerfilViewController">
    <children>
-      <ScrollPane fitToWidth="true" hbarPolicy="NEVER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <ScrollPane fitToWidth="true" hbarPolicy="NEVER" prefHeight="560.0" prefWidth="740.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <content>
             <VBox prefHeight="200.0" prefWidth="100.0" spacing="20.0" styleClass="area-central">
                <padding>
@@ -77,22 +77,6 @@
                         </VBox>
                      </children>
                   </HBox>
-                  <VBox prefHeight="200.0" prefWidth="100.0" spacing="12.0" styleClass="card-oscura">
-                     <children>
-                        <Label styleClass="card-titulo" text="Saldo virtual" />
-                        <Separator prefWidth="200.0" />
-                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="15.0">
-                           <children>
-                              <Label styleClass="campo-label" text="Saldo disponible:" />
-                              <Label fx:id="lblSaldoRecargar" styleClass="card-valor" text="\$0" />
-                              <Separator orientation="VERTICAL" prefHeight="200.0" />
-                              <Label styleClass="campo-label" text="Monto:" />
-                              <TextField fx:id="txtRecarga" prefWidth="120.0" promptText="Ej: 100000" styleClass="text-field" />
-                              <Button fx:id="btnRecargar" mnemonicParsing="false" onAction="#recargarSaldo" styleClass="btn-primario" text="Recargar" />
-                           </children>
-                        </HBox>
-                     </children>
-                  </VBox>
                </children>
             </VBox>
          </content>

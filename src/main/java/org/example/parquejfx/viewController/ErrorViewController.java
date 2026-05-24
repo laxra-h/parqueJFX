@@ -7,6 +7,8 @@ import javafx.scene.control.Label;
 import org.example.parquejfx.App;
 import org.example.parquejfx.util.SceneManager;
 
+import java.util.function.Consumer;
+
 public class ErrorViewController {
 
     @FXML private Button btnOk;
@@ -16,6 +18,21 @@ public class ErrorViewController {
     private String rutaAnterior;
     private App app;
 
+    private Consumer<IAppControlable> onOkCallback;
+
+    public void setOnOkCallback(Consumer<IAppControlable> callback) {
+        this.onOkCallback = callback;
+    }
+
+    @FXML
+    void clickearOk() throws Exception {
+        FXMLLoader loader = SceneManager.cambiarEscena(btnOk, rutaAnterior);
+        IAppControlable ctrl = loader.getController();
+        ctrl.setApp(this.app);
+        if (onOkCallback != null) {
+            onOkCallback.accept(ctrl); // ← le pasa el controlador al callback
+        }
+    }
     public void setApp(App app) {
         this.app = app;
     }
@@ -28,11 +45,4 @@ public class ErrorViewController {
         this.rutaAnterior = ruta;
     }
 
-    @FXML
-    void clickearOk() throws Exception {
-        FXMLLoader loader = SceneManager.cambiarEscena(btnOk, rutaAnterior);
-        IAppControlable ctrl = loader.getController();
-        System.out.println("controlador obtenido: " + ctrl);
-        ctrl.setApp(this.app);
-    }
 }

@@ -8,15 +8,18 @@ public abstract class Ticket {
     protected double precio;
     protected Visitante theVisitante;
 
-    public Ticket(String codigo, LocalDate fechaCompra, double precio) {
+    public Ticket(String codigo, LocalDate fechaCompra, double PRECIO) {
         this.codigo = codigo;
         this.fechaCompra = fechaCompra;
-        this.precio = precio;
+        this.precio = PRECIO;
     }
 
     public abstract boolean verificarPrioridad();
 
-
+    @Override
+    public String toString(){
+        return "";
+    }
 
 
 
@@ -40,8 +43,8 @@ public abstract class Ticket {
         return precio;
     }
 
-    public void setPrecio(double precio) {
-        this.precio = precio;
+    public void setPrecio(double PRECIO) {
+        this.precio = PRECIO;
     }
 
     public Visitante getTheVisitante() {

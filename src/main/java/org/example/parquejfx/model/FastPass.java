@@ -4,8 +4,10 @@ import java.time.LocalDate;
 
 public class FastPass extends Ticket{
 
-    public FastPass(String codigo, LocalDate fechaCompra, double precio) {
-        super(codigo, fechaCompra, precio);
+    public static final double PRECIO = 80000;
+
+    public FastPass(String codigo, LocalDate fechaCompra) {
+        super(codigo, fechaCompra, PRECIO);
     }
 
     @Override
@@ -13,7 +15,10 @@ public class FastPass extends Ticket{
         return true;
     }
 
-
+    @Override
+    public String toString() {
+        return "Fast pass";
+    }
 
 
 

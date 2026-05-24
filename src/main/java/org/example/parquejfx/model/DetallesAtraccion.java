@@ -6,6 +6,7 @@ public class DetallesAtraccion {
 
     public boolean verificarAcceso(){
         if (theAtraccion.getEstaturaMinima() <= thevisitante.getEstatura() && theAtraccion.getEdadMinima() <= thevisitante.getEdad() ) {
+
         theAtraccion.cerrarAtraccionMantenimiento();
             return true;
         }

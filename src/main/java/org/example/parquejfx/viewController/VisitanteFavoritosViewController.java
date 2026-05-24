@@ -2,122 +2,107 @@ package org.example.parquejfx.viewController;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import org.example.parquejfx.App;
+import org.example.parquejfx.controller.VisitanteController;
+import org.example.parquejfx.model.Atraccion;
+import org.example.parquejfx.model.Visitante;
+import org.example.parquejfx.model.Zona;
 
 public class VisitanteFavoritosViewController {
 
-    @FXML private ComboBox<String> cmbAtracciones;
+    @FXML private ComboBox<Atraccion> cmbAtracciones;
     @FXML private Button btnAgregar;
-    @FXML private Label lblMensajeFavorito;
-
-    @FXML private TableView<String[]> tablaFavoritos;
-    @FXML private TableColumn<String[], String> colFavNombre;
-    @FXML private TableColumn<String[], String> colFavZona;
-    @FXML private TableColumn<String[], String> colFavEstado;
-    @FXML private TableColumn<String[], String> colFavEspera;
-
+    @FXML private TableView<Atraccion> tablaFavoritos;
+    @FXML private TableColumn<Atraccion, String> colFavNombre;
+    @FXML private TableColumn<Atraccion, String> colFavZona;
+    @FXML private TableColumn<Atraccion, String> colFavEstado;
+    @FXML private TableColumn<Atraccion, String> colFavEspera;
     @FXML private Button btnEliminarFavorito;
 
-    // Todas las atracciones disponibles para elegir
-    private final String[][] todasAtracciones = {
-            {"Montaña Rusa",         "Zona Aventura", "Activa",        "15 min"},
-            {"Torre de Caída Libre", "Zona Aventura", "Activa",        "20 min"},
-            {"Tren Minero",          "Zona Aventura", "Mantenimiento", "—"     },
-            {"Río Salvaje",          "Zona Splash",   "Activa",        "10 min"},
-            {"Tobogán Gigante",      "Zona Splash",   "Activa",        "8 min" },
-            {"Splash Adventure",     "Zona Splash",   "Cerrada",       "—"     },
-            {"Carrusel",             "Zona Fantasía", "Activa",        "5 min" },
-            {"Mini Autos Chocones",  "Zona Fantasía", "Activa",        "7 min" },
-            {"Tren Infantil",        "Zona Fantasía", "Activa",        "6 min" }
-    };
+    private App app;
+    private Visitante visitanteActual;
+    private VisitanteController visitanteController;
 
-    // Lista que guarda los favoritos del visitante
-    private final ObservableList<String[]> favoritos =
-            FXCollections.observableArrayList();
+    public void setVisitanteActual(Visitante visitanteActual) {
+        this.visitanteActual = visitanteActual;
+    }
+
+    public void setApp(App app) {
+        this.app = app;
+        this.visitanteController = new VisitanteController(app.parque);
+        cargarComboBox();
+        cargarFavoritos();
+    }
 
     @FXML
     public void initialize() {
-        tablaFavoritos.setColumnResizePolicy(
-                TableView.CONSTRAINED_RESIZE_POLICY
-        );
+        tablaFavoritos.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         configurarColumnas();
-        cargarComboBox();
-        tablaFavoritos.setItems(favoritos);
+        configurarComboBox();
     }
 
     private void configurarColumnas() {
         colFavNombre.setCellValueFactory(d ->
-                new SimpleStringProperty(d.getValue()[0]));
-
-        colFavZona.setCellValueFactory(d ->
-                new SimpleStringProperty(d.getValue()[1]));
-
+                new SimpleStringProperty(d.getValue().getNombre()));
+        colFavZona.setCellValueFactory(d -> {
+            Zona zona = d.getValue().getZona();
+            return new SimpleStringProperty(zona != null ? zona.getNombre() : "Sin zona");
+        });
         colFavEstado.setCellValueFactory(d ->
-                new SimpleStringProperty(d.getValue()[2]));
-
+                new SimpleStringProperty(d.getValue().getEstado().toString()));
         colFavEspera.setCellValueFactory(d ->
-                new SimpleStringProperty(d.getValue()[3]));
+                new SimpleStringProperty(d.getValue().getTiempoEspera() + " min"));
+    }
+
+    private void configurarComboBox() {
+        cmbAtracciones.setCellFactory(lv -> new ListCell<>() {
+            @Override
+            protected void updateItem(Atraccion a, boolean empty) {
+                super.updateItem(a, empty);
+                setText(empty || a == null ? null : a.getNombre());
+            }
+        });
+        cmbAtracciones.setButtonCell(new ListCell<>() {
+            @Override
+            protected void updateItem(Atraccion a, boolean empty) {
+                super.updateItem(a, empty);
+                setText(empty || a == null ? "Selecciona una atracción" : a.getNombre());
+            }
+        });
     }
 
     private void cargarComboBox() {
-        ObservableList<String> nombres = FXCollections.observableArrayList();
-        for (String[] a : todasAtracciones) {
-            nombres.add(a[0]);
-        }
-        cmbAtracciones.setItems(nombres);
+        cmbAtracciones.setItems(
+                FXCollections.observableArrayList(app.parque.getListAtracciones())
+        );
+    }
+
+    private void cargarFavoritos() {
+        tablaFavoritos.setItems(
+                FXCollections.observableArrayList(visitanteController.getFavoritos(visitanteActual))
+        );
     }
 
     @FXML
     private void agregarFavorito() {
-        String seleccionada = cmbAtracciones.getValue();
+        Atraccion seleccionada = cmbAtracciones.getValue();
+        if (seleccionada == null) return;
 
-        if (seleccionada == null) {
-            mostrarError("Selecciona una atracción primero.");
-            return;
-        }
-
-        // Verificar si ya está en favoritos para no repetir
-        for (String[] f : favoritos) {
-            if (f[0].equals(seleccionada)) {
-                mostrarError("Esa atracción ya está en tus favoritos.");
-                return;
-            }
-        }
-
-        // Buscar los datos completos y agregarla
-        for (String[] a : todasAtracciones) {
-            if (a[0].equals(seleccionada)) {
-                favoritos.add(a);
-                mostrarExito("✓ " + seleccionada + " agregada a favoritos.");
-                cmbAtracciones.setValue(null);
-                return;
-            }
+        boolean agregada = visitanteController.agregarFavorito(visitanteActual, seleccionada);
+        if (agregada) {
+            tablaFavoritos.getItems().add(seleccionada);
+            cmbAtracciones.setValue(null);
         }
     }
 
     @FXML
     private void eliminarFavorito() {
-        String[] seleccionada = tablaFavoritos
-                .getSelectionModel().getSelectedItem();
+        Atraccion seleccionada = tablaFavoritos.getSelectionModel().getSelectedItem();
+        if (seleccionada == null) return;
 
-        if (seleccionada == null) {
-            mostrarError("Selecciona una atracción de la lista primero.");
-            return;
-        }
-
-        favoritos.remove(seleccionada);
-        mostrarExito("✓ " + seleccionada[0] + " eliminada de favoritos.");
-    }
-
-    private void mostrarError(String mensaje) {
-        lblMensajeFavorito.setStyle("-fx-text-fill: #C0392B;");
-        lblMensajeFavorito.setText(mensaje);
-    }
-
-    private void mostrarExito(String mensaje) {
-        lblMensajeFavorito.setStyle("-fx-text-fill: #1E8449;");
-        lblMensajeFavorito.setText(mensaje);
+        visitanteController.eliminarFavorito(visitanteActual, seleccionada);
+        tablaFavoritos.getItems().remove(seleccionada);
     }
 }

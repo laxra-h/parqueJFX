@@ -308,18 +308,35 @@ public Visitante buscarVisitanteByCedula(String cedula) {
 
 
     public int buscarVisitante(String cedula){
-        for (Empleado e : listEmpleados){
+        for (Visitante e : listVisitantes){
             if (e.getCedula().equals(cedula)){
-                return listEmpleados.indexOf(e);
+                return listVisitantes.indexOf(e);
             }
         }
         return -1;
     }
 
+
     public Visitante getVisitanteActual(String documento) {
         int pos = buscarVisitante(documento);
         if (pos == -1) return null;
         return listVisitantes.get(pos);
+    }
+
+    public boolean agregarFavorito(Visitante visitante, Atraccion atraccion) {
+        if (visitante.getListFavoritas().contains(atraccion)) {
+            return false; // ya existe
+        }
+        visitante.getListFavoritas().add(atraccion);
+        return true;
+    }
+
+    public boolean eliminarFavorito(Visitante visitante, Atraccion atraccion) {
+        return visitante.getListFavoritas().remove(atraccion);
+    }
+
+    public ArrayList<Atraccion> getFavoritos(Visitante visitante) {
+        return visitante.getListFavoritas();
     }
 
 

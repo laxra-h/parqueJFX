@@ -1,41 +1,54 @@
 package org.example.parquejfx.viewController;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import java.time.LocalDate;
+import org.example.parquejfx.App;
+import org.example.parquejfx.controller.VisitanteController;
+import org.example.parquejfx.model.Visitante;
 
 public class VisitanteNotificacionesViewController {
 
     @FXML private ListView<String> listaNotificaciones;
     @FXML private Label lblContadorNotif;
-    @FXML private Button btnLimpiar;
 
-    // Notificaciones de prueba hasta conectar el model (quemados)
-    private final ObservableList<String> notificaciones =
-            FXCollections.observableArrayList(
-                    "[" + LocalDate.now() + "] Splash Adventure cerrada por condiciones climáticas.",
-                    "[" + LocalDate.now() + "] Tren Minero en mantenimiento preventivo.",
-                    "[" + LocalDate.now() + "] ¡Show de acrobacias a las 4:00 PM en Zona Aventura!",
-                    "[" + LocalDate.now() + "] Montaña Rusa operando con normalidad.",
-                    "[" + LocalDate.now() + "] Alerta climática activa — atracciones acuáticas cerradas."
-            );
+
+    private App app;
+    private Visitante visitanteActual;
+    private VisitanteController visitanteController;
+
+
+    public void setVisitanteActual(Visitante visitanteActual) {
+        this.visitanteActual = visitanteActual;
+    }
+
+    public void setApp(App app) {
+        this.app = app;
+        this.visitanteController = new VisitanteController(app.parque);
+        cargarNotificaciones();
+    }
 
     @FXML
-    public void initialize() {
-        listaNotificaciones.setItems(notificaciones);
+    public void initialize() { }
+
+    private void cargarNotificaciones() {
+        listaNotificaciones.setItems(
+                FXCollections.observableArrayList(
+                        visitanteController.getNotificaciones(app.parque)
+                )
+        );
         actualizarContador();
     }
 
     @FXML
     private void limpiarNotificaciones() {
-        notificaciones.clear();
+        // Solo limpia la vista del visitante, NO el modelo
+        listaNotificaciones.getItems().clear();
         actualizarContador();
     }
 
     private void actualizarContador() {
-        int total = notificaciones.size();
+        int total = listaNotificaciones.getItems().size();
         lblContadorNotif.setText(total + (total == 1
                 ? " notificación"
                 : " notificaciones"));

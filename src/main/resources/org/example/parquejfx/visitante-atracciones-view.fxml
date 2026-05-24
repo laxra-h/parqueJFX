@@ -20,9 +20,6 @@
                <children>
                   <Label styleClass="campo-label" text="Filtrar por zona:" />
                   <Button fx:id="btnFiltroTodas" mnemonicParsing="false" onAction="#filtrarTodas" styleClass="btn-primario" text="Todas" />
-                  <Button fx:id="btnFiltroAventura" mnemonicParsing="false" onAction="#filtrarAventura" styleClass="btn-secundario" text="🎢 Zona Aventura" />
-                  <Button fx:id="btnFiltroSplash" mnemonicParsing="false" onAction="#filtrarSplash" styleClass="btn-secundario" text="🌊 Zona Splash" />
-                  <Button fx:id="btnFiltroFantasia" mnemonicParsing="false" onAction="#filtrarFantasia" styleClass="btn-secundario" text="🎠 Zona Fantasía" />
                </children>
             </HBox>
             <TableView fx:id="tablaAtracciones" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
