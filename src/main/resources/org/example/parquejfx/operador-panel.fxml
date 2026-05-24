@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="620.0" prefWidth="950.0" stylesheets="@estilos.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.parquejfx.viewController.OperadorPanelViewController">
+   <left>
+      <VBox maxWidth="210.0" minWidth="210.0" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox prefHeight="146.0" prefWidth="210.0" spacing="5.0" styleClass="sidebar-header">
+               <children>
+                  <Label fx:id="lblNombreParque" styleClass="sidebar-titulo" text="TECH-PARK UQ" />
+                  <Label fx:id="lblNombreAtraccion" prefHeight="14.0" prefWidth="73.0" text="ATRACCIÓN" textFill="#bcbcbc" />
+                  <Label fx:id="lblEstaturaMin" prefHeight="14.0" prefWidth="73.0" text="Estatura min: " textFill="#ff7b00" />
+                  <Label fx:id="lblTiempoEspera" prefHeight="17.0" prefWidth="103.0" text="Tiempo de espera: " textFill="#ff7b00" />
+                  <Label fx:id="lblOperador" text="Operador: " textFill="#d0b8b8">
+                     <font>
+                        <Font name="Arial" size="15.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+            <Button fx:id="btnRegistro" mnemonicParsing="false" onAction="#irRegistroVisitantes" prefHeight="47.0" prefWidth="210.0" styleClass="menu-btn" text="⊕ Registro de visitantes" />
+            <Button fx:id="btnControlAtracciones" mnemonicParsing="false" onAction="#irControlAtracciones" prefHeight="47.0" prefWidth="210.0" styleClass="menu-btn" text="🎡Control de atracciones" />
+            <Button fx:id="btnNotificaciones" mnemonicParsing="false" onAction="#irControlAtracciones" prefHeight="47.0" prefWidth="210.0" styleClass="menu-btn" text="🔔  Notificaciones" />
+            <Button fx:id="btnGenerarReporte" mnemonicParsing="false" onAction="#irNotificaciones" prefHeight="47.0" prefWidth="210.0" styleClass="menu-btn" text="▤ Generar reporte" />
+            <Button fx:id="btnSolicitarRevision" mnemonicParsing="false" onAction="#irSolicitarRevision" prefHeight="47.0" prefWidth="210.0" styleClass="menu-btn" text="⚙ Solicitar revisión técnica" />
+            <Pane prefHeight="200.0" prefWidth="200.0" styleClass="sidebar-header" VBox.vgrow="ALWAYS">
+               <children>
+                  <Label fx:id="lblVisitantesAcumulados" layoutX="14.0" layoutY="149.0" text="Visitantes : " textFill="#ea1616">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Button fx:id="btnSalir" mnemonicParsing="false" onAction="#salir" prefHeight="47.0" prefWidth="210.0" styleClass="btn-salir" text="🚪  Salir" />
+         </children>
+      </VBox>
+   </left>
+   <center>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox maxWidth="740.0" prefHeight="100.0" spacing="3.0" styleClass="header-central">
+               <children>
+                  <Label fx:id="lblResgistroVisitante" styleClass="titulo-seccion" text="Registro de visitantes" />
+                  <Label fx:id="lblSistemaGestion" styleClass="subtitulo-seccion" text="Sistema de gestión y verificación de visitantes" />
+               </children>
+            </VBox>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+         </children>
+      </VBox>
+   </center>
+</BorderPane>

@@ -29,6 +29,7 @@ public class VisitanteCrearViewController {
                 );
                 Stage stage = (Stage) btnContinuar.getScene().getWindow();
                 stage.setScene(new Scene(loader.load()));
+
             // aquí daniel validará y creará el visitante
             // navega en el menu
         }
