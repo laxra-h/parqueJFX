@@ -200,6 +200,7 @@ public class Administrador extends Empleado {
     }
 
     //ASIGNAR OPERADOR
+
     public boolean asignarOperador(String cedulaOperador, String nombreZona) {
         int posicionOperador = buscarOperador(cedulaOperador);
         int posicionZona = buscarZona(nombreZona);

@@ -12,4 +12,5 @@ public class General extends Ticket{
     public boolean verificarPrioridad() {
         return false;
     }
+
 }
