@@ -2,6 +2,10 @@ package org.example.parquejfx.model;
 
 import java.util.ArrayList;
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> dev_Daniel
 public class Administrador extends Empleado {
 
 
@@ -10,7 +14,10 @@ public class Administrador extends Empleado {
 
     public Administrador(String nombre, String cedula, String contrasenia) {
         super(nombre, cedula, contrasenia);
+<<<<<<< HEAD
         parque = null;
+=======
+>>>>>>> dev_Daniel
     }
 
 
@@ -52,6 +59,10 @@ public class Administrador extends Empleado {
         return false;
     }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> dev_Daniel
     public int buscarOperador(String cedulaBuscar) {
         for (int i = 0; i < parque.getListEmpleados().size(); i++) {
             if (parque.getListEmpleados().get(i).getCedula().equals(cedulaBuscar)) {
@@ -73,6 +84,10 @@ public class Administrador extends Empleado {
 
     /*CRUD ATRACCION*/
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> dev_Daniel
     public boolean createAtraccion(String codigo, String nombre, int capacidadMaxima, double estaturaMinima, int edadMinima, double costoAdicional, int descuento, int contadorVisitantes, int tiempoEspera, EstadoAtraccion estado, TipoAtraccion tipo, MotivoCierre motivoCierre) {
         if (buscarAtraccion(codigo) != -1) {
             return false;
@@ -118,6 +133,10 @@ public class Administrador extends Empleado {
         return -1;
     }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> dev_Daniel
     public boolean deleteAtraccion(String codigo) {
         int posicion = buscarAtraccion(codigo);
         if (posicion != -1) {
@@ -160,6 +179,10 @@ public class Administrador extends Empleado {
         return false;
     }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> dev_Daniel
     public int buscarZona(String nombreBuscar) {
         for (int i = 0; i < parque.getListZonas().size(); i++) {
             if (parque.getListZonas().get(i).getNombre().equals(nombreBuscar)) {
@@ -170,6 +193,10 @@ public class Administrador extends Empleado {
         return -1;
     }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> dev_Daniel
     public boolean deleteZona(String nombre) {
         int posicion = buscarZona(nombre);
         if (posicion != -1) {
@@ -200,11 +227,17 @@ public class Administrador extends Empleado {
     }
 
     //ASIGNAR OPERADOR
+<<<<<<< HEAD
 
     public boolean asignarOperador(String cedulaOperador, String nombreZona) {
         int posicionOperador = buscarOperador(cedulaOperador);
         int posicionZona = buscarZona(nombreZona);
 
+=======
+    public boolean asignarOperador(String cedulaOperador, String nombreZona) {
+        int posicionOperador = buscarOperador(cedulaOperador);
+        int posicionZona = buscarZona(nombreZona);
+>>>>>>> dev_Daniel
         if (posicionZona != -1 && posicionOperador != -1) {
             Empleado emp = parque.getListEmpleados().get(posicionOperador);
             if (emp instanceof Operador) {
@@ -231,6 +264,10 @@ public class Administrador extends Empleado {
     }
 
     //CONSULTAR REPORTES
+<<<<<<< HEAD
+=======
+
+>>>>>>> dev_Daniel
     //public String consultarReportes() {
 
 
@@ -241,6 +278,7 @@ public class Administrador extends Empleado {
 
 
 
+<<<<<<< HEAD
 
 
 
@@ -248,6 +286,9 @@ public class Administrador extends Empleado {
     //GETTERS && SETTERS
 
 
+=======
+    //GETTERS && SETTERS
+>>>>>>> dev_Daniel
     public Parque getParque() {
         return parque;
     }
@@ -255,4 +296,8 @@ public class Administrador extends Empleado {
     public void setParque(Parque parque) {
         this.parque = parque;
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> dev_Daniel
 }

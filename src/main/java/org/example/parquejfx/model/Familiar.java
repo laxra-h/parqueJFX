@@ -5,6 +5,15 @@ import java.time.LocalDate;
 public class Familiar extends Ticket{
 
     private int descuento;
+<<<<<<< HEAD
+=======
+    public static final double PRECIO = 50000;
+
+    public Familiar(String codigo, LocalDate fechaCompra, int descuento) {
+        super(codigo, fechaCompra, PRECIO);
+        this.descuento = descuento;
+    }
+>>>>>>> dev_Daniel
 
     public Familiar(String codigo, LocalDate fechaCompra, double precio, int descuento) {
         super(codigo, fechaCompra, precio);
@@ -12,6 +21,13 @@ public class Familiar extends Ticket{
     }
 
     @Override
+<<<<<<< HEAD
+=======
+    public String toString() {
+        return "Familiar";
+    }
+    @Override
+>>>>>>> dev_Daniel
     public boolean verificarPrioridad() {
         return false;
     }

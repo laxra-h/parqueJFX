@@ -9,6 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+
 <AnchorPane prefHeight="380" prefWidth="500" styleClass="fondo-login" stylesheets="@estilos.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.parquejfx.viewController.VisitanteBienvenidaViewController">
    <children>
       <VBox alignment="CENTER" layoutX="212.0" layoutY="57.0" prefHeight="200.0" prefWidth="100.0" spacing="30.0" styleClass="card-login" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">

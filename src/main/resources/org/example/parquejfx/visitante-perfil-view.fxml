@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="499.0" prefWidth="740.0" stylesheets="@estilos.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.parquejfx.viewController.VisitantePerfilViewController">
+   <children>
+      <ScrollPane fitToWidth="true" hbarPolicy="NEVER" prefHeight="560.0" prefWidth="740.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <content>
+            <VBox prefHeight="200.0" prefWidth="100.0" spacing="20.0" styleClass="area-central">
+               <padding>
+                  <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+               </padding>
+               <children>
+                  <HBox prefHeight="100.0" prefWidth="200.0" spacing="25.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0" spacing="12.0">
+                           <children>
+                              <ImageView fx:id="imgPerfil" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+
+                        </ImageView>
+                              <Label fx:id="lblNombrePerfil" styleClass="card-titulo" text="Nombre Visitante" />
+                              <Label fx:id="lblDocumentoPerfil" styleClass="card-titulo" text="CC: 000000" />
+                              <Label fx:id="lblEdadPerfil" styleClass="card-titulo" text="Edad: 67" />
+                              <Label fx:id="lblEstaturaPerfil" styleClass="card-titulo" text="Estatura: 000" />
+                              <Label fx:id="lblTicketPerfil" styleClass="card-titulo" text="Ticket: -" />
+                              <Label fx:id="lblSaldoPerfil" styleClass="card-titulo" text="Saldo: $0" />
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="200.0" prefWidth="100.0" spacing="14.0" styleClass="card-oscura" HBox.hgrow="ALWAYS">
+                           <children>
+                              <Label styleClass="card-titulo" text="Actualizar mis datos" />
+                              <Separator prefWidth="200.0" />
+                              <VBox prefHeight="200.0" prefWidth="100.0" spacing="4.0">
+                                 <children>
+                                    <Label styleClass="campo-label-login" text="Nombre completo" />
+                                    <TextField fx:id="txtNombrePerfil" prefWidth="380.0" styleClass="text-field" />
+                                 </children>
+                              </VBox>
+                              <VBox prefHeight="200.0" prefWidth="100.0" spacing="4.0">
+                                 <children>
+                                    <Label styleClass="campo-label-login" text="Edad" />
+                                    <TextField fx:id="txtEdadPerfil" prefWidth="380.0" styleClass="text-field" />
+                                 </children>
+                              </VBox>
+                              <VBox prefHeight="200.0" prefWidth="100.0" spacing="4.0">
+                                 <children>
+                                    <Label styleClass="campo-label-login" text="Estatura (cm)" />
+                                    <TextField fx:id="txtEstaturaPerfil" prefWidth="380.0" styleClass="text-field" />
+                                 </children>
+                              </VBox>
+                              <VBox prefHeight="200.0" prefWidth="100.0" spacing="4.0">
+                                 <children>
+                                    <Label styleClass="campo-label-login" text="Nueva contraseña" />
+                                    <PasswordField fx:id="txtContrasenaPerfil" prefWidth="380.0" styleClass="text-field" />
+                                 </children>
+                              </VBox>
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <Button fx:id="btnGuardarPerfil" mnemonicParsing="false" onAction="#guardarCambios" styleClass="btn-primario" text="Guardar cambios" />
+                                    <Pane prefHeight="38.0" prefWidth="110.0" />
+                                    <Button fx:id="btnCancelar" mnemonicParsing="false" onAction="#cancelar" styleClass="btn-primario" text="Cancelar" />
+                                    <Label fx:id="lblMensajePerfil" styleClass="mensaje-error" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>

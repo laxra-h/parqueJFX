@@ -46,7 +46,7 @@
                         <Font size="13.0" />
                      </font>
                   </Label>
-                  <PasswordField fx:id="txtContrasena" prefWidth="380.0" promptText="Tu contraseña" />
+                  <PasswordField fx:id="txtContrasenia" prefWidth="380.0" promptText="Tu contraseña" />
                </children>
             </VBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
