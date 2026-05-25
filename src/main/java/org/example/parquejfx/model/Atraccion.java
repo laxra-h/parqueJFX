@@ -42,6 +42,7 @@ private ArrayList<DetallesAtraccion> listDetalles;
 
 
 
+
     @Override
  public void cerrarAtraccionMantenimiento(){
       for (DetallesAtraccion d : listDetalles) {

@@ -5,13 +5,26 @@ import java.util.ArrayList;
 public class Zona {
     private String nombre;
     private int capacidadMaxima;
+    private ArrayList<Atraccion> listAtracciones;
     private ArrayList<Operador> listOperadores;
 
     public Zona(String nombre, int capacidadMaxima) {
         this.nombre = nombre;
         this.capacidadMaxima = capacidadMaxima;
+        listAtracciones = new ArrayList<>();
         listOperadores = new ArrayList<>();
     }
+
+
+public boolean agregarAtraccion(Atraccion atraccion){
+
+if(atraccion ==null){
+        return false;
+}
+
+listAtracciones.add(atraccion);
+return true;
+}
 
     public String getNombre() {
         return nombre;

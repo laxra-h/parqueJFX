@@ -13,6 +13,11 @@ public class RegistroNotificacion {
     }
 
 
+    public void marcarLeido(){
+
+        this.leido = true;
+    }
+
     public Notificacion getNotificacion() {
         return notificacion;
     }

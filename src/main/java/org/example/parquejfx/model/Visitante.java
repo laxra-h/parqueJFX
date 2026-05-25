@@ -24,24 +24,36 @@ public Visitante(String nombre, String cedula, String contrasenia, int edad, dou
      this.contrasenia = contrasenia;
     this.edad = edad;
     this.estatura = estatura;
-    this.saldoVirtual = 0;
+    this.saldoVirtual = saldoVirtual;
     listFavoritas = new ArrayList<>();
     listDetalles = new ArrayList<>();
     listRegistroNotificaciones = new ArrayList<>();
 }
 
-public void agregarAtraccionFavorita(String nombre){
+
+public boolean agregarDetalle(DetallesAtraccion detalle){
+
+    if(detalle != null){
+        listDetalles.add(detalle);
+        return true;
+    }
+    return false;
+}
+
+public boolean agregarAtraccionFavorita(String nombre){
     Atraccion atraccion = buscarAtraccion(nombre);
     if (atraccion != null) {
         listFavoritas.add(atraccion);
+        return true;
     }
+    return false;
 }
 
 public Atraccion buscarAtraccion(String nombre){
-    for (int i = 0; i < listDetalles.size(); i++){
-        Atraccion a =  listDetalles.get(i).getTheAtraccion();
-        if (a.getNombre().equals(nombre)){
-            return a;
+
+    for(DetallesAtraccion d : listDetalles){
+        if(d.getTheAtraccion().getNombre().equals(nombre)){
+            return d.getTheAtraccion();
         }
     }
     return null;
@@ -88,6 +100,25 @@ public boolean comprarGeneral() {
 
         listRegistroNotificaciones.add(registroNotificacion);
         return true;
+    }
+
+
+    //Metodo para leer el mensaje
+
+
+    public ArrayList<String> leerNotificaciones(){
+
+    ArrayList<String> mensajes = new ArrayList<>();
+
+
+    for(RegistroNotificacion registro: listRegistroNotificaciones){
+        if(!registro.isLeido()){
+            mensajes.add(registro.getNotificacion().generarNotificacion());
+            registro.marcarLeido();
+        }
+    }
+
+    return mensajes;
     }
 
 

@@ -9,6 +9,9 @@ public class Operador extends Empleado {
         this.zonaAsignada = zonaAsignada;
     }
 
+
+
+
     public Zona getZonaAsignada() {
         return zonaAsignada;
     }

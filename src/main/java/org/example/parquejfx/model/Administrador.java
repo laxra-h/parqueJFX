@@ -72,12 +72,14 @@ public class Administrador extends Empleado {
 
     /*CRUD ATRACCION*/
 
-    public boolean createAtraccion(String codigo, String nombre, int capacidadMaxima, double estaturaMinima, int edadMinima, double costoAdicional, int descuento, int tiempoEspera, EstadoAtraccion estado, TipoAtraccion tipo, MotivoCierre motivoCierre) {
+    public boolean createAtraccion(String codigo, String nombre, int capacidadMaxima, double estaturaMinima, int edadMinima, double costoAdicional, int descuento, int tiempoEspera, EstadoAtraccion estado, TipoAtraccion tipo, MotivoCierre motivoCierre, Zona zona) {
         if (buscarAtraccion(codigo) != -1) {
             return false;
         }
         Atraccion newAtraccion = new Atraccion(codigo, nombre, capacidadMaxima, estaturaMinima, edadMinima, costoAdicional, descuento, tiempoEspera, estado, tipo, motivoCierre);
         parque.getListAtracciones().add(newAtraccion);
+        zona.agregarAtraccion(newAtraccion);
+
         return true;
     }
 
@@ -181,15 +183,24 @@ public class Administrador extends Empleado {
 
     //ACTIVAR Y DESACTIVAR ALARMA
     public boolean activarAlarmaCLimatica() {
+
+
+
         for (Atraccion a : parque.getListAtracciones()) {
             if ((a.getTipo().equals(TipoAtraccion.ACUATICA) || a.getTipo().equals(TipoAtraccion.MECANICA_DE_ALTURA)) && a.getEstado() != EstadoAtraccion.EN_MANTENIMIENTO) {
                 a.setEstado(EstadoAtraccion.CERRADA);
-
-                Notificacion notificacion = new Notificacion("En este momento las atracciones mecanicas de altura y acuaticas estan cerradas por causa climática", MotivoCierre.CLIMA, null);
-
-
+                a.setMotivoCierre(MotivoCierre.CLIMA);
             }
         }
+        Notificacion notificacion = new Notificacion("En este momento las atracciones mecanicas de altura y acuaticas estan cerradas por causa climática", MotivoCierre.CLIMA, null);
+
+        for(Visitante v: parque.getListVisitantes()){
+
+            if(v.getTheTicket() != null){
+                v.recibirNotificacion(notificacion);
+            }
+        }
+
         return true;
     }
 
