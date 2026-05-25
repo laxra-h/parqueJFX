@@ -24,7 +24,7 @@ private Operador theOperador;
 private ArrayList<DetallesAtraccion> listDetalles;
 
 
-    public Atraccion(String codigo, String nombre, int capacidadMaxima, double estaturaMinima, int edadMinima, double costoAdicional, int descuento, int contadorVisitantes, int tiempoEspera, EstadoAtraccion estado, TipoAtraccion tipo, MotivoCierre motivoCierre) {
+    public Atraccion(String codigo, String nombre, int capacidadMaxima, double estaturaMinima, int edadMinima, double costoAdicional, int descuento, int tiempoEspera, EstadoAtraccion estado, TipoAtraccion tipo, MotivoCierre motivoCierre) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.capacidadMaxima = capacidadMaxima;
@@ -32,7 +32,7 @@ private ArrayList<DetallesAtraccion> listDetalles;
         this.edadMinima = edadMinima;
         this.costoAdicional = costoAdicional;
         this.descuento = descuento;
-        this.contadorVisitantes = contadorVisitantes;
+        this.contadorVisitantes = 0;
         this.tiempoEspera = tiempoEspera;
         this.estado = estado;
         this.tipo = tipo;

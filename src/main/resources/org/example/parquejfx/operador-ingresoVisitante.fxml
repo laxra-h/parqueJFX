@@ -19,7 +19,7 @@
             <Font name="System Bold" size="5.0" />
          </font>
       </Label>
-      <Label text="Ingresa los datos para continuar " textFill="#a1a1a1">
+      <Label text="Ingreso de un visitante a una atracción " textFill="#a1a1a1">
          <font>
             <Font size="18.0" />
          </font>

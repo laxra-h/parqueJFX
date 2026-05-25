@@ -2,6 +2,7 @@ package org.example.parquejfx.model;
 
 public record Notificacion(String mensaje, MotivoCierre motivo, Atraccion theAtraccion) {
 
+
     //GENERAR NOTIFICACION
     public String generarNotificacion() {
         if (theAtraccion.getMotivoCierre() == MotivoCierre.MANTENIMIENTO) {
@@ -14,7 +15,7 @@ public record Notificacion(String mensaje, MotivoCierre motivo, Atraccion theAtr
     }
 
     //ENVIAR NOTFICACION
-    //????????????
+
 
 
 

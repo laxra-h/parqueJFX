@@ -21,7 +21,7 @@ public class App extends Application {
         parque.getListVisitantes().add(v);
 
         Zona z = new Zona("nombre", 1900);
-        Atraccion a = new Atraccion("01", "n", 12, 1.60, 10, 2500, 5, 0, 10, EstadoAtraccion.ACTIVA, TipoAtraccion.ACUATICA, MotivoCierre.CLIMA );
+        Atraccion a = new Atraccion("01", "n", 12, 1.60, 10, 2500, 5, 10, EstadoAtraccion.ACTIVA, TipoAtraccion.ACUATICA, MotivoCierre.CLIMA );
        a.setZona(z);
         parque.getListAtracciones().add(a);
         parque.getListZonas().add(z);

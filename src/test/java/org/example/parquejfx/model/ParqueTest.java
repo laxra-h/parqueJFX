@@ -31,7 +31,7 @@ class ParqueTest {
         parque.createAdmin("David", "1030", "1032");
         admin = parque.buscarAdminByCedula("1030");
         admin.setParque(parque);
-        parque.createVisitante("Daniel", "1031", 15, 1.67, 2500);
+        parque.createVisitante("Daniel", "1031", "1065",15, 1.67, 2500);
         admin.createZona("Zona1", 100);
         int posicion = admin.buscarZona("Zona1");
         zona1 = parque.getListZonas().get(posicion);
@@ -47,7 +47,7 @@ class ParqueTest {
 
         logger.info("Inicio de la prueba ");
 
-        boolean resultado = parque.createVisitante("Daniel", "1031", 17, 1.67, 2500);
+        boolean resultado = parque.createVisitante("Daniel", "1031", "1021", 17, 1.67, 2500);
 
         assertTrue(resultado);
     }

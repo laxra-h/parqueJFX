@@ -3,11 +3,7 @@ package org.example.parquejfx.model;
 public enum EstadoAtraccion {
     ACTIVA,
     EN_MANTENIMIENTO,
-<<<<<<< HEAD
-    CERRADA
-=======
     CERRADA;
->>>>>>> dev_Daniel
 
     @Override
     public String toString() {

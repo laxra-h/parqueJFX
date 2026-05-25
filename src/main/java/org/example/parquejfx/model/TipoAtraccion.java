@@ -4,10 +4,7 @@ public enum TipoAtraccion {
     ACUATICA,
     MECANICA,
     MECANICA_DE_ALTURA,
-<<<<<<< HEAD
-    INFANTIL
-}
-=======
+
     INFANTIL;
 
         @Override
@@ -21,4 +18,3 @@ public enum TipoAtraccion {
         }
     }
 
->>>>>>> dev_Daniel
