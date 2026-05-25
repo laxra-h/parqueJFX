@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="580.0" prefWidth="780.0" stylesheets="@estilos.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.parquejfx.viewController.AdminOperadoresViewController">
+   <children>
+      <HBox layoutX="94.0" layoutY="63.0" prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <VBox prefHeight="280.0" prefWidth="280.0" spacing="14.0" styleClass="card-oscura">
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+               <children>
+                  <Label styleClass="titulo-login" text="Asignar Operador" />
+                  <Separator prefWidth="200.0" styleClass="separador-login" />
+                  <VBox prefHeight="200.0" prefWidth="100.0" spacing="4.0">
+                     <children>
+                        <Label styleClass="campo-label-login" text="Operador" />
+                        <ComboBox fx:id="cmbOperador" prefWidth="240.0" promptText="Selecciona operador" />
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="200.0" prefWidth="100.0" spacing="4.0">
+                     <children>
+                        <Label styleClass="campo-label-login" text="Zona" />
+                        <ComboBox fx:id="cmbZonaOperador" prefWidth="240.0" promptText="Selecciona zona" />
+                     </children>
+                  </VBox>
+                  <Label fx:id="lblMensajeOp" styleClass="mensaje-error" />
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Button fx:id="btnAsignar" mnemonicParsing="false" onAction="#asignarOperador" prefHeight="38.0" prefWidth="240.0" styleClass="btn-login" text="✓ Asignar" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Button fx:id="btnDesasignar" mnemonicParsing="false" onAction="#desasignarOperador" prefHeight="38.0" prefWidth="240.0" styleClass="btn-login" text="🗑 Quitar asignación" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" styleClass="area-central" HBox.hgrow="ALWAYS">
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+               <children>
+                  <Label text="Asignaciones actuales">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Label>
+                  <TableView fx:id="tablaAsignaciones" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                    <columns>
+                      <TableColumn fx:id="colOperador" prefWidth="200.0" text="Operador" />
+                      <TableColumn fx:id="colZonaOp" prefWidth="200.0" text="Zona asignada" />
+                    </columns>
+                  </TableView>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

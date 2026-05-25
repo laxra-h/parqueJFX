@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="580.0" prefWidth="780.0" stylesheets="@estilos.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.parquejfx.viewController.AdminZonasViewController">
+   <children>
+      <HBox layoutX="126.0" layoutY="164.0" prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <VBox minWidth="280.0" prefHeight="200.0" prefWidth="280.0" spacing="14.0" styleClass="card-oscura">
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+               <children>
+                  <Label styleClass="titulo-login" text="Gestionar Zona" />
+                  <Separator prefWidth="200.0" styleClass="separador-login" />
+                  <VBox prefHeight="200.0" prefWidth="100.0" spacing="4.0">
+                     <children>
+                        <Label styleClass="campo-label-login" text="Nombre de la zona" />
+                        <TextField fx:id="txtNombreZona" promptText="Ej: Zona Aventura" styleClass="text-field" />
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="200.0" prefWidth="100.0" spacing="4.0">
+                     <children>
+                        <Label styleClass="campo-label-login" text="Capacidad máxima" />
+                        <TextField fx:id="txtCapacidadZona" promptText="Ej: 100" styleClass="text-field" />
+                     </children>
+                  </VBox>
+                  <Label fx:id="lblMensajeZona" alignment="CENTER" styleClass="mensaje-error" />
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="8.0">
+                     <children>
+                        <Button fx:id="btnGuardarZona" mnemonicParsing="false" onAction="#guardarZona" prefHeight="38.0" prefWidth="75.0" styleClass="btn-login" text="Guardar" />
+                        <Separator orientation="VERTICAL" prefHeight="200.0" />
+                        <Button fx:id="btnLimpiarZona" alignment="CENTER" mnemonicParsing="false" onAction="#limpiarZona" prefHeight="38.0" prefWidth="75.0" styleClass="btn-login" text="Limpiar" />
+                     </children>
+                  </HBox>
+                  <Button fx:id="btnEliminarZona" mnemonicParsing="false" onAction="#eliminarZona" prefHeight="38.0" prefWidth="240.0" styleClass="btn-peligro" text="🗑 Eliminar seleccionada">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Button>
+               </children>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" styleClass="area-central" HBox.hgrow="ALWAYS">
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+               <children>
+                  <Label styleClass="card-titulo" text="Zonas registradas" />
+                  <TableView fx:id="tablaZonas" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                    <columns>
+                      <TableColumn fx:id="colNombreZona" prefWidth="180.0" text="Nombre" />
+                      <TableColumn fx:id="colCapacidadZona" prefWidth="100.0" text="Capacidad máx." />
+                        <TableColumn fx:id="colAtraccionesZona" prefWidth="150.0" text="Atracciones" />
+                    </columns>
+                  </TableView>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>
