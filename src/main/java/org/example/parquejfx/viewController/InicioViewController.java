@@ -53,7 +53,11 @@ public class InicioViewController implements IAppControlable {
     }
 
     @FXML
-    private void irAAdministrador() {
+    private void irAAdministrador() throws Exception {
+        FXMLLoader loader = SceneManager.cambiarEscena(btnAdministrador,
+                "/org/example/parquejfx/admin-ingresar.fxml");
+        AdminIngresarViewController ctrl = loader.getController();
+        ctrl.setApp(this.app);
 
     }
 

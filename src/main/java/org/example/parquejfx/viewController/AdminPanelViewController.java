@@ -2,12 +2,14 @@ package org.example.parquejfx.viewController;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
+import org.example.parquejfx.App;
+import org.example.parquejfx.controller.AdminController;
+import org.example.parquejfx.model.Administrador;
+import org.example.parquejfx.util.SceneManager;
 
-public class AdminPanelViewController {
+public class AdminPanelViewController implements IAppControlable {
 
     @FXML private Label lblTituloSeccion;
     @FXML private AnchorPane areaCentral;
@@ -20,58 +22,82 @@ public class AdminPanelViewController {
     @FXML private Button btnReportes;
     @FXML private Button btnSalir;
 
-    @FXML
-    public void initialize() throws Exception {
-        cargarVista("admin-empleados-view.fxml");
-        lblTituloSeccion.setText("Gestión de Empleados");
+    private App app;
+    private AdminController adminController;
+    private Administrador administrador;
+    @Override
+    public void setApp(App app) {
+        this.app = app;
+        this.adminController = new AdminController(app.parque);
+    }
+    public void setAdminController(AdminController adminController) {
+        this.adminController = adminController;
     }
 
+    @FXML
+    public void initialize() { }
+
     @FXML private void irAEmpleados() throws Exception {
-        cargarVista("admin-empleados-view.fxml");
-        lblTituloSeccion.setText("Gestión de Empleados");
+        FXMLLoader loader = cargarVista("admin-empleados-view.fxml");
+        AdminEmpleadosViewController ctrl = loader.getController();
+        ctrl.setAdminController(adminController); // ← faltaba esto
+        lblTituloSeccion.setText("Gestión de empleados");
     }
 
     @FXML private void irAZonas() throws Exception {
-        cargarVista("admin-zonas-view.fxml");
+        FXMLLoader loader = cargarVista("admin-zonas-view.fxml");
+        AdminZonasViewController ctrl = loader.getController();
+        ctrl.setAdminController(adminController);
         lblTituloSeccion.setText("Gestión de Zonas");
     }
 
     @FXML private void irAAtracciones() throws Exception {
-        cargarVista("admin-atracciones-view.fxml");
+        FXMLLoader loader = cargarVista("admin-atracciones-view.fxml");
+        AdminAtraccionesViewController ctrl = loader.getController();
+        ctrl.setAdminController(adminController);
         lblTituloSeccion.setText("Gestión de Atracciones");
     }
 
     @FXML private void irAOperadores() throws Exception {
-        cargarVista("admin-operadores-view.fxml");
-        lblTituloSeccion.setText("Asignar Operadores");
+        FXMLLoader loader = cargarVista("admin-operadores-view.fxml");
+        AdminOperadoresViewController ctrl = loader.getController();
+        ctrl.setAdminController(adminController); // ← faltaba esto
+        lblTituloSeccion.setText("Asignar operadores");
+
     }
 
     @FXML private void irAAlerta() throws Exception {
-        cargarVista("admin-alerta-view.fxml");
-        lblTituloSeccion.setText("Alerta Climática");
+        FXMLLoader loader = cargarVista("admin-alerta-view.fxml");
+        AdminAlertaViewController ctrl = loader.getController();
+        ctrl.setAdminController(adminController); // ← faltaba esto
+        lblTituloSeccion.setText("Alerta climática");
+
     }
 
     @FXML private void irAReportes() throws Exception {
-        cargarVista("admin-reportes-view.fxml");
-        lblTituloSeccion.setText("Reportes del Parque");
+        FXMLLoader loader = cargarVista("admin-reportes-view.fxml");
+        AdminReportesViewController ctrl = loader.getController();
+        ctrl.setAdminController(adminController); // ← faltaba esto
+        lblTituloSeccion.setText("Reportes del parque);
     }
 
     @FXML private void salir() throws Exception {
-        FXMLLoader loader = new FXMLLoader(
-                getClass().getResource("/org/example/parquejfx/inicio.fxml")
-        );
-        Stage stage = (Stage) btnSalir.getScene().getWindow();
-        stage.setScene(new Scene(loader.load()));
+        FXMLLoader loader = SceneManager.cambiarEscena(btnSalir,
+                "/org/example/parquejfx/inicio.fxml");
+        InicioViewController ctrl = loader.getController();
+        ctrl.setApp(this.app);
     }
 
-    private void cargarVista(String fxml) throws Exception {
-        AnchorPane vista = FXMLLoader.load(
+    private FXMLLoader cargarVista(String fxml) throws Exception {
+        FXMLLoader loader = new FXMLLoader(
                 getClass().getResource("/org/example/parquejfx/" + fxml)
         );
+        AnchorPane vista = loader.load();
         AnchorPane.setTopAnchor(vista, 0.0);
         AnchorPane.setBottomAnchor(vista, 0.0);
         AnchorPane.setLeftAnchor(vista, 0.0);
         AnchorPane.setRightAnchor(vista, 0.0);
         areaCentral.getChildren().setAll(vista);
+        return loader;
     }
 }

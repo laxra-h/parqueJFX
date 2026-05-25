@@ -19,6 +19,8 @@ public class App extends Application {
         parque.getListEmpleados().add(o);
         Visitante v = new Visitante("Lau", "1092", "123", 18, 1.60, 1092);
         parque.getListVisitantes().add(v);
+        Administrador admin = new Administrador("Admin", "1234", "4321");
+        parque.getListEmpleados().add(admin);
 
         Zona z = new Zona("nombre", 1900);
         Atraccion a = new Atraccion("01", "n", 12, 1.60, 10, 2500, 5, 0, 10, EstadoAtraccion.ACTIVA, TipoAtraccion.ACUATICA, MotivoCierre.CLIMA );

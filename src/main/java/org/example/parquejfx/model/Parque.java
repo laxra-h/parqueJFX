@@ -192,9 +192,13 @@ public Visitante buscarVisitanteByCedula(String cedula) {
 
 
 
+    public boolean verificarIngresoAdmin(String cedula, String contrasenia) {
+        int posicion = buscarEmpleado(cedula);
+        if (posicion == -1) return false;
 
-
-
+        Empleado e = listEmpleados.get(posicion);
+        return e.getContrasenia().equals(contrasenia) && e instanceof Administrador;
+    }
 
 
 
@@ -333,6 +337,22 @@ public Visitante buscarVisitanteByCedula(String cedula) {
 
     public boolean eliminarFavorito(Visitante visitante, Atraccion atraccion) {
         return visitante.getListFavoritas().remove(atraccion);
+    }
+    public ArrayList<Operador> getOperadores() {
+        ArrayList<Operador> operadores = new ArrayList<>();
+        for (Empleado e : listEmpleados) {
+            if (e instanceof Operador) operadores.add((Operador) e);
+        }
+        return operadores;
+    }
+    public boolean desasignarOperador(String cedulaOperador) {
+        for (Empleado e : listEmpleados) {
+            if (e.getCedula().equals(cedulaOperador) && e instanceof Operador) {
+                ((Operador) e).setZonaAsignada(null);
+                return true;
+            }
+        }
+        return false;
     }
 
     public ArrayList<Atraccion> getFavoritos(Visitante visitante) {

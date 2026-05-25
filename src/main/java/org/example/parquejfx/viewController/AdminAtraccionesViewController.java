@@ -2,149 +2,188 @@ package org.example.parquejfx.viewController;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import org.example.parquejfx.controller.AdminController;
+import org.example.parquejfx.model.*;
 
 public class AdminAtraccionesViewController {
 
+    @FXML private TextField txtCodigoAtr;
     @FXML private TextField txtNombreAtr;
     @FXML private TextField txtCapacidadAtr;
     @FXML private TextField txtEstaturaAtr;
     @FXML private TextField txtEdadAtr;
     @FXML private TextField txtCostoAtr;
-    @FXML private ComboBox<String> cmbTipoAtr;
-    @FXML private ComboBox<String> cmbZonaAtr;
+    @FXML private ComboBox<TipoAtraccion> cmbTipoAtr;
+    @FXML private ComboBox<Zona> cmbZonaAtr;
     @FXML private Label lblMensajeAtr;
-    @FXML private Button btnGuardarAtr;
-    @FXML private Button btnLimpiarAtr;
-    @FXML private Button btnEliminarAtr;
 
-    @FXML private TableView<String[]> tablaAtracciones;
-    @FXML private TableColumn<String[], String> colNombreAtr;
-    @FXML private TableColumn<String[], String> colZonaAtr;
-    @FXML private TableColumn<String[], String> colTipoAtr;
-    @FXML private TableColumn<String[], String> colEstadoAtr;
-    @FXML private TableColumn<String[], String> colCapacidadAtr;
-    @FXML private TableColumn<String[], String> colEstaturaAtr;
+    @FXML private TableView<Atraccion> tablaAtracciones;
+    @FXML private TableColumn<Atraccion, String> colNombreAtr;
+    @FXML private TableColumn<Atraccion, String> colZonaAtr;
+    @FXML private TableColumn<Atraccion, String> colTipoAtr;
+    @FXML private TableColumn<Atraccion, String> colEstadoAtr;
+    @FXML private TableColumn<Atraccion, String> colCapacidadAtr;
+    @FXML private TableColumn<Atraccion, String> colEstaturaAtr;
 
-    private final ObservableList<String[]> atracciones =
-            FXCollections.observableArrayList(
-                    new String[]{"Montaña Rusa",         "Zona Aventura", "Mecánica", "Activa", "20",  "1.40"},
-                    new String[]{"Torre de Caída Libre",  "Zona Aventura", "Mecánica", "Activa", "15",  "1.50"},
-                    new String[]{"Tren Minero",           "Zona Aventura", "Mecánica", "Activa", "30",  "1.00"},
-                    new String[]{"Río Salvaje",           "Zona Splash",   "Acuática", "Activa", "25",  "1.20"},
-                    new String[]{"Tobogán Gigante",       "Zona Splash",   "Acuática", "Activa", "10",  "1.10"},
-                    new String[]{"Splash Adventure",      "Zona Splash",   "Acuática", "Activa", "20",  "1.00"},
-                    new String[]{"Carrusel",              "Zona Fantasía", "Infantil", "Activa", "20",  "0.80"},
-                    new String[]{"Mini Autos Chocones",   "Zona Fantasía", "Infantil", "Activa", "16",  "0.90"},
-                    new String[]{"Tren Infantil",         "Zona Fantasía", "Infantil", "Activa", "30",  "0.70"}
-            );
-
+    private AdminController adminController;
     private boolean modoCrear = true;
+
+    public void setAdminController(AdminController adminController) {
+        this.adminController = adminController;
+        cargarDatos();
+    }
 
     @FXML
     public void initialize() {
-        cmbTipoAtr.setItems(FXCollections.observableArrayList(
-                "Mecánica", "Acuática", "Infantil"
-        ));
-        cmbZonaAtr.setItems(FXCollections.observableArrayList(
-                "Zona Aventura", "Zona Splash", "Zona Fantasía"
-        ));
+        cmbTipoAtr.setItems(FXCollections.observableArrayList(TipoAtraccion.values()));
         configurarColumnas();
-        tablaAtracciones.setItems(atracciones);
         configurarSeleccion();
+        configurarComboZona();
+    }
+
+    private void configurarComboZona() {
+        cmbZonaAtr.setCellFactory(lv -> new ListCell<>() {
+            @Override
+            protected void updateItem(Zona z, boolean empty) {
+                super.updateItem(z, empty);
+                setText(empty || z == null ? null : z.getNombre());
+            }
+        });
+        cmbZonaAtr.setButtonCell(new ListCell<>() {
+            @Override
+            protected void updateItem(Zona z, boolean empty) {
+                super.updateItem(z, empty);
+                setText(empty || z == null ? "Selecciona una zona" : z.getNombre());
+            }
+        });
     }
 
     private void configurarColumnas() {
         colNombreAtr.setCellValueFactory(d ->
-                new SimpleStringProperty(d.getValue()[0]));
-        colZonaAtr.setCellValueFactory(d ->
-                new SimpleStringProperty(d.getValue()[1]));
+                new SimpleStringProperty(d.getValue().getNombre()));
+        colZonaAtr.setCellValueFactory(d -> {
+            Zona zona = d.getValue().getZona();
+            return new SimpleStringProperty(zona != null ? zona.getNombre() : "Sin zona");
+        });
         colTipoAtr.setCellValueFactory(d ->
-                new SimpleStringProperty(d.getValue()[2]));
+                new SimpleStringProperty(d.getValue().getTipo().toString()));
         colEstadoAtr.setCellValueFactory(d ->
-                new SimpleStringProperty(d.getValue()[3]));
+                new SimpleStringProperty(d.getValue().getEstado().toString()));
         colCapacidadAtr.setCellValueFactory(d ->
-                new SimpleStringProperty(d.getValue()[4]));
+                new SimpleStringProperty(String.valueOf(d.getValue().getCapacidadMaxima())));
         colEstaturaAtr.setCellValueFactory(d ->
-                new SimpleStringProperty(d.getValue()[5]));
+                new SimpleStringProperty(String.valueOf(d.getValue().getEstaturaMinima())));
     }
 
     private void configurarSeleccion() {
         tablaAtracciones.getSelectionModel()
                 .selectedItemProperty()
-                .addListener((obs, anterior, seleccionado) -> {
-                    if (seleccionado != null) {
-                        txtNombreAtr.setText(seleccionado[0]);
-                        cmbZonaAtr.setValue(seleccionado[1]);
-                        cmbTipoAtr.setValue(seleccionado[2]);
-                        txtCapacidadAtr.setText(seleccionado[4]);
-                        txtEstaturaAtr.setText(seleccionado[5]);
+                .addListener((obs, anterior, seleccionada) -> {
+                    if (seleccionada != null) {
+                        txtCodigoAtr.setText(seleccionada.getCodigo());
+                        txtNombreAtr.setText(seleccionada.getNombre());
+                        txtCapacidadAtr.setText(String.valueOf(seleccionada.getCapacidadMaxima()));
+                        txtEstaturaAtr.setText(String.valueOf(seleccionada.getEstaturaMinima()));
+                        txtEdadAtr.setText(String.valueOf(seleccionada.getEdadMinima()));
+                        txtCostoAtr.setText(String.valueOf(seleccionada.getCostoAdicional()));
+                        cmbTipoAtr.setValue(seleccionada.getTipo());
+                        cmbZonaAtr.setValue(seleccionada.getZona());
+                        txtCodigoAtr.setDisable(true);
                         modoCrear = false;
                         lblMensajeAtr.setText("");
                     }
                 });
     }
 
+    private void cargarDatos() {
+        cmbZonaAtr.setItems(FXCollections.observableArrayList(adminController.getZonas()));
+        cargarAtracciones();
+    }
+
+    private void cargarAtracciones() {
+        tablaAtracciones.setItems(
+                FXCollections.observableArrayList(adminController.getAtracciones())
+        );
+    }
+
     @FXML
     private void guardarAtraccion() {
+        String codigo = txtCodigoAtr.getText().trim();
         String nombre = txtNombreAtr.getText().trim();
-        String capacidad = txtCapacidadAtr.getText().trim();
-        String estatura = txtEstaturaAtr.getText().trim();
-        String edad = txtEdadAtr.getText().trim();
-        String costo = txtCostoAtr.getText().trim();
-        String tipo = cmbTipoAtr.getValue();
-        String zona = cmbZonaAtr.getValue();
+        String capacidadStr = txtCapacidadAtr.getText().trim();
+        String estaturaStr = txtEstaturaAtr.getText().trim();
+        String edadStr = txtEdadAtr.getText().trim();
+        String costoStr = txtCostoAtr.getText().trim();
+        TipoAtraccion tipo = cmbTipoAtr.getValue();
+        Zona zona = cmbZonaAtr.getValue();
 
-        if (nombre.isEmpty() || capacidad.isEmpty() ||
-                estatura.isEmpty() || tipo == null || zona == null) {
-            mostrarError("Completa los campos obligatorios.");
+        if (codigo.isEmpty() || nombre.isEmpty() || capacidadStr.isEmpty() ||
+                estaturaStr.isEmpty() || edadStr.isEmpty() ||
+                costoStr.isEmpty() || tipo == null || zona == null) {
+            mostrarError("Completa todos los campos.");
             return;
         }
 
-        if (modoCrear) {
-            for (String[] a : atracciones) {
-                if (a[0].equalsIgnoreCase(nombre)) {
-                    mostrarError("Ya existe una atracción con ese nombre.");
+        try {
+            int capacidad = Integer.parseInt(capacidadStr);
+            double estatura = Double.parseDouble(estaturaStr);
+            int edad = Integer.parseInt(edadStr);
+            double costo = Double.parseDouble(costoStr);
+
+            if (modoCrear) {
+                boolean agregada = adminController.agregarAtraccion(
+                        codigo, nombre, capacidad, estatura, edad, costo, tipo);
+                if (agregada) {
+                    // Asignar zona a la atracción recién creada
+                    adminController.getAtracciones().stream()
+                            .filter(a -> a.getCodigo().equals(codigo))
+                            .findFirst()
+                            .ifPresent(a -> a.setZona(zona));
+                    mostrarExito("✓ Atracción creada correctamente.");
+                } else {
+                    mostrarError("Ya existe una atracción con ese código.");
                     return;
                 }
+            } else {
+                Atraccion seleccionada = tablaAtracciones.getSelectionModel().getSelectedItem();
+                if (seleccionada != null) {
+                    seleccionada.setNombre(nombre);
+                    seleccionada.setCapacidadMaxima(capacidad);
+                    seleccionada.setEstaturaMinima(estatura);
+                    seleccionada.setEdadMinima(edad);
+                    seleccionada.setCostoAdicional(costo);
+                    seleccionada.setTipo(tipo);
+                    seleccionada.setZona(zona);
+                    mostrarExito("✓ Atracción actualizada correctamente.");
+                }
             }
-            atracciones.add(new String[]{
-                    nombre, zona, tipo, "Activa", capacidad, estatura
-            });
-            mostrarExito("✓ Atracción creada correctamente.");
-        } else {
-            String[] seleccionada = tablaAtracciones
-                    .getSelectionModel().getSelectedItem();
-            if (seleccionada != null) {
-                seleccionada[0] = nombre;
-                seleccionada[1] = zona;
-                seleccionada[2] = tipo;
-                seleccionada[4] = capacidad;
-                seleccionada[5] = estatura;
-                tablaAtracciones.refresh();
-                mostrarExito("✓ Atracción actualizada correctamente.");
-            }
+            cargarAtracciones();
+            limpiarAtr();
+
+        } catch (NumberFormatException e) {
+            mostrarError("Verifica que los campos numéricos sean válidos.");
         }
-        limpiarAtr();
     }
 
     @FXML
     private void eliminarAtraccion() {
-        String[] seleccionada = tablaAtracciones
-                .getSelectionModel().getSelectedItem();
+        Atraccion seleccionada = tablaAtracciones.getSelectionModel().getSelectedItem();
         if (seleccionada == null) {
             mostrarError("Selecciona una atracción de la tabla.");
             return;
         }
-        atracciones.remove(seleccionada);
+        adminController.eliminarAtraccion(seleccionada.getCodigo());
+        cargarAtracciones();
         mostrarExito("✓ Atracción eliminada correctamente.");
         limpiarAtr();
     }
 
     @FXML
     private void limpiarAtr() {
+        txtCodigoAtr.clear();
+        txtCodigoAtr.setDisable(false);
         txtNombreAtr.clear();
         txtCapacidadAtr.clear();
         txtEstaturaAtr.clear();

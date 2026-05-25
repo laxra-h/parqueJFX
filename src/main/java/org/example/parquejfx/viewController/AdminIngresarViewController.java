@@ -2,11 +2,12 @@ package org.example.parquejfx.viewController;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
+import org.example.parquejfx.App;
+import org.example.parquejfx.controller.AdminController;
+import org.example.parquejfx.util.SceneManager;
 
-public class AdminIngresarViewController {
+public class AdminIngresarViewController implements IAppControlable {
 
     @FXML private TextField txtIdAdmin;
     @FXML private PasswordField txtContrasenaAdmin;
@@ -14,9 +15,14 @@ public class AdminIngresarViewController {
     @FXML private Button btnIngresar;
     @FXML private Button btnVolver;
 
-    // Admin hardcodeado por ahora
-    private final String ID_ADMIN = "admin123";
-    private final String CONTRASENA_ADMIN = "admin123";
+    private App app;
+    private AdminController adminController;
+
+    @Override
+    public void setApp(App app) {
+        this.app = app;
+        this.adminController = new AdminController(app.parque);
+    }
 
     @FXML
     public void initialize() { }
@@ -31,12 +37,12 @@ public class AdminIngresarViewController {
             return;
         }
 
-        if (id.equals(ID_ADMIN) && contrasena.equals(CONTRASENA_ADMIN)) {
-            FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource("/org/example/parquejfx/admin-panel.fxml")
-            );
-            Stage stage = (Stage) btnIngresar.getScene().getWindow();
-            stage.setScene(new Scene(loader.load()));
+        if (adminController.ingresar(id, contrasena)) {
+            FXMLLoader loader = SceneManager.cambiarEscena(btnIngresar,
+                    "/org/example/parquejfx/admin-panel.fxml");
+            AdminPanelViewController ctrl = loader.getController();
+            ctrl.setApp(this.app);
+            ctrl.setAdminController(adminController);
         } else {
             mostrarError("ID o contraseña incorrectos.");
         }
@@ -44,11 +50,10 @@ public class AdminIngresarViewController {
 
     @FXML
     private void volver() throws Exception {
-        FXMLLoader loader = new FXMLLoader(
-                getClass().getResource("/org/example/parquejfx/inicio.fxml")
-        );
-        Stage stage = (Stage) btnVolver.getScene().getWindow();
-        stage.setScene(new Scene(loader.load()));
+        FXMLLoader loader = SceneManager.cambiarEscena(btnVolver,
+                "/org/example/parquejfx/inicio.fxml");
+        InicioViewController ctrl = loader.getController();
+        ctrl.setApp(this.app);
     }
 
     private void mostrarError(String mensaje) {
