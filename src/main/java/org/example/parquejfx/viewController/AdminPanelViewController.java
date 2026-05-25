@@ -40,7 +40,7 @@ public class AdminPanelViewController implements IAppControlable {
     @FXML private void irAEmpleados() throws Exception {
         FXMLLoader loader = cargarVista("admin-empleados-view.fxml");
         AdminEmpleadosViewController ctrl = loader.getController();
-        ctrl.setAdminController(adminController); // ← faltaba esto
+        ctrl.setAdminController(adminController);
         lblTituloSeccion.setText("Gestión de empleados");
     }
 
@@ -69,7 +69,7 @@ public class AdminPanelViewController implements IAppControlable {
     @FXML private void irAAlerta() throws Exception {
         FXMLLoader loader = cargarVista("admin-alerta-view.fxml");
         AdminAlertaViewController ctrl = loader.getController();
-        ctrl.setAdminController(adminController); // ← faltaba esto
+        ctrl.setAdminController(adminController);
         lblTituloSeccion.setText("Alerta climática");
 
     }
@@ -77,8 +77,8 @@ public class AdminPanelViewController implements IAppControlable {
     @FXML private void irAReportes() throws Exception {
         FXMLLoader loader = cargarVista("admin-reportes-view.fxml");
         AdminReportesViewController ctrl = loader.getController();
-        ctrl.setAdminController(adminController); // ← faltaba esto
-        lblTituloSeccion.setText("Reportes del parque);
+        ctrl.setAdminController(adminController);
+        lblTituloSeccion.setText("Reportes del parque");
     }
 
     @FXML private void salir() throws Exception {

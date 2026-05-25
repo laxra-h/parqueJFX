@@ -27,18 +27,20 @@
                         <TextField fx:id="txtIdEmp" promptText="Ej: EMP001" styleClass="text-field" />
                      </children>
                   </VBox>
+                  <Label styleClass="campo-label-login" text="Nombre" />
                   <VBox prefHeight="200.0" prefWidth="100.0" spacing="4.0">
                      <children>
-                        <Label styleClass="campo-label-login" text="Nombre" />
                         <TextField fx:id="txtNombreEmp" promptText="Nombre completo" styleClass="text-field" />
                      </children>
                   </VBox>
                   <VBox prefHeight="200.0" prefWidth="100.0" spacing="4.0">
                      <children>
-                        <Label styleClass="campo-label-login" text="Rol" />
-                        <ComboBox fx:id="cmbRolEmp" prefHeight="30.0" prefWidth="240.0" styleClass="campo-label" />
+                        <Label styleClass="campo-label-login" text="Contraseña" />
+                        <TextField fx:id="txtContrasenia" promptText="Contraseña" styleClass="text-field" />
                      </children>
                   </VBox>
+                  <Label styleClass="campo-label-login" text="Rol" />
+                  <ComboBox fx:id="cmbRolEmp" prefHeight="30.0" prefWidth="240.0" styleClass="campo-label" />
                   <Label fx:id="lblMensajeEmp" alignment="CENTER" styleClass="mensaje-error" />
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="8.0">
                      <children>

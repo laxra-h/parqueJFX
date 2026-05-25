@@ -355,6 +355,9 @@ public Visitante buscarVisitanteByCedula(String cedula) {
         return false;
     }
 
+
+
+
     public ArrayList<Atraccion> getFavoritos(Visitante visitante) {
         return visitante.getListFavoritas();
     }
@@ -364,6 +367,7 @@ public Visitante buscarVisitanteByCedula(String cedula) {
     public ArrayList<Atraccion> getListAtracciones() {
         return listAtracciones;
     }
+
 
     public void setListAtracciones(ArrayList<Atraccion> listAtracciones) {
         this.listAtracciones = listAtracciones;

@@ -1,6 +1,8 @@
 package org.example.parquejfx.controller;
 
 import org.example.parquejfx.model.*;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class AdminController {
@@ -85,5 +87,18 @@ return parque.getOperadores();
 
     public boolean eliminarAtraccion(String codigo) {
         return administrador.deleteAtraccion(codigo);
+    }
+    public boolean activarAlerta(){
+        return administrador.activarAlarmaCLimatica();
+    }
+    public boolean desactivarAlerta() {
+        return administrador.desactivarAlarmaClimatica();
+    }
+    /*public int contarVisitantes (LocalDate fecha) {
+        return parque.contarVisitantesDia(fecha);
+    }
+*/
+    public Parque getParque() {
+        return parque;
     }
 }

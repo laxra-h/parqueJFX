@@ -13,7 +13,7 @@ public class AdminEmpleadosViewController {
 
     @FXML private TextField txtIdEmp;
     @FXML private TextField txtNombreEmp;
-    @FXML private TextField txtContraseniaEmp;
+    @FXML private TextField txtContrasenia;
     @FXML private ComboBox<String> cmbRolEmp;
     @FXML private Label lblMensajeEmp;
     @FXML private TableView<Empleado> tablaEmpleados;
@@ -55,6 +55,7 @@ public class AdminEmpleadosViewController {
                     if (seleccionado != null) {
                         txtIdEmp.setText(seleccionado.getCedula());
                         txtNombreEmp.setText(seleccionado.getNombre());
+                        txtContrasenia.setText(seleccionado.getContrasenia());
                         cmbRolEmp.setValue(seleccionado instanceof Administrador ? "Administrador" : "Operador");
                         txtIdEmp.setDisable(true);
                         modoCrear = false;
@@ -73,7 +74,7 @@ public class AdminEmpleadosViewController {
     private void guardarEmpleado() {
         String cedula = txtIdEmp.getText().trim();
         String nombre = txtNombreEmp.getText().trim();
-        String contrasenia = txtContraseniaEmp.getText().trim();
+        String contrasenia = txtContrasenia.getText().trim();
         String rol = cmbRolEmp.getValue();
 
         if (cedula.isEmpty() || nombre.isEmpty() || contrasenia.isEmpty() || rol == null) {
@@ -114,7 +115,7 @@ public class AdminEmpleadosViewController {
         txtIdEmp.clear();
         txtIdEmp.setDisable(false);
         txtNombreEmp.clear();
-        txtContraseniaEmp.clear();
+        txtContrasenia.clear();
         cmbRolEmp.setValue(null);
         tablaEmpleados.getSelectionModel().clearSelection();
         modoCrear = true;
