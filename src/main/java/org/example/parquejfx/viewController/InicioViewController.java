@@ -6,12 +6,17 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import org.example.parquejfx.App;
 import org.example.parquejfx.controller.VisitanteController;
 import org.example.parquejfx.util.SceneManager;
+import javafx.fxml.FXML;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 import javax.swing.*;
+
 
 public class InicioViewController implements IAppControlable {
     @FXML
@@ -26,6 +31,8 @@ public class InicioViewController implements IAppControlable {
     private Button btnOperador;
     @FXML
     private Button btnAdministrador;
+    @FXML
+    private ImageView imgParque;
 
     private App app;
 
@@ -35,6 +42,11 @@ public class InicioViewController implements IAppControlable {
         lblDireccion.setText("Direccón: " + app.parque.getDireccion());
         lblNombreParque.setText(app.parque.getNombre());
         lblAforo.setText("Aforo: " + app.parque.getAforoMaximo());
+        Image imagen = new Image(
+                getClass().getResourceAsStream("/org/example/parquejfx/parque-inicio.png")
+        );
+
+        imgParque.setImage(imagen);
     }
 
     @FXML
