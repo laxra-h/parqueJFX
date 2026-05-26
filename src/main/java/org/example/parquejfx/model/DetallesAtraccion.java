@@ -1,38 +1,24 @@
 package org.example.parquejfx.model;
 
 import java.time.LocalDate;
-
 public class DetallesAtraccion {
-    private Visitante thevisitante;
     private Atraccion theAtraccion;
-    private LocalDate fechaIngreso;
+    private Visitante theVisitante;
 
-    public DetallesAtraccion(LocalDate fechaIngreso) {
-        this.fechaIngreso = fechaIngreso;
+    public DetallesAtraccion(Atraccion atraccion, Visitante visitante) {
+        this.theAtraccion = atraccion;
+        this.theVisitante = visitante;
     }
 
-    public boolean verificarAcceso(){
-        if (theAtraccion.getEstaturaMinima() <= thevisitante.getEstatura() && theAtraccion.getEdadMinima() <= thevisitante.getEdad() ) {
-
-        theAtraccion.cerrarAtraccionMantenimiento();
+    public boolean verificarAcceso() {
+        if (theAtraccion.getEstaturaMinima() <= theVisitante.getEstatura()
+                && theAtraccion.getEdadMinima() <= theVisitante.getEdad()) {
+            theAtraccion.setContadorVisitantes(theAtraccion.getContadorVisitantes() + 1); // ← corregido
             return true;
         }
         return false;
-        }
-
-
-
-
-
-
-
-    public Visitante getThevisitante() {
-        return thevisitante;
     }
 
-    public void setThevisitante(Visitante thevisitante) {
-        this.thevisitante = thevisitante;
-    }
 
     public Atraccion getTheAtraccion() {
         return theAtraccion;
@@ -42,11 +28,11 @@ public class DetallesAtraccion {
         this.theAtraccion = theAtraccion;
     }
 
-    public LocalDate getFechaIngreso() {
-        return fechaIngreso;
+    public Visitante getTheVisitante() {
+        return theVisitante;
     }
 
-    public void setFechaIngreso(LocalDate fechaIngreso) {
-        this.fechaIngreso = fechaIngreso;
+    public void setTheVisitante(Visitante theVisitante) {
+        this.theVisitante = theVisitante;
     }
 }

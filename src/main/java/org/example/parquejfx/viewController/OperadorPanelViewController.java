@@ -5,18 +5,18 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import org.example.parquejfx.App;
 import org.example.parquejfx.controller.OperadorController;
 import org.example.parquejfx.util.SceneManager;
 
 public class OperadorPanelViewController implements IAppControlable {
 
-    @FXML private Button btnGenerarReporte;
+    @FXML private Button btnRecarga;
     @FXML private Button btnRegistro;
     @FXML private Button btnSalir;
     @FXML private Button btnSolicitarRevision;
-    @FXML private Button btnControlAtracciones;
-    @FXML private Button btnNotificaciones;
+    @FXML private AnchorPane areaCentral; // ← asegúrate de que exista en tu FXML
     @FXML private Label lblEstaturaMin;
     @FXML private Label lblNombreAtraccion;
     @FXML private Label lblNombreParque;
@@ -30,8 +30,7 @@ public class OperadorPanelViewController implements IAppControlable {
     private OperadorController operadorController;
 
     @FXML
-    public void initialize() {
-    }
+    public void initialize() {}
 
     @Override
     public void setApp(App app) {
@@ -54,47 +53,28 @@ public class OperadorPanelViewController implements IAppControlable {
         lblVisitantesAcumulados.setText("Visitantes: " + operadorController.getVisitantesAcumulados());
     }
 
+
     @FXML
     private void irRegistroVisitantes(ActionEvent event) {
         try {
-            FXMLLoader loader = cargarVista("operador-registro-view.fxml");
-            // OperadorRegistroViewController ctrl = loader.getController();
-            // ctrl.setOperadorController(operadorController);
+            FXMLLoader loader = cargarVista("operador-ingreso-visitante-view.fxml");
+            OperadorIngresoVisitanteViewController ctrl = loader.getController();
+            ctrl.setOperadorController(operadorController);
             lblResgistroVisitante.setText("Registro de visitantes");
-            lblSistemaGestion.setText("Sistema de gestión y verificación de visitantes");
+            lblSistemaGestion.setText("Verificación de acceso a la atracción");
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     @FXML
-    private void irControlAtracciones(ActionEvent event) {
+    private void irRecargaSaldo(ActionEvent event) {
         try {
-            FXMLLoader loader = cargarVista("operador-control-atracciones-view.fxml");
-            lblResgistroVisitante.setText("Control de atracciones");
-            lblSistemaGestion.setText("Gestión del estado de la atracción asignada");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
-    private void irNotificaciones(ActionEvent event) {
-        try {
-            FXMLLoader loader = cargarVista("operador-notificaciones-view.fxml");
-            lblResgistroVisitante.setText("Notificaciones");
-            lblSistemaGestion.setText("Centro de notificaciones del sistema");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
-    private void irGenerarReporte(ActionEvent event) {
-        try {
-            FXMLLoader loader = cargarVista("operador-reporte-view.fxml");
-            lblResgistroVisitante.setText("Generar reporte");
-            lblSistemaGestion.setText("Reporte de actividad de la atracción");
+            FXMLLoader loader = cargarVista("operador-recarga-view.fxml");
+            OperadorRecargaViewController ctrl = loader.getController();
+            ctrl.setOperadorController(operadorController);
+            lblResgistroVisitante.setText("Recarga de saldo");
+            lblSistemaGestion.setText("Recarga de saldo virtual para visitantes");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -119,10 +99,17 @@ public class OperadorPanelViewController implements IAppControlable {
         ctrl.setApp(this.app);
     }
 
-
+    // ── Igual que en AdminPanel — carga y pone en el AnchorPane central ──
     private FXMLLoader cargarVista(String fxml) throws Exception {
         FXMLLoader loader = new FXMLLoader(
-                getClass().getResource("/org/example/parquejfx/" + fxml));
+                getClass().getResource("/org/example/parquejfx/" + fxml)
+        );
+        AnchorPane vista = loader.load(); // ← esto faltaba
+        AnchorPane.setTopAnchor(vista, 0.0);
+        AnchorPane.setBottomAnchor(vista, 0.0);
+        AnchorPane.setLeftAnchor(vista, 0.0);
+        AnchorPane.setRightAnchor(vista, 0.0);
+        areaCentral.getChildren().setAll(vista); // ← y esto
         return loader;
     }
 }

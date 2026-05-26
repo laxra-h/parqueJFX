@@ -70,6 +70,27 @@ public class OperadorController {
             return parque;
         }
 
+    public boolean verificarAccesoVisitante(String cedula) {
+        Visitante visitante = parque.buscarVisitanteByCedula(cedula);
+        if (visitante == null) return false;
+
+        Atraccion atraccion = getAtraccionAsignada();
+        if (atraccion == null) return false;
+
+        DetallesAtraccion detalle = new DetallesAtraccion(atraccion, visitante);
+        return detalle.verificarAcceso();
+    }
+
+    public boolean visitanteExiste(String cedula) {
+        return parque.buscarVisitanteByCedula(cedula) != null;
+    }
+    public boolean recargarSaldo(String cedula, float monto) {
+        Visitante visitante = parque.buscarVisitanteByCedula(cedula);
+        if (visitante == null) return false;
+        visitante.setSaldoVirtual(visitante.getSaldoVirtual() + monto);
+        return true;
+    }
+
     }
 
 
