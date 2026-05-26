@@ -37,7 +37,7 @@ public class Parque {
     public ArrayList<Visitante> listDiaria(LocalDate fechaDia) {
         ArrayList<Visitante> resultado = new ArrayList<>();
         for (Visitante v : listVisitantes){
-            if (v.getTheTicket().getFechaCompra() == fechaDia){
+            if (fechaDia.equals(v.getTheTicket().getFechaCompra())){
                 resultado.add(v);
             }
         }

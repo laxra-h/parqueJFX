@@ -88,10 +88,22 @@ return parque.getOperadores();
     public boolean eliminarAtraccion(String codigo) {
         return administrador.deleteAtraccion(codigo);
     }
-    public boolean activarAlerta(){
+    public boolean isAlertaActiva() {
+        return administrador != null && administrador.isAlertaActiva();
+    }
+    public boolean activarAlerta() {
+        if (administrador == null) {
+            System.out.println("ERROR: administrador es null");
+            return false;
+        }
         return administrador.activarAlarmaCLimatica();
     }
+
     public boolean desactivarAlerta() {
+        if (administrador == null) {
+            System.out.println("ERROR: administrador es null");
+            return false;
+        }
         return administrador.desactivarAlarmaClimatica();
     }
     /*public int contarVisitantes (LocalDate fecha) {
@@ -100,5 +112,45 @@ return parque.getOperadores();
 */
     public Parque getParque() {
         return parque;
+    }
+
+    // ── Reportes globales (datos del parque) ──────────────────────────
+    public int getTotalAtracciones() {
+        return parque.getListAtracciones().size();
+    }
+
+    public int getTotalOperadores() {
+        return parque.getOperadores().size();
+    }
+
+    public int getTotalVisitantes() {
+        return parque.getListVisitantes().size();
+    }
+
+    // ── Reportes diarios (tickets e ingresos de HOY) ──────────────────
+    public int getTicketsHoy() {
+        LocalDate hoy = LocalDate.now();
+        int count = 0;
+        for (Ticket t : parque.getListTickets()) {
+            if (t.getFechaCompra() != null && t.getFechaCompra().equals(hoy)) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public float getIngresosHoy() {
+        LocalDate hoy = LocalDate.now();
+        float total = 0;
+        for (Ticket t : parque.getListTickets()) {
+            if (t.getFechaCompra() != null && t.getFechaCompra().equals(hoy)) {
+                total += t.getPrecio();
+            }
+        }
+        return total;
+    }
+
+    public int getAlertasActivas() {
+        return isAlertaActiva() ? 1 : 0;
     }
 }

@@ -12,13 +12,32 @@ public class AdminAlertaViewController {
     private AdminController adminController;
     private boolean alertaActiva = false;
 
-    public void setAdminController(AdminController adminController) {
-        this.adminController = adminController;
-    }
-
+    // ← Ya NO inicialices aquí, espera a tener el adminController
     @FXML
     public void initialize() {
-        actualizarEstado();
+        // vacío intencionalmente
+    }
+
+    // ← Aquí está el cambio clave
+    public void setAdminController(AdminController adminController) {
+        this.adminController = adminController;
+
+        // Sincroniza el estado visual con el estado real del modelo
+        this.alertaActiva = adminController.isAlertaActiva();
+
+        if (alertaActiva) {
+            lblEstadoClima.setText("⚠ ALERTA ACTIVA");
+            lblEstadoClima.setStyle("-fx-text-fill: #C0392B; -fx-font-weight: bold; -fx-font-size: 16px;");
+            btnToggleAlerta.setText("✅ Desactivar Alerta Climática");
+            btnToggleAlerta.setStyle("-fx-background-color: #1E8449; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 6px;");
+            lblMensajeAlerta.setStyle("-fx-text-fill: #C0392B;");
+            lblMensajeAlerta.setText("⚠ Alerta activa. Atracciones acuáticas y mecánicas cerradas.");
+        } else {
+            actualizarEstado();
+            btnToggleAlerta.setText("⚠ Activar Alerta Climática");
+            btnToggleAlerta.setStyle("");
+            lblMensajeAlerta.setText("");
+        }
     }
 
     @FXML
@@ -26,9 +45,7 @@ public class AdminAlertaViewController {
         if (!alertaActiva) {
             alertaActiva = true;
             lblEstadoClima.setText("⚠ ALERTA ACTIVA");
-            lblEstadoClima.setStyle(
-                    "-fx-text-fill: #C0392B; -fx-font-weight: bold; -fx-font-size: 16px;"
-            );
+            lblEstadoClima.setStyle("-fx-text-fill: #C0392B; -fx-font-weight: bold; -fx-font-size: 16px;");
             btnToggleAlerta.setText("✅ Desactivar Alerta Climática");
             btnToggleAlerta.setStyle("-fx-background-color: #1E8449; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 6px;");
             lblMensajeAlerta.setStyle("-fx-text-fill: #C0392B;");
@@ -47,8 +64,6 @@ public class AdminAlertaViewController {
 
     private void actualizarEstado() {
         lblEstadoClima.setText("✅ Normal — Sin alertas activas");
-        lblEstadoClima.setStyle(
-                "-fx-text-fill: #1E8449; -fx-font-weight: bold; -fx-font-size: 16px;"
-        );
+        lblEstadoClima.setStyle("-fx-text-fill: #1E8449; -fx-font-weight: bold; -fx-font-size: 16px;");
     }
 }

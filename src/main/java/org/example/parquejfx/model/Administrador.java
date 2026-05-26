@@ -186,21 +186,36 @@ public class Administrador extends Empleado {
 
 
     //ACTIVAR Y DESACTIVAR ALARMA
+    private final ArrayList<Atraccion> cerradasPorAlarma = new ArrayList<>();
+
+    private boolean alertaActiva = false;
+
+    public boolean isAlertaActiva() {
+        return alertaActiva;
+    }
+
     public boolean activarAlarmaCLimatica() {
+        cerradasPorAlarma.clear();
+        alertaActiva = true;
         for (Atraccion a : parque.getListAtracciones()) {
-            if ((a.getTipo().equals(TipoAtraccion.ACUATICA) || a.getTipo().equals(TipoAtraccion.MECANICA_DE_ALTURA)) && a.getEstado() != EstadoAtraccion.EN_MANTENIMIENTO) {
+            if ((a.getTipo().equals(TipoAtraccion.ACUATICA) ||
+                    a.getTipo().equals(TipoAtraccion.MECANICA_DE_ALTURA))
+                    && a.getEstado() == EstadoAtraccion.ACTIVA) {
                 a.setEstado(EstadoAtraccion.CERRADA);
+                cerradasPorAlarma.add(a);
             }
         }
         return true;
     }
 
     public boolean desactivarAlarmaClimatica() {
-        for (Atraccion a : parque.getListAtracciones()) {
-            if ((a.getTipo() == (TipoAtraccion.ACUATICA) || a.getTipo() == (TipoAtraccion.MECANICA_DE_ALTURA)) && a.getEstado() != EstadoAtraccion.EN_MANTENIMIENTO) {
+        alertaActiva = false;
+        for (Atraccion a : cerradasPorAlarma) {
+            if (a.getEstado() != EstadoAtraccion.EN_MANTENIMIENTO) {
                 a.setEstado(EstadoAtraccion.ACTIVA);
             }
         }
+        cerradasPorAlarma.clear();
         return true;
     }
 
