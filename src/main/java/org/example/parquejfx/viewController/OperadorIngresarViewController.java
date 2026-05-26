@@ -39,7 +39,7 @@ public class OperadorIngresarViewController implements  IAppControlable {
 
     @FXML
     void ingresarOperador(ActionEvent event) throws Exception {
-        boolean centinela = operadorController.ingresarOperador(txtCedula, txtContrasenia);
+        boolean centinela = operadorController.ingresarOperador(txtCedula.getText(), txtContrasenia.getText());
         if (centinela) {
             FXMLLoader loader = SceneManager.cambiarEscena(btnIngresar, "/org/example/parquejfx/operador-panel.fxml");
             OperadorPanelViewController ctrl = loader.getController();

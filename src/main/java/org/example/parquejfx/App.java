@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.example.parquejfx.controller.OperadorController;
 import org.example.parquejfx.model.*;
 import org.example.parquejfx.viewController.InicioViewController;
 
@@ -11,6 +12,7 @@ import org.example.parquejfx.viewController.InicioViewController;
 
 public class App extends Application {
     public Parque parque;
+    public OperadorController operadorController;
 
     @Override
     public void start(Stage stage) throws Exception {

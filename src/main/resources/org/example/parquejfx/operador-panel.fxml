@@ -27,8 +27,8 @@
             </VBox>
             <Button fx:id="btnRegistro" mnemonicParsing="false" onAction="#irRegistroVisitantes" prefHeight="47.0" prefWidth="210.0" styleClass="menu-btn" text="⊕ Registro de visitantes" />
             <Button fx:id="btnControlAtracciones" mnemonicParsing="false" onAction="#irControlAtracciones" prefHeight="47.0" prefWidth="210.0" styleClass="menu-btn" text="🎡Control de atracciones" />
-            <Button fx:id="btnNotificaciones" mnemonicParsing="false" onAction="#irControlAtracciones" prefHeight="47.0" prefWidth="210.0" styleClass="menu-btn" text="🔔  Notificaciones" />
-            <Button fx:id="btnGenerarReporte" mnemonicParsing="false" onAction="#irNotificaciones" prefHeight="47.0" prefWidth="210.0" styleClass="menu-btn" text="▤ Generar reporte" />
+            <Button fx:id="btnNotificaciones" mnemonicParsing="false" onAction="#irNotificaciones" prefHeight="47.0" prefWidth="210.0" styleClass="menu-btn" text="🔔  Notificaciones" />
+            <Button fx:id="btnGenerarReporte" mnemonicParsing="false" onAction="#irControlAtracciones" prefHeight="47.0" prefWidth="210.0" styleClass="menu-btn" text="▤ Generar reporte" />
             <Button fx:id="btnSolicitarRevision" mnemonicParsing="false" onAction="#irSolicitarRevision" prefHeight="47.0" prefWidth="210.0" styleClass="menu-btn" text="⚙ Solicitar revisión técnica" />
             <Pane prefHeight="200.0" prefWidth="200.0" styleClass="sidebar-header" VBox.vgrow="ALWAYS">
                <children>

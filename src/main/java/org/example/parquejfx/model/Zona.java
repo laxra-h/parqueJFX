@@ -6,11 +6,29 @@ public class Zona {
     private String nombre;
     private int capacidadMaxima;
     private ArrayList<Operador> listOperadores;
+    private ArrayList<Atraccion> listAtracciones;
 
     public Zona(String nombre, int capacidadMaxima) {
         this.nombre = nombre;
         this.capacidadMaxima = capacidadMaxima;
         listOperadores = new ArrayList<>();
+        listAtracciones = new ArrayList<>();
+
+    }
+public boolean agregarAtraccion(Atraccion atraccion) {
+        if (atraccion != null) {
+            return false;
+        }
+        listAtracciones.add(atraccion);
+        return true;
+}
+
+    public ArrayList<Atraccion> getListAtracciones() {
+        return listAtracciones;
+    }
+
+    public void setListAtracciones(ArrayList<Atraccion> listAtracciones) {
+        this.listAtracciones = listAtracciones;
     }
 
     public String getNombre() {
