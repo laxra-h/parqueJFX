@@ -12,15 +12,22 @@ public class DetallesAtraccion {
         this.theAtraccion=theAtraccion;
     }
 
-    public boolean verificarAcceso(){
-        if (theAtraccion.getEstaturaMinima() <= thevisitante.getEstatura() && theAtraccion.getEdadMinima() <= thevisitante.getEdad() ) {
-            DetallesAtraccion detallesAtraccion = new DetallesAtraccion(thevisitante, theAtraccion);
-            thevisitante.agregarDetalle(detallesAtraccion);
-             theAtraccion.cerrarAtraccionMantenimiento();
+    public boolean verificarAcceso() {
+        if (theAtraccion.getEstaturaMinima() <= thevisitante.getEstatura()
+                && theAtraccion.getEdadMinima() <= thevisitante.getEdad()) {
+
+            thevisitante.agregarDetalle(this); // ← usa "this" en vez de crear uno nuevo
+            theAtraccion.setContadorVisitantes(theAtraccion.getContadorVisitantes() + 1);
+
+            // Si llega a 500, cierra la atracción
+            if (theAtraccion.getContadorVisitantes() >= 500) {
+                theAtraccion.cerrarAtraccionMantenimiento();
+            }
+
             return true;
         }
         return false;
-        }
+    }
 
 
 

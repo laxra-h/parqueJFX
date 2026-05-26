@@ -8,8 +8,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import org.example.parquejfx.App;
 import org.example.parquejfx.controller.OperadorController;
-import org.example.parquejfx.controller.VisitanteController;
 import org.example.parquejfx.util.SceneManager;
+
 
 public class OperadorIngresarViewController implements  IAppControlable {
 

@@ -26,6 +26,14 @@ listAtracciones.add(atraccion);
 return true;
 }
 
+    public ArrayList<Atraccion> getListAtracciones() {
+        return listAtracciones;
+    }
+
+    public void setListAtracciones(ArrayList<Atraccion> listAtracciones) {
+        this.listAtracciones = listAtracciones;
+    }
+
     public String getNombre() {
         return nombre;
     }
