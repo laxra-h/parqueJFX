@@ -88,10 +88,10 @@ public class App extends Application {
         parque.getListEmpleados().add(op6);
         parque.getListEmpleados().add(op7);
         parque.getListEmpleados().add(op8);
-        parque.getListEmpleados().add(op9);
+        parque.getListEmpleados().add(op9); 
 
 // ── VISITANTES ────────────────────────────────────────────────────
-        Visitante v1 = new Visitante("Juan",     "V001", "123", 25, 1.75, 50000);
+        Visitante v1 = new Visitante("Juan",     "V001", "123", 25, 1.90, 50000);
         Visitante v2 = new Visitante("Camila",   "V002", "123", 22, 1.60, 30000);
         Visitante v3 = new Visitante("Santiago", "V003", "123", 30, 1.80, 80000);
         Visitante v4 = new Visitante("Valentina","V004", "123", 17, 1.55, 20000);

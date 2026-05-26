@@ -31,14 +31,6 @@ public boolean agregarAtraccion(Atraccion atraccion) {
         this.listAtracciones = listAtracciones;
     }
 
-    public ArrayList<Atraccion> getListAtracciones() {
-        return listAtracciones;
-    }
-
-    public void setListAtracciones(ArrayList<Atraccion> listAtracciones) {
-        this.listAtracciones = listAtracciones;
-    }
-
     public String getNombre() {
         return nombre;
     }

@@ -160,4 +160,11 @@ public String getContrasenia() {
             this.contrasenia = contrasenia;
         }
     }
+    public void agregarDetalle(DetallesAtraccion detalle) {
+        listDetalles.add(detalle);
+    }
+
+    public ArrayList<DetallesAtraccion> getDetalles() {
+        return listDetalles;
+    }
 }
