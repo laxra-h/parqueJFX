@@ -31,7 +31,6 @@ public class OperadorPanelViewController implements IAppControlable {
 
     @FXML
     public void initialize() {
-        // vacío — los datos se cargan en setApp()
     }
 
     @Override
@@ -41,7 +40,6 @@ public class OperadorPanelViewController implements IAppControlable {
         cargarDatosSidebar();
     }
 
-    // Método alternativo si necesitas pasar el controller directamente
     public void setOperadorController(OperadorController operadorController) {
         this.operadorController = operadorController;
         cargarDatosSidebar();
@@ -55,8 +53,6 @@ public class OperadorPanelViewController implements IAppControlable {
         lblTiempoEspera.setText("Tiempo de espera: " + operadorController.getTiempoEspera());
         lblVisitantesAcumulados.setText("Visitantes: " + operadorController.getVisitantesAcumulados());
     }
-
-    // ── Navegación ────────────────────────────────────────────────
 
     @FXML
     private void irRegistroVisitantes(ActionEvent event) {
@@ -123,13 +119,10 @@ public class OperadorPanelViewController implements IAppControlable {
         ctrl.setApp(this.app);
     }
 
-    // ── Utilidad ──────────────────────────────────────────────────
 
     private FXMLLoader cargarVista(String fxml) throws Exception {
-        // Ajusta según cómo está implementado cargarVista en tu panel de admin
         FXMLLoader loader = new FXMLLoader(
                 getClass().getResource("/org/example/parquejfx/" + fxml));
-        // Aquí iría la lógica para inyectar la vista en el AnchorPane central
         return loader;
     }
 }
