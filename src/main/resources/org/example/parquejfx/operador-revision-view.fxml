@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="580" prefWidth="780" stylesheets="@estilos.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.parquejfx.viewController.OperadorRevisionViewController">
+   <children>
+      <VBox alignment="CENTER" layoutX="160.0" layoutY="170.0" prefHeight="200.0" prefWidth="100.0" spacing="20.0" styleClass="area-central" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <padding>
+            <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+         </padding>
+         <children>
+            <VBox alignment="CENTER" prefHeight="300.0" prefWidth="729.0" spacing="10.0" styleClass="card-oscura">
+               <children>
+                  <Label styleClass="titulo-login" text="Gestión de estado de atracciones">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Label>
+                  <Separator prefWidth="200.0" />
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <Label styleClass="campo-label" text="Atracción" />
+                        <ComboBox fx:id="cmbAtraccion" prefWidth="200.0" />
+                     </children>
+                  </VBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="15.0">
+                     <children>
+                        <Button fx:id="btnAtracActiva" mnemonicParsing="false" onAction="#ActivarAtrac" prefHeight="42.0" prefWidth="150.0" styleClass="btn-login" text="ACTIVA" />
+                        <Separator orientation="VERTICAL" prefHeight="200.0" />
+                        <Button fx:id="btnAtracMantenimiento" mnemonicParsing="false" onAction="#MantenimientoAtrac" prefWidth="150.0" styleClass="btn-login" text="MANTENIMIENTO" />
+                        <Separator orientation="VERTICAL" prefHeight="200.0" />
+                        <Button fx:id="btnAtracCerrada" mnemonicParsing="false" onAction="#CerrarAtrac" prefWidth="150.0" styleClass="btn-login" text="CERRADA" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
