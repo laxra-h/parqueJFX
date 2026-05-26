@@ -21,19 +21,29 @@ public class OperadorController {
         this.parque = parque;
     }
 
+
     public boolean ingresarOperador(TextField cedula, TextField contrasenia) {
-        boolean ok = parque.verificarIngresoOperador(cedula.getText(), contrasenia.getText());
+
+        boolean ok = parque.verificarIngresoOperador(
+                cedula.getText(),
+                contrasenia.getText()
+        );
+
         if (ok) {
+
             for (Empleado e : parque.getListEmpleados()) {
-                if (e.getCedula().equals(cedula) && e instanceof Operador) {
+
+                if (e.getCedula().equals(cedula.getText())
+                        && e instanceof Operador) {
+
                     this.operador = (Operador) e;
                     break;
                 }
             }
         }
+
         return ok;
     }
-
     public Operador getOperador() { return operador; }
     public void setOperador(Operador operador) { this.operador = operador; }
     public Parque getParque() { return parque; }
@@ -43,12 +53,12 @@ public class OperadorController {
     }
 
     public Atraccion getAtraccionAsignada() {
-        if (operador == null || operador.getZonaAsignada() == null) return null;
-        Zona zona = operador.getZonaAsignada();
-        if (zona.getListAtracciones() != null && !zona.getListAtracciones().isEmpty()) {
-            return zona.getListAtracciones().get(0);
+
+        if (operador == null) {
+            return null;
         }
-        return null;
+
+        return operador.getTheAtraccion();
     }
 
     public String getNombreAtraccion() {
@@ -79,12 +89,12 @@ public class OperadorController {
 
     public boolean verificarAccesoVisitante(String cedula) {
         Visitante visitante = parque.buscarVisitanteByCedula(cedula);
-        if (visitante == null) return false;
-
         Atraccion atraccion = getAtraccionAsignada();
+
         if (atraccion == null) return false;
 
-        DetallesAtraccion detalle = new DetallesAtraccion(visitante, atraccion);
+        DetallesAtraccion detalle =
+                new DetallesAtraccion(visitante, atraccion);
         return detalle.verificarAcceso();
     }
 
@@ -100,8 +110,14 @@ public class OperadorController {
     // ── Gestión de atracciones ───────────────────────────────────
 
     public ArrayList<Atraccion> getAtraccionesZona() {
-        if (operador == null || operador.getZonaAsignada() == null) return new ArrayList<>();
-        return operador.getZonaAsignada().getListAtracciones();
+
+        ArrayList<Atraccion> lista = new ArrayList<>();
+
+        if (operador != null && operador.getTheAtraccion() != null) {
+            lista.add(operador.getTheAtraccion());
+        }
+
+        return lista;
     }
 
     public boolean cambiarEstadoAtraccion(String nombreAtraccion, EstadoAtraccion nuevoEstado) {
