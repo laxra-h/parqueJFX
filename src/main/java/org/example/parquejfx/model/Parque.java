@@ -188,6 +188,69 @@ public Visitante buscarVisitanteByCedula(String cedula) {
     }
 
 
+
+
+    public boolean verificarIngresoOperador(String cedula, String contrasenia) {
+        int posicion = buscarEmpleado(cedula);
+        if (posicion == -1) return false; // ← empleado no existe
+
+        Empleado o = listEmpleados.get(posicion);
+        return o.getContrasenia().equals(contrasenia) && o instanceof Operador;
+    }
+
+
+    public int buscarEmpleado(String cedula){
+        for (Empleado e : listEmpleados){
+            if (e.getCedula().equals(cedula)){
+                return listEmpleados.indexOf(e);
+            }
+        }
+        return -1;
+    }
+
+    public boolean verificarIngresoVisitante(String cedula, String contrasenia) {
+        int posicion = buscarVisitante(cedula);
+        if (posicion == -1) return false; // ← empleado no existe
+
+        Visitante o = listVisitantes.get(posicion);
+        return o.getContrasenia().equals(contrasenia);
+    }
+
+
+    public int buscarVisitante(String cedula){
+        for (Visitante e : listVisitantes){
+            if (e.getCedula().equals(cedula)){
+                return listVisitantes.indexOf(e);
+            }
+        }
+        return -1;
+    }
+
+
+    public Visitante getVisitanteActual(String documento) {
+        int pos = buscarVisitante(documento);
+        if (pos == -1) return null;
+        return listVisitantes.get(pos);
+    }
+
+    public boolean agregarFavorito(Visitante visitante, Atraccion atraccion) {
+        if (visitante.getListFavoritas().contains(atraccion)) {
+            return false; // ya existe
+        }
+        visitante.getListFavoritas().add(atraccion);
+        return true;
+    }
+
+    public boolean eliminarFavorito(Visitante visitante, Atraccion atraccion) {
+        return visitante.getListFavoritas().remove(atraccion);
+    }
+
+    public ArrayList<Atraccion> getFavoritos(Visitante visitante) {
+        return visitante.getListFavoritas();
+    }
+
+
+
     public String getNit() {
         return nit;
     }
@@ -266,66 +329,6 @@ public Visitante buscarVisitanteByCedula(String cedula) {
 
     public void setListTickets(ArrayList<Ticket> listTickets) {
         this.listTickets = listTickets;
-    }
-
-
-    public boolean verificarIngresoOperador(String cedula, String contrasenia) {
-        int posicion = buscarEmpleado(cedula);
-        if (posicion == -1) return false; // ← empleado no existe
-
-        Empleado o = listEmpleados.get(posicion);
-        return o.getContrasenia().equals(contrasenia) && o instanceof Operador;
-    }
-
-
-    public int buscarEmpleado(String cedula){
-        for (Empleado e : listEmpleados){
-            if (e.getCedula().equals(cedula)){
-                return listEmpleados.indexOf(e);
-            }
-        }
-        return -1;
-    }
-
-    public boolean verificarIngresoVisitante(String cedula, String contrasenia) {
-        int posicion = buscarVisitante(cedula);
-        if (posicion == -1) return false; // ← empleado no existe
-
-        Visitante o = listVisitantes.get(posicion);
-        return o.getContrasenia().equals(contrasenia);
-    }
-
-
-    public int buscarVisitante(String cedula){
-        for (Visitante e : listVisitantes){
-            if (e.getCedula().equals(cedula)){
-                return listVisitantes.indexOf(e);
-            }
-        }
-        return -1;
-    }
-
-
-    public Visitante getVisitanteActual(String documento) {
-        int pos = buscarVisitante(documento);
-        if (pos == -1) return null;
-        return listVisitantes.get(pos);
-    }
-
-    public boolean agregarFavorito(Visitante visitante, Atraccion atraccion) {
-        if (visitante.getListFavoritas().contains(atraccion)) {
-            return false; // ya existe
-        }
-        visitante.getListFavoritas().add(atraccion);
-        return true;
-    }
-
-    public boolean eliminarFavorito(Visitante visitante, Atraccion atraccion) {
-        return visitante.getListFavoritas().remove(atraccion);
-    }
-
-    public ArrayList<Atraccion> getFavoritos(Visitante visitante) {
-        return visitante.getListFavoritas();
     }
 
 

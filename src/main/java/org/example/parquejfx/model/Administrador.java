@@ -1,5 +1,6 @@
 package org.example.parquejfx.model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Administrador extends Empleado {
@@ -10,6 +11,7 @@ public class Administrador extends Empleado {
 
     public Administrador(String nombre, String cedula, String contrasenia) {
         super(nombre, cedula, contrasenia);
+
     }
 
 
@@ -154,7 +156,7 @@ public class Administrador extends Empleado {
         if (posicion != -1) {
             parque.getListZonas().get(posicion).setNombre(nombre);
             parque.getListZonas().get(posicion).setCapacidadMaxima(capacidadMaxima);
-            parque.getListAtracciones().get(posicion).setCapacidadMaxima(capacidadMaxima);
+            parque.getListZonas().get(posicion).setCapacidadMaxima(capacidadMaxima);
 
             return true;
         }
@@ -185,7 +187,6 @@ public class Administrador extends Empleado {
     public boolean activarAlarmaCLimatica() {
 
 
-
         for (Atraccion a : parque.getListAtracciones()) {
             if ((a.getTipo().equals(TipoAtraccion.ACUATICA) || a.getTipo().equals(TipoAtraccion.MECANICA_DE_ALTURA)) && a.getEstado() != EstadoAtraccion.EN_MANTENIMIENTO) {
                 a.setEstado(EstadoAtraccion.CERRADA);
@@ -194,9 +195,9 @@ public class Administrador extends Empleado {
         }
         Notificacion notificacion = new Notificacion("En este momento las atracciones mecanicas de altura y acuaticas estan cerradas por causa climática", MotivoCierre.CLIMA, null);
 
-        for(Visitante v: parque.getListVisitantes()){
+        for (Visitante v : parque.getListVisitantes()) {
 
-            if(v.getTheTicket() != null){
+            if (v.getTheTicket() != null) {
                 v.recibirNotificacion(notificacion);
             }
         }
@@ -245,8 +246,35 @@ public class Administrador extends Empleado {
 
     //CONSULTAR REPORTES
 
-    //public String consultarReportes() {
+    public String generarReporte(LocalDate fecha) {
+        String reporte = "";
 
+        // Ingresos diarios
+        reporte += "=== REPORTE DIARIO: " + fecha + " ===\n\n";
+        reporte += "Ingresos del dia: $" + parque.calcularIngresosDiarios(fecha) + "\n\n";
+
+        // Atracciones mas visitadas
+        reporte += "=== ATRACCIONES MAS VISITADAS ===\n";
+        for (Atraccion a : parque.getListAtracciones()) {
+            reporte += a.getNombre() + " - Visitantes: " + a.getContadorVisitantes() + "\n";
+        }
+
+        // Tiempos promedio de espera
+        reporte += "\n=== TIEMPOS DE ESPERA ===\n";
+        for (Atraccion a : parque.getListAtracciones()) {
+            reporte += a.getNombre() + " - Tiempo espera: " + a.getTiempoEspera() + " min\n";
+        }
+
+        // Atracciones cerradas por clima o mantenimiento
+        reporte += "\n=== ATRACCIONES CERRADAS ===\n";
+        for (Atraccion a : parque.getListAtracciones()) {
+            if (a.getEstado() == EstadoAtraccion.CERRADA || a.getEstado() == EstadoAtraccion.EN_MANTENIMIENTO) {
+                reporte += a.getNombre() + " - Estado: " + a.getEstado() + " - Motivo: " + a.getMotivoCierre() + "\n";
+            }
+        }
+
+        return reporte;
+    }
 
     public Parque getParque() {
         return parque;
@@ -255,5 +283,6 @@ public class Administrador extends Empleado {
     public void setParque(Parque parque) {
         this.parque = parque;
     }
-
 }
+
+
