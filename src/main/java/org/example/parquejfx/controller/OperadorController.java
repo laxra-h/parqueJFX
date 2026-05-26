@@ -1,76 +1,81 @@
 package org.example.parquejfx.controller;
 
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import org.example.parquejfx.model.*;
 
+import org.example.parquejfx.App;
+import org.example.parquejfx.controller.OperadorController;
+import org.example.parquejfx.model.*;
+import org.example.parquejfx.util.SceneManager;
 import java.util.ArrayList;
 
 public class OperadorController {
-        private Parque parque;
-        private Operador operador;
+    private Parque parque;
+    private Operador operador;
 
-        public OperadorController(Parque parque) {
-            this.parque = parque;
-        }
+    public OperadorController(Parque parque) {
+        this.parque = parque;
+    }
 
-        public boolean ingresarOperador(String cedula, String contrasenia) {
-            boolean ok = parque.verificarIngresoOperador(cedula, contrasenia);
-            if (ok) {
-                for (Empleado e : parque.getListEmpleados()) {
-                    if (e.getCedula().equals(cedula) && e instanceof Operador) {
-                        this.operador = (Operador) e;
-                        break;
-                    }
+    public boolean ingresarOperador(TextField cedula, TextField contrasenia) {
+        boolean ok = parque.verificarIngresoOperador(cedula.getText(), contrasenia.getText());
+        if (ok) {
+            for (Empleado e : parque.getListEmpleados()) {
+                if (e.getCedula().equals(cedula) && e instanceof Operador) {
+                    this.operador = (Operador) e;
+                    break;
                 }
             }
-            return ok;
         }
+        return ok;
+    }
 
-        public Operador getOperador() {
-            return operador;
-        }
+    public Operador getOperador() { return operador; }
+    public void setOperador(Operador operador) { this.operador = operador; }
+    public Parque getParque() { return parque; }
 
-        public void setOperador(Operador operador) {
-            this.operador = operador;
-        }
+    public String getNombreOperador() {
+        return operador != null ? operador.getNombre() : "—";
+    }
 
-        public String getNombreOperador() {
-            return operador != null ? operador.getNombre() : "—";
+    public Atraccion getAtraccionAsignada() {
+        if (operador == null || operador.getZonaAsignada() == null) return null;
+        Zona zona = operador.getZonaAsignada();
+        if (zona.getListAtracciones() != null && !zona.getListAtracciones().isEmpty()) {
+            return zona.getListAtracciones().get(0);
         }
+        return null;
+    }
 
-        public Atraccion getAtraccionAsignada() {
-            if (operador == null || operador.getZonaAsignada() == null) return null;
-            // Retorna la primera atracción de la zona asignada
-            Zona zona = operador.getZonaAsignada();
-            if (zona.getListAtracciones() != null && !zona.getListAtracciones().isEmpty()) {
-                return zona.getListAtracciones().get(0);
-            }
-            return null;
-        }
+    public String getNombreAtraccion() {
+        Atraccion a = getAtraccionAsignada();
+        return a != null ? a.getNombre() : "Sin atracción asignada";
+    }
 
-        public String getNombreAtraccion() {
-            Atraccion a = getAtraccionAsignada();
-            return a != null ? a.getNombre() : "Sin atracción asignada";
-        }
+    public String getEstaturaMinima() {
+        Atraccion a = getAtraccionAsignada();
+        return a != null ? a.getEstaturaMinima() + " m" : "—";
+    }
 
-        public String getEstaturaMinima() {
-            Atraccion a = getAtraccionAsignada();
-            return a != null ? String.valueOf(a.getEstaturaMinima()) + " m" : "—";
-        }
+    public String getTiempoEspera() {
+        Atraccion a = getAtraccionAsignada();
+        return a != null ? a.getTiempoEspera() + " min" : "—";
+    }
 
-        public String getTiempoEspera() {
-            Atraccion a = getAtraccionAsignada();
-            return a != null ? a.getTiempoEspera() + " min" : "—";
-        }
+    public int getVisitantesAcumulados() {
+        Atraccion a = getAtraccionAsignada();
+        return a != null ? a.getContadorVisitantes() : 0;
+    }
 
-        public int getVisitantesAcumulados() {
-            Atraccion a = getAtraccionAsignada();
-            return a != null ? a.getContadorVisitantes() : 0;
-        }
+    // ── Ingreso de visitante ──────────────────────────────────────
 
-        public Parque getParque() {
-            return parque;
-        }
+    public boolean visitanteExiste(String cedula) {
+        return parque.buscarVisitanteByCedula(cedula) != null;
+    }
 
     public boolean verificarAccesoVisitante(String cedula) {
         Visitante visitante = parque.buscarVisitanteByCedula(cedula);
@@ -79,19 +84,21 @@ public class OperadorController {
         Atraccion atraccion = getAtraccionAsignada();
         if (atraccion == null) return false;
 
-        DetallesAtraccion detalle = new DetallesAtraccion(atraccion, visitante);
+        DetallesAtraccion detalle = new DetallesAtraccion(visitante, atraccion);
         return detalle.verificarAcceso();
     }
 
-    public boolean visitanteExiste(String cedula) {
-        return parque.buscarVisitanteByCedula(cedula) != null;
-    }
+    // ── Recarga de saldo ─────────────────────────────────────────
+
     public boolean recargarSaldo(String cedula, float monto) {
         Visitante visitante = parque.buscarVisitanteByCedula(cedula);
         if (visitante == null) return false;
         visitante.setSaldoVirtual(visitante.getSaldoVirtual() + monto);
         return true;
     }
+
+    // ── Gestión de atracciones ───────────────────────────────────
+
     public ArrayList<Atraccion> getAtraccionesZona() {
         if (operador == null || operador.getZonaAsignada() == null) return new ArrayList<>();
         return operador.getZonaAsignada().getListAtracciones();
@@ -106,8 +113,4 @@ public class OperadorController {
         }
         return false;
     }
-
-
-    }
-
-
+}

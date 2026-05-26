@@ -2,15 +2,15 @@ package org.example.parquejfx.viewController;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import org.example.parquejfx.controller.OperadorController;
+import org.example.parquejfx.model.Atraccion;
 
 public class OperadorIngresoVisitanteViewController {
 
-        @FXML private Button btnGenerar;
+        @FXML private Button btnValidar;
         @FXML private Button btnVolver;
         @FXML private TextField txtDocumento;
 
@@ -21,40 +21,48 @@ public class OperadorIngresoVisitanteViewController {
         }
 
         @FXML
-        void generar(ActionEvent event) {
+        void validar(ActionEvent event) {
                 String cedula = txtDocumento.getText().trim();
 
                 if (cedula.isEmpty()) {
-                        mostrarAlerta(Alert.AlertType.WARNING, "Campo vacío", "Por favor ingresa el número de cédula.");
+                        mostrarAlerta(Alert.AlertType.WARNING, "Campo vacío",
+                                "Por favor ingresa el número de cédula del visitante.");
                         return;
                 }
 
                 if (!operadorController.visitanteExiste(cedula)) {
                         mostrarAlerta(Alert.AlertType.ERROR, "Visitante no encontrado",
-                                "No existe un visitante registrado con la cédula: " + cedula);
+                                "No existe un visitante con la cédula: " + cedula);
                         return;
                 }
 
                 boolean acceso = operadorController.verificarAccesoVisitante(cedula);
 
                 if (acceso) {
-                        mostrarAlerta(Alert.AlertType.INFORMATION, "Acceso permitido ✅",
-                                "El visitante cumple los requisitos. Ingreso registrado correctamente.");
+                        int contador = operadorController.getVisitantesAcumulados();
+                        String mensaje = "Ingreso registrado correctamente. Visitantes acumulados: " + contador;
+
+                        // Avisar si la atracción fue cerrada por llegar a 500
+                        if (contador >= 500) {
+                                mensaje += "\n⚠ La atracción ha alcanzado 500 visitantes y fue cerrada para mantenimiento.";
+                        }
+
+                        mostrarAlerta(Alert.AlertType.INFORMATION, "✅ Acceso permitido", mensaje);
                         txtDocumento.clear();
                 } else {
-                        mostrarAlerta(Alert.AlertType.ERROR, "Acceso denegado ❌",
-                                "El visitante no cumple los requisitos de estatura o edad mínima para esta atracción.");
+                        Atraccion atraccion = operadorController.getAtraccionAsignada();
+                        String requisitos = atraccion != null
+                                ? "\nEstatura mínima: " + atraccion.getEstaturaMinima() + " m"
+                                + "\nEdad mínima: " + atraccion.getEdadMinima() + " años"
+                                : "";
+                        mostrarAlerta(Alert.AlertType.ERROR, "❌ Acceso denegado",
+                                "El visitante no cumple los requisitos." + requisitos);
                 }
         }
 
         @FXML
         void volver(ActionEvent event) {
-                try {
-                        // Ajusta según tu método cargarVista del panel
-                        btnVolver.getScene().getWindow(); // vuelve al panel
-                } catch (Exception e) {
-                        e.printStackTrace();
-                }
+                // La navegación la maneja el panel
         }
 
         private void mostrarAlerta(Alert.AlertType tipo, String titulo, String mensaje) {

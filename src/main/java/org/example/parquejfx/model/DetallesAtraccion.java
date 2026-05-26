@@ -1,24 +1,47 @@
 package org.example.parquejfx.model;
 
-import java.time.LocalDate;
 public class DetallesAtraccion {
+    private Visitante thevisitante;
     private Atraccion theAtraccion;
-    private Visitante theVisitante;
 
-    public DetallesAtraccion(Atraccion atraccion, Visitante visitante) {
-        this.theAtraccion = atraccion;
-        this.theVisitante = visitante;
+
+
+    public DetallesAtraccion(Visitante thevisitante, Atraccion theAtraccion){
+
+        this.thevisitante=thevisitante;
+        this.theAtraccion=theAtraccion;
     }
 
     public boolean verificarAcceso() {
-        if (theAtraccion.getEstaturaMinima() <= theVisitante.getEstatura()
-                && theAtraccion.getEdadMinima() <= theVisitante.getEdad()) {
-            theAtraccion.setContadorVisitantes(theAtraccion.getContadorVisitantes() + 1); // ← corregido
+        if (theAtraccion.getEstaturaMinima() <= thevisitante.getEstatura()
+                && theAtraccion.getEdadMinima() <= thevisitante.getEdad()) {
+
+            thevisitante.agregarDetalle(this); // ← usa "this" en vez de crear uno nuevo
+            theAtraccion.setContadorVisitantes(theAtraccion.getContadorVisitantes() + 1);
+
+            // Si llega a 500, cierra la atracción
+            if (theAtraccion.getContadorVisitantes() >= 500) {
+                theAtraccion.cerrarAtraccionMantenimiento();
+            }
+
             return true;
         }
         return false;
     }
 
+
+
+
+
+
+
+    public Visitante getThevisitante() {
+        return thevisitante;
+    }
+
+    public void setThevisitante(Visitante thevisitante) {
+        this.thevisitante = thevisitante;
+    }
 
     public Atraccion getTheAtraccion() {
         return theAtraccion;
@@ -26,13 +49,5 @@ public class DetallesAtraccion {
 
     public void setTheAtraccion(Atraccion theAtraccion) {
         this.theAtraccion = theAtraccion;
-    }
-
-    public Visitante getTheVisitante() {
-        return theVisitante;
-    }
-
-    public void setTheVisitante(Visitante theVisitante) {
-        this.theVisitante = theVisitante;
     }
 }

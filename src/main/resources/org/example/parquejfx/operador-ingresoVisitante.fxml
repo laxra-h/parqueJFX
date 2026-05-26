@@ -14,9 +14,14 @@
       <Insets bottom="45.0" left="45.0" right="45.0" top="45.0" />
    </padding>
    <children>
-      <Label prefHeight="32.0" prefWidth="431.0" styleClass="titulo-login" text="REPORTE DIARIO">
+      <Label prefHeight="32.0" prefWidth="431.0" styleClass="titulo-login" text="Ingreso de vistante a una atraccion">
          <font>
             <Font name="System Bold" size="5.0" />
+         </font>
+      </Label>
+      <Label text="Ingreso de un visitante a una atracción " textFill="#a1a1a1">
+         <font>
+            <Font size="18.0" />
          </font>
       </Label>
       <Separator prefWidth="200.0" />
@@ -36,7 +41,7 @@
                </font>
             </Button>
             <Separator orientation="VERTICAL" prefHeight="26.0" prefWidth="80.0" />
-            <Button fx:id="btnGenerar" mnemonicParsing="false" onAction="#generar" prefHeight="42.0" prefWidth="87.0" styleClass="btn-login" text="Generar ➡ ">
+            <Button fx:id="btnValidar" mnemonicParsing="false" onAction="#validar" prefHeight="42.0" prefWidth="87.0" styleClass="btn-login" text="Validar ➡ ">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
