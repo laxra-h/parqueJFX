@@ -3,6 +3,7 @@ package org.example.parquejfx.viewController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
@@ -38,7 +39,9 @@ public class OperadorPanelViewController implements IAppControlable {
         this.operadorController = app.operadorController;
         cargarDatosSidebar();
     }
-
+    private void refrescarContador() {
+        lblVisitantesAcumulados.setText("Visitantes: " + operadorController.getVisitantesAcumulados());
+    }
     public void setOperadorController(OperadorController operadorController) {
         this.operadorController = operadorController;
         cargarDatosSidebar();
@@ -57,11 +60,12 @@ public class OperadorPanelViewController implements IAppControlable {
     @FXML
     private void irRegistroVisitantes(ActionEvent event) {
         try {
-            FXMLLoader loader = cargarVista("operador-ingreso-visitante-view.fxml");
+            FXMLLoader loader = cargarVista("operador-ingresoVisitante.fxml");
             OperadorIngresoVisitanteViewController ctrl = loader.getController();
             ctrl.setOperadorController(operadorController);
             lblResgistroVisitante.setText("Registro de visitantes");
             lblSistemaGestion.setText("Verificación de acceso a la atracción");
+            refrescarContador(); // ← agrega esto
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -70,11 +74,12 @@ public class OperadorPanelViewController implements IAppControlable {
     @FXML
     private void irRecargaSaldo(ActionEvent event) {
         try {
-            FXMLLoader loader = cargarVista("operador-recarga-view.fxml");
+            FXMLLoader loader = cargarVista("operador-recarga.fxml");
             OperadorRecargaViewController ctrl = loader.getController();
             ctrl.setOperadorController(operadorController);
             lblResgistroVisitante.setText("Recarga de saldo");
             lblSistemaGestion.setText("Recarga de saldo virtual para visitantes");
+            refrescarContador(); // ← agrega esto
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -84,8 +89,11 @@ public class OperadorPanelViewController implements IAppControlable {
     private void irSolicitarRevision(ActionEvent event) {
         try {
             FXMLLoader loader = cargarVista("operador-revision-view.fxml");
+            OperadorRevisionViewController ctrl = loader.getController();
+            ctrl.setOperadorController(operadorController);
             lblResgistroVisitante.setText("Solicitar revisión técnica");
-            lblSistemaGestion.setText("Envío de solicitudes de mantenimiento");
+            lblSistemaGestion.setText("Gestión del estado de las atracciones");
+            refrescarContador(); // ← agrega esto
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -104,12 +112,12 @@ public class OperadorPanelViewController implements IAppControlable {
         FXMLLoader loader = new FXMLLoader(
                 getClass().getResource("/org/example/parquejfx/" + fxml)
         );
-        AnchorPane vista = loader.load(); // ← esto faltaba
+        Parent vista = loader.load(); // ← aquí, antes decía AnchorPane vista
         AnchorPane.setTopAnchor(vista, 0.0);
         AnchorPane.setBottomAnchor(vista, 0.0);
         AnchorPane.setLeftAnchor(vista, 0.0);
         AnchorPane.setRightAnchor(vista, 0.0);
-        areaCentral.getChildren().setAll(vista); // ← y esto
+        areaCentral.getChildren().setAll(vista);
         return loader;
     }
 }

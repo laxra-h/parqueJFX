@@ -3,6 +3,8 @@ package org.example.parquejfx.controller;
 import javafx.scene.control.TextField;
 import org.example.parquejfx.model.*;
 
+import java.util.ArrayList;
+
 public class OperadorController {
         private Parque parque;
         private Operador operador;
@@ -90,6 +92,21 @@ public class OperadorController {
         visitante.setSaldoVirtual(visitante.getSaldoVirtual() + monto);
         return true;
     }
+    public ArrayList<Atraccion> getAtraccionesZona() {
+        if (operador == null || operador.getZonaAsignada() == null) return new ArrayList<>();
+        return operador.getZonaAsignada().getListAtracciones();
+    }
+
+    public boolean cambiarEstadoAtraccion(String nombreAtraccion, EstadoAtraccion nuevoEstado) {
+        for (Atraccion a : getAtraccionesZona()) {
+            if (a.getNombre().equals(nombreAtraccion)) {
+                a.setEstado(nuevoEstado);
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     }
 

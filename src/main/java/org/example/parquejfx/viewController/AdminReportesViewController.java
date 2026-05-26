@@ -28,15 +28,19 @@ public class AdminReportesViewController {
     }
 
     private void cargarDatos() {
-        // Datos globales del parque (siempre actualizados)
-        lblTotalAtracciones.setText(String.valueOf(adminController.getTotalAtracciones()));
+        // Datos globales del parque
+        lblTotalAtracciones.setText(
+                "✅ " + adminController.getAtraccionesActivas() + " activas  " +
+                        "🔒 " + adminController.getAtraccionesCerradas() + " cerradas  " +
+                        "🔧 " + adminController.getAtraccionesMantenimiento() + " en mantenimiento"
+        );
         lblTotalOperadores.setText(String.valueOf(adminController.getTotalOperadores()));
         lblTotalVisitantes.setText(String.valueOf(adminController.getTotalVisitantes()));
         lblTotalAlertas.setText(adminController.getAlertasActivas() == 1
                 ? "⚠ 1 alerta activa"
                 : "✅ Sin alertas");
 
-        // Datos diarios (solo HOY)
+        // Datos diarios
         lblTotalTickets.setText(String.valueOf(adminController.getTicketsHoy()));
         lblTotalIngresos.setText(formatearPesos(adminController.getIngresosHoy()));
     }

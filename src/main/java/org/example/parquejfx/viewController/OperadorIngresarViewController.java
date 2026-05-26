@@ -43,8 +43,9 @@ public class OperadorIngresarViewController implements  IAppControlable {
         if (centinela) {
             FXMLLoader loader = SceneManager.cambiarEscena(btnIngresar, "/org/example/parquejfx/operador-panel.fxml");
             OperadorPanelViewController ctrl = loader.getController();
+            app.operadorController = operadorController; // ← guarda el controller autenticado en app
             ctrl.setApp(this.app);
-        } else {                                                      // ← else aquí
+        } else {
             FXMLLoader loader = SceneManager.cambiarEscena(btnIngresar,
                     "/org/example/parquejfx/error-panel.fxml");
             ErrorViewController ctrl = loader.getController();

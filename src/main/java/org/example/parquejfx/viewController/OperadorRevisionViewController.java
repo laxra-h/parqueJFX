@@ -4,86 +4,74 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import org.example.parquejfx.controller.OperadorController;
+import org.example.parquejfx.model.Atraccion;
+import org.example.parquejfx.model.EstadoAtraccion;
 
 public class OperadorRevisionViewController {
 
-    @FXML
-    private ComboBox<String> cmbAtraccion;
+    @FXML private ComboBox<String> cmbAtraccion;
+    @FXML private Button btnAtracActiva;
+    @FXML private Button btnAtracMantenimiento;
+    @FXML private Button btnAtracCerrada;
+    @FXML private Label lblMensajeAtrac;
 
-    @FXML
-    private Button btnAtracActiva;
-
-    @FXML
-    private Button btnAtracMantenimiento;
-
-    @FXML
-    private Button btnAtracCerrada;
-
-    @FXML
-    private Label lblMensajeAtrac;
+    private OperadorController operadorController;
 
     @FXML
     public void initialize() {
-
         lblMensajeAtrac.setText("");
+        // ComboBox vacío hasta recibir el controller
+    }
 
-        // Datos de prueba
-        cmbAtraccion.getItems().addAll(
-                "Montaña Rusa",
-                "Río Salvaje",
-                "Torre Extrema",
-                "Casa del Terror"
-        );
+    public void setOperadorController(OperadorController operadorController) {
+        this.operadorController = operadorController;
+        cargarAtracciones();
+    }
+
+    private void cargarAtracciones() {
+        cmbAtraccion.getItems().clear();
+        for (Atraccion a : operadorController.getAtraccionesZona()) {
+            cmbAtraccion.getItems().add(a.getNombre());
+        }
     }
 
     @FXML
     private void ActivarAtrac() {
-
-        String atraccion = cmbAtraccion.getValue();
-
-        if (atraccion == null) {
-            lblMensajeAtrac.setText("Seleccione una atracción.");
+        String nombre = cmbAtraccion.getValue();
+        if (nombre == null) {
+            lblMensajeAtrac.setText("⚠ Seleccione una atracción.");
             return;
         }
-
-        lblMensajeAtrac.setText("Atracción activada correctamente.");
-        System.out.println("Atracción activada: " + atraccion);
-
-        // Aquí va la lógica real:
-        // atraccionSeleccionada.setEstado(Estado.ACTIVA);
+        boolean ok = operadorController.cambiarEstadoAtraccion(nombre, EstadoAtraccion.ACTIVA);
+        lblMensajeAtrac.setText(ok
+                ? "✅ Atracción activada correctamente."
+                : "❌ No se pudo activar la atracción.");
     }
 
     @FXML
     private void MantenimientoAtrac() {
-
-        String atraccion = cmbAtraccion.getValue();
-
-        if (atraccion == null) {
-            lblMensajeAtrac.setText("Seleccione una atracción.");
+        String nombre = cmbAtraccion.getValue();
+        if (nombre == null) {
+            lblMensajeAtrac.setText("⚠ Seleccione una atracción.");
             return;
         }
-
-        lblMensajeAtrac.setText("Atracción enviada a mantenimiento.");
-        System.out.println("Atracción enviada a mantenimiento: " + atraccion);
-
-        // Aquí va la lógica real:
-        // atraccionSeleccionada.setEstado(Estado.MANTENIMIENTO);
+        boolean ok = operadorController.cambiarEstadoAtraccion(nombre, EstadoAtraccion.EN_MANTENIMIENTO);
+        lblMensajeAtrac.setText(ok
+                ? "🔧 Atracción enviada a mantenimiento."
+                : "❌ No se pudo cambiar el estado.");
     }
 
     @FXML
     private void CerrarAtrac() {
-
-        String atraccion = cmbAtraccion.getValue();
-
-        if (atraccion == null) {
-            lblMensajeAtrac.setText("Seleccione una atracción.");
+        String nombre = cmbAtraccion.getValue();
+        if (nombre == null) {
+            lblMensajeAtrac.setText("⚠ Seleccione una atracción.");
             return;
         }
-
-        lblMensajeAtrac.setText("Atracción cerrada correctamente.");
-        System.out.println("Atracción cerrada: " + atraccion);
-
-        // Aquí va la lógica real:
-        // atraccionSeleccionada.setEstado(Estado.CERRADA);
+        boolean ok = operadorController.cambiarEstadoAtraccion(nombre, EstadoAtraccion.CERRADA);
+        lblMensajeAtrac.setText(ok
+                ? "🔒 Atracción cerrada correctamente."
+                : "❌ No se pudo cerrar la atracción.");
     }
 }

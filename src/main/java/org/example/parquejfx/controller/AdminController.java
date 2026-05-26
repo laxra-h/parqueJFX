@@ -153,4 +153,24 @@ return parque.getOperadores();
     public int getAlertasActivas() {
         return isAlertaActiva() ? 1 : 0;
     }
+    public int getAtraccionesActivas() {
+        int count = 0;
+        for (Atraccion a : parque.getListAtracciones())
+            if (a.getEstado() == EstadoAtraccion.ACTIVA) count++;
+        return count;
+    }
+
+    public int getAtraccionesCerradas() {
+        int count = 0;
+        for (Atraccion a : parque.getListAtracciones())
+            if (a.getEstado() == EstadoAtraccion.CERRADA) count++;
+        return count;
+    }
+
+    public int getAtraccionesMantenimiento() {
+        int count = 0;
+        for (Atraccion a : parque.getListAtracciones())
+            if (a.getEstado() == EstadoAtraccion.EN_MANTENIMIENTO) count++;
+        return count;
+    }
 }
